@@ -72,47 +72,6 @@ body.show-title .big-title {
   opacity: 1;
 }
 /* ===== INTRO STARTSIDA SLUT =====*/
-/* ============ INTRO DESIGNSIDA 1 ================ */
-.intro-design1 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  z-index: 9999;
-  overflow: hidden;
-}
-
-.panel {
-  flex: 1;
-  transform: translateY(0);
-  transition: transform 1.2s ease-in-out;
-}
-
-.panel.left { 
-  background: #00f5ff;
-}
-.panel.center { 
-  background: #7b2ff7; 
-}
-.panel.right { 
-  background: #ff4ecd; 
-}
-
-/* Animation när sidan laddar */
-.intro.animate .left {
-  transform: translateY(-100%);
-}
-
-.intro.animate .center {
-  transform: translateY(100%);
-}
-
-.intro.animate .right {
-  transform: translateY(-100%);
-}
-/* ============ INTRO DESIGNSIDA 1 SLUT ================ */
 /* ===== BODY STYLE STATES ===== */
 
 body.industrialism { 
