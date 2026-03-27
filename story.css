@@ -14,20 +14,21 @@ body {
   width: 100%;
   height: 100vh;
   background: black;
-  overflow: hidden;
   z-index: 9999;
-  transition: opacity 0.6s ease;
+
+  /* 🔥 CIRKEL */
+  clip-path: circle(0% at center);
 }
 
-/* TEXT */
-.intro-center {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
+/* Animation */
+.intro.animate {
+  animation: openCircle 1.5s ease forwards;
+}
+
+@keyframes openCircle {
+  to {
+    clip-path: circle(150% at center);
+  }
 }
 
 .big-title {
@@ -46,51 +47,6 @@ body {
 
 body.show-title .big-title {
   opacity: 1;
-}
-
-/* IRIS */
-.iris {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-/* BLADES */
-.blade {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, #111 40%, black 100%);
-}
-
-/* Placering */
-.b1 { top: 0; left: 0; }
-.b2 { top: 0; right: 0; transform-origin: 0% 100%; }
-.b3 { bottom: 0; left: 0; transform-origin: 100% 0%; }
-.b4 { bottom: 0; right: 0; transform-origin: 0% 0%; }
-
-/* ANIMATION */
-.intro.animate .b1 { animation: open1 1.5s forwards ease; }
-.intro.animate .b2 { animation: open2 1.5s forwards ease; }
-.intro.animate .b3 { animation: open3 1.5s forwards ease; }
-.intro.animate .b4 { animation: open4 1.5s forwards ease; }
-
-/* Rörelser (öppnar cirkeln) */
-@keyframes open1 {
-  to { transform: translate(-100%, -100%); }
-}
-
-@keyframes open2 {
-  to { transform: translate(100%, -100%); }
-}
-
-@keyframes open3 {
-  to { transform: translate(-100%, 100%); }
-}
-
-@keyframes open4 {
-  to { transform: translate(100%, 100%); }
 }
 
 /* TEXT kommer fram i takt */
