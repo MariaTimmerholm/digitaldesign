@@ -112,6 +112,12 @@ window.addEventListener("load", () => {
 
   setTimeout(() => {
     intro.style.opacity = "0";
-    intro.style.display = "none";
-  }, 1800);
+
+    setTimeout(() => {
+      intro.style.display = "none";
+      document.body.classList.add("loaded");
+      document.body.classList.add("show-title");
+    }, 600);
+
+  }, 1500);
 });
