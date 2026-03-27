@@ -30,15 +30,18 @@ body {
   justify-content: center;
 }
 
-.reveal-text {
-  color: white;
-  font-family: "Gasoek One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  padding: 2rem;
+.big-title {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-top: 40vh;
+  font-size: 3rem;
   opacity: 0;
-  transform: scale(0.8);
-  transition: all 1s ease;
+  transition: opacity 1s ease;
+}
+
+body.show-title .big-title {
+  opacity: 1;
 }
 
 /* IRIS */
@@ -51,9 +54,10 @@ body {
 /* BLADES */
 .blade {
   position: absolute;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background: radial-gradient(circle at center, #111 40%, black 100%);
-  transform-origin: 100% 100%;
 }
 
 /* Placering */
@@ -95,16 +99,6 @@ body {
 /* När sidan laddat */
 body.show-title .big-title {
   opacity: 1;
-}
-main, footer {
-  opacity: 0;
-}
-
-/* Fade-in av innehållet */
-body.loaded main,
-body.loaded footer {
-  opacity: 1;
-  transition: opacity 1.2s ease;
 }
 /* ===== INTRO ANIMATION SLUT =====*/
 /* ===== BODY STYLE STATES ===== */
