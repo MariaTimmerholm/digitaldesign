@@ -120,7 +120,5 @@ window.addEventListener("load", () => {
     setTimeout(() => {
       intro.style.display = "none";
       document.body.classList.add("show-title");
-    }, 500);
-
-  }, 3000); // ← längre än din gamla (1500)
+    }, 1800);
 });
