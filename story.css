@@ -52,7 +52,7 @@ body {
 .blade {
   position: absolute;
   border-radius: 50%;
-  background: black;
+  background: radial-gradient(circle at center, #111 40%, black 100%);
   transform-origin: 100% 100%;
 }
 
