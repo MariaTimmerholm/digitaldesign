@@ -13,7 +13,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: black;
+  background: #1a1a1a;
   pointer-events: none;
   z-index: 9999;
 }
@@ -45,6 +45,8 @@ body {
   padding: 2rem;
   opacity: 0;
   transition: opacity 1s ease;
+  position: relative;
+  z-index: 1;
 }
 
 body.show-title .big-title {
