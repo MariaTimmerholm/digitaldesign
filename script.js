@@ -106,19 +106,12 @@ const eraObserver = new IntersectionObserver((entries) => {
 
 // ============= INTRO =============
 window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
-
   const intro = document.querySelector(".intro");
 
-  // starta animation (om du använder CSS animationer)
   intro.classList.add("animate");
 
-  // längre tid för cinematic känsla
   setTimeout(() => {
     intro.style.opacity = "0";
-    
-    setTimeout(() => {
-      intro.style.display = "none";
-      document.body.classList.add("show-title");
-    }, 1800);
+    intro.style.display = "none";
+  }, 1800);
 });
