@@ -104,18 +104,23 @@ const eraObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.6 });
 
-// VIKTIGT (utanför!)
-eras.forEach(era => eraObserver.observe(era));
-
+// ============= INTRO =============
 window.addEventListener("load", () => {
   document.body.classList.add("loaded");
 
   const intro = document.querySelector(".intro");
 
+  // starta animation (om du använder CSS animationer)
   intro.classList.add("animate");
 
+  // längre tid för cinematic känsla
   setTimeout(() => {
-    intro.style.display = "none";
-    document.body.classList.add("show-title");
-  }, 1500);
+    intro.style.opacity = "0";
+    
+    setTimeout(() => {
+      intro.style.display = "none";
+      document.body.classList.add("show-title");
+    }, 500);
+
+  }, 3000); // ← längre än din gamla (1500)
 });
