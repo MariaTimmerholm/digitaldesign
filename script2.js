@@ -4,8 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const horizontalTrack = document.querySelector(".horizontal-track");
   const panels = document.querySelectorAll(".panel");
   const eras = document.querySelectorAll(".era");
+  const introSection = document.querySelector(".intro-section");
+  const introInner = document.querySelector(".intro-inner");
 
-  // Fade-in för sektioner längre ner på sidan
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -16,28 +17,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fadeSections.forEach(section => fadeObserver.observe(section));
 
-  // Sätt rätt höjd på den horisontella sektionen beroende på antal paneler
   if (horizontalSection && panels.length > 0) {
     horizontalSection.style.height = `${panels.length * 100}vh`;
   }
 
-  // Horisontell scroll
   window.addEventListener("scroll", () => {
-    if (!horizontalSection || !horizontalTrack) return;
-
     const scrollY = window.scrollY;
-    const sectionTop = horizontalSection.offsetTop;
-    const sectionHeight = horizontalSection.offsetHeight - window.innerHeight;
 
-    if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
-      const progress = (scrollY - sectionTop) / sectionHeight;
-      const maxScroll = horizontalTrack.scrollWidth - window.innerWidth;
+    // Intro fade out
+    if (introSection && introInner) {
+      const introTop = introSection.offsetTop;
+      const introHeight = introSection.offsetHeight;
+      const introProgress = Math.min(
+        Math.max((scrollY - introTop) / (introHeight * 0.8), 0),
+        1
+      );
 
-      horizontalTrack.style.transform = `translateX(-${progress * maxScroll}px)`;
+      introInner.style.opacity = 1 - introProgress;
+      introInner.style.transform = `translateY(${introProgress * 40}px)`;
+    }
+
+    // Horisontell scroll
+    if (horizontalSection && horizontalTrack) {
+      const sectionTop = horizontalSection.offsetTop;
+      const sectionHeight = horizontalSection.offsetHeight - window.innerHeight;
+
+      if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
+        const progress = (scrollY - sectionTop) / sectionHeight;
+        const maxScroll = horizontalTrack.scrollWidth - window.innerWidth;
+
+        horizontalTrack.style.transform = `translateX(-${progress * maxScroll}px)`;
+      }
     }
   });
 
-  // Aktiv era + body theme
   const eraObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -73,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   eras.forEach(era => eraObserver.observe(era));
 
-  // Visa sidan
   document.body.classList.add("loaded");
   document.body.classList.add("show-title");
 });
