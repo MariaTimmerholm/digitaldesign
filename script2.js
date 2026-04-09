@@ -39,13 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // SCROLL (ALLT i samma!)
-  window.addEventListener("scroll", () => {
+window.addEventListener("scroll", () => {
 
-    updateOpacity();
+  updateOpacity();
 
-    if (!scrollSection || !crawl || !firstEra) return;
+  const scrollY = window.scrollY;
 
-    const scrollY = window.scrollY;
+  // ===== CRAWL =====
+  if (scrollSection && crawl && firstEra) {
     const sectionTop = scrollSection.offsetTop;
     const sectionHeight = scrollSection.offsetHeight;
 
@@ -64,7 +65,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (scrollY >= firstEra.offsetTop - window.innerHeight / 2) {
       crawl.style.opacity = 0;
     }
-  });
+  }
+
+  // ===== HORIZONTAL SCROLL =====
+  if (section && track) {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+
+    if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
+      const progress = (scrollY - sectionTop) / sectionHeight;
+
+      const maxScroll = track.scrollWidth - window.innerWidth;
+
+      track.style.transform = `translateX(-${progress * maxScroll}px)`;
+    }
+  }
 
 });
 // ===== ERA STYLE SWITCH =====
