@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fadeSections.forEach(section => fadeObserver.observe(section));
 
   if (horizontalSection && panels.length > 0) {
-    horizontalSection.style.height = `${panels.length * 100}vh`;
+    horizontalSection.style.height = `${panels.length * 140}vh`;
   }
 
   window.addEventListener("scroll", () => {
@@ -37,16 +37,19 @@ document.addEventListener("DOMContentLoaded", () => {
       introInner.style.transform = `translateY(${introProgress * 40}px)`;
     }
 
-    // Horisontell scroll
-    if (horizontalSection && horizontalTrack) {
+    // Horisontell scroll med snap per era
+    if (horizontalSection && horizontalTrack && panels.length > 0) {
       const sectionTop = horizontalSection.offsetTop;
       const sectionHeight = horizontalSection.offsetHeight - window.innerHeight;
 
       if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
-        const progress = (scrollY - sectionTop) / sectionHeight;
-        const maxScroll = horizontalTrack.scrollWidth - window.innerWidth;
+        const rawProgress = (scrollY - sectionTop) / sectionHeight;
+        const maxIndex = panels.length - 1;
 
-        horizontalTrack.style.transform = `translateX(-${progress * maxScroll}px)`;
+        const snappedIndex = Math.round(rawProgress * maxIndex);
+        const snappedX = snappedIndex * window.innerWidth;
+
+        horizontalTrack.style.transform = `translateX(-${snappedX}px)`;
       }
     }
   });

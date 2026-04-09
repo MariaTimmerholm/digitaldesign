@@ -96,6 +96,8 @@ body.loaded .scroll-hint {
   height: 100vh;
   display: flex;
   will-change: transform;
+  transition: transform 0.5s ease;
+
 }
 
 .panel {
