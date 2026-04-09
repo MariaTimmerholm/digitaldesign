@@ -2,12 +2,55 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: black;
-  overflow-x: hidden;
   color: white;
+  overflow-x: hidden;
   transition: background 0.6s ease, color 0.6s ease;
 }
 
-/* STICKY container */
+/* INTRO */
+.intro-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.intro-inner {
+  max-width: 800px;
+}
+
+.big-title {
+  font-family: "Gasoek One", sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  line-height: 1;
+  opacity: 0.9;
+  margin: 0 0 1rem;
+}
+
+.intro-lead {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+  opacity: 0.9;
+}
+
+.scroll-hint {
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* HORIZONTAL SECTION */
+.horizontal-section {
+  position: relative;
+  overflow: hidden;
+}
+
 .horizontal-track {
   position: sticky;
   top: 0;
@@ -16,7 +59,6 @@ body {
   will-change: transform;
 }
 
-/* VARJE PANEL */
 .panel {
   min-width: 100vw;
   height: 100vh;
@@ -24,46 +66,109 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  padding: 2rem;
+  box-sizing: border-box;
   background: #111;
 }
-/* INTRO TITLE */
-.big-title {
+
+/* ERA */
+.era {
+  text-align: center;
+}
+
+.era-content {
+  width: min(1100px, 100%);
+  max-width: 1100px;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  transform: scale(0.92);
+  opacity: 0.45;
+}
+
+.era.active .era-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.era h2 {
   font-family: "Gasoek One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  height: 100vh;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.era p {
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 750px;
+  margin: 0 auto 2rem;
+}
+
+/* CARD / IMAGE GRID */
+.project-img {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.project-img img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.pdf-overlay {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
   text-align: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.pdf-overlay p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.project-img:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.75);
+}
+
+.project-img:hover .pdf-overlay {
+  opacity: 1;
+}
+
+/* SECTION AFTER TIMELINE */
+.projects {
+  max-width: 1000px;
+  margin: 2rem auto;
   padding: 2rem;
-  opacity: 0;
-  transition: opacity 1s ease;
 }
 
-/* När sidan laddat */
-body.show-title .big-title {
+/* FADE-IN */
+.fade-section {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fade-section.visible {
   opacity: 1;
 }
-main, footer {
-  opacity: 0;
-}
 
-/* Fade-in av innehållet */
-body.loaded main,
-body.loaded footer {
-  opacity: 1;
-  transition: opacity 1.2s ease;
-}
-/* ===== INTRO ANIMATION SLUT =====*/
-/* ===== BODY STYLE STATES ===== */
-
-body.industrialism { 
-  background: #1a1a1a; /* sotig fabrikskänsla */ 
-  color: #e0e0e0; /* smutsigt ljusgrått */ 
+/* BODY THEMES */
+body.industrialism {
+  background: #1a1a1a;
+  color: #e0e0e0;
   font-family: "Franklin Gothic Medium", "Arial Narrow", sans-serif;
-} 
+}
 
 body.modernism {
   background: #f4f4f4;
@@ -72,8 +177,8 @@ body.modernism {
 }
 
 body.postmodernism {
-  background: #00A6FB; /*Memphis-rörelsen, en känsla av 80-talet*/
-  color: #111; 
+  background: #00A6FB;
+  color: #111;
   font-family: 'Georgia', serif;
 }
 
@@ -89,159 +194,24 @@ body.multimodal {
   font-family: 'Inter', sans-serif;
 }
 
-/* ===== BODY STYLE STATES SLUT===== */
-/* ===== SCROLL SECTION ===== */
-.story-container { 
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  padding: 75vh 0; /* compact space for scroll */ 
-} 
+/* MOBILE */
+@media (max-width: 768px) {
+  .panel {
+    padding: 1.25rem;
+  }
 
-.story-text { 
-  font-size: 2.5rem;
-  line-height: 1.45;
-  max-width: 650px; 
-  margin: 25px 0;  /* mellanrummet mellan varje textstycke */ 
-  opacity: 0.35; /* startgrå */ 
-  transition: opacity 0.25s ease-out; 
-  text-align: center;
-  letter-spacing: 0.2px;
-}
+  .era-content {
+    transform: none;
+    opacity: 1;
+  }
 
-@media (max-width: 600px) { 
-  .story-text { 
-    font-size: 1.4rem; 
-    margin: 35px 0; 
-    max-width: 85%; 
-  } 
-}
-/* ===== SCROLL SECTION SLUT===== */
-/* ===== ERA SECTIONS ===== */
-.era {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  transition: opacity 0.6s ease;
-}
+  .era.active .era-content {
+    transform: none;
+  }
 
-.era-content {
-  max-width: 700px;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-  transform: scale(0.8);
-  opacity: 0.4;
-}
-
-.era.active .era-content {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-.era:not(.active) {
-  opacity: 0.5;
-}
-
-.era-images {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-  justify-content: center;
-}
-
-.era-images img {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 8px;
-  display: block;
-  transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-.era-images img:hover {
-  transform: scale(1.06);
-  filter: brightness(0.8);
-  opacity: 1;
-}
-/* ===== ERA SECTION SLUT===== */
-/* === PROJECTS === */
-.projects {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 2rem;
-}
-
-/* wrapper */
-.project-img {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-/* bild */
-.project-img img {
-  width: 100%;
-  display: block;
-  transition: transform 0.4s ease, filter 0.4s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-/* overlay */
-.pdf-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: rgba(0,0,0,0.45);
-
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-/* hover-effekt */
-.project-img:hover img {
-  transform: scale(1.06);
-  filter: brightness(0.8);
-}
-
-.project-img:hover .pdf-overlay {
-  opacity: 1;
-}
-
-/* knapp */
-.pdf-overlay .btn {
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: 500;
-  transform: translateY(10px);
-  transition: transform 0.3s ease;
-}
-
-/* knapp animation */
-.project-img:hover .btn {
-  transform: translateY(0);
-}
-
-.expertise {
-  position: sticky;
-  top: 100px;
-}
-
-:root {
-  --transition-fast: 0.3s ease;
-  --transition-slow: 0.6s ease;
-}
-
-.fade-section {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.fade-section.visible {
-  opacity: 1;
+  .intro-lead,
+  .era p,
+  .pdf-overlay p {
+    font-size: 0.95rem;
+  }
 }
