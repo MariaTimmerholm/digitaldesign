@@ -257,35 +257,33 @@ body.multimodal {
 }
 
 /* Focus intro fade */
-.focus-intro {
-  min-height: 100vh;
+.outro-section {
+  min-height: 120vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #120000;
   text-align: center;
-  padding: 2rem;
+  padding: 3rem 2rem;
 }
 
-.focus-line {
+.outro-inner {
+  max-width: 800px;
+  transition: opacity 0.2s linear, transform 0.2s linear;
+}
+
+.outro-title {
   font-family: "Gasoek One", sans-serif;
-  color: white;
-  margin: 0.3rem 0;
-  filter: blur(18px);
-  opacity: 0;
-  transform: scale(1.02);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1.5rem;
 }
 
-.line-1 {
-  font-size: clamp(2rem, 6vw, 4rem);
-  animation: focusInOut 3s ease forwards;
-}
-
-.line-2 {
-  font-size: clamp(2.4rem, 8vw, 5.5rem);
-  animation: focusInOut 3s ease forwards;
-  animation-delay: 0.3s;
+.outro-text span {
+  display: block;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  opacity: 1;
+  filter: blur(0);
+  transition: opacity 0.2s linear, filter 0.2s linear;
+  margin: 0.4rem 0;
 }
 
 @keyframes focusInOut {
