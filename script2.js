@@ -39,43 +39,52 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateHorizontalScroll() {
-    if (!horizontalSection || !horizontalTrack || panels.length === 0) return;
+  if (!horizontalSection || !horizontalTrack || panels.length === 0) return;
 
-    const scrollY = window.scrollY;
-    const sectionTop = horizontalSection.offsetTop;
-    const scrollDistance = horizontalSection.offsetHeight - window.innerHeight;
-    const maxTranslate = (panels.length - 1) * window.innerWidth;
+  const scrollY = window.scrollY;
+  const sectionTop = horizontalSection.offsetTop;
+  const scrollDistance = horizontalSection.offsetHeight - window.innerHeight;
 
-    const introHold = 0.15;
-    const outroHold = 0.1;
+  const totalPanels = panels.length;
+  const maxTranslate = (totalPanels - 1) * window.innerWidth;
 
-    if (scrollY <= sectionTop) {
-      horizontalTrack.style.transform = `translateX(0px)`;
-      return;
-    }
-
-    if (scrollY >= sectionTop + scrollDistance) {
-      horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
-      return;
-    }
-
-    let progress = (scrollY - sectionTop) / scrollDistance;
-
-    if (progress <= introHold) {
-      horizontalTrack.style.transform = `translateX(0px)`;
-      return;
-    }
-
-    if (progress >= 1 - outroHold) {
-      horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
-      return;
-    }
-
-    progress = (progress - introHold) / (1 - introHold - outroHold);
-
-    const translateX = progress * maxTranslate;
-    horizontalTrack.style.transform = `translateX(-${translateX}px)`;
+  if (scrollY <= sectionTop) {
+    horizontalTrack.style.transform = `translateX(0px)`;
+    return;
   }
+
+  if (scrollY >= sectionTop + scrollDistance) {
+    horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
+    return;
+  }
+
+  // GLOBAL progress (0 → 1)
+  const progress = (scrollY - sectionTop) / scrollDistance;
+
+  // Vilken panel vi är i
+  const panelProgress = progress * (totalPanels - 1);
+  const currentIndex = Math.floor(panelProgress);
+  let localProgress = panelProgress - currentIndex;
+
+  // DELAY PER PANEL
+  const introHold = 0.15;
+  const outroHold = 0.15;
+
+  if (localProgress < introHold) {
+    localProgress = 0;
+  } else if (localProgress > 1 - outroHold) {
+    localProgress = 1;
+  } else {
+    localProgress =
+      (localProgress - introHold) / (1 - introHold - outroHold);
+  }
+
+  const finalIndex = currentIndex + localProgress;
+
+  const translateX = finalIndex * window.innerWidth;
+
+  horizontalTrack.style.transform = `translateX(-${translateX}px)`;
+}
 
   function updateActiveEra() {
     if (!horizontalSection || panels.length === 0) return;

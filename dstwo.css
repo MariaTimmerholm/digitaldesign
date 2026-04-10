@@ -113,6 +113,7 @@ body.loaded .scroll-hint {
   display: flex;
   width: max-content;
   will-change: transform;
+  transition: transform 0.2s ease-out;
 }
 
 .panel {
