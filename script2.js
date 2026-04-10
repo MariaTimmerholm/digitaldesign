@@ -39,49 +39,42 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateHorizontalScroll() {
-  if (!horizontalSection || !horizontalTrack || panels.length === 0) return;
+    if (!horizontalSection || !horizontalTrack || panels.length === 0) return;
 
-  const scrollY = window.scrollY;
-  const sectionTop = horizontalSection.offsetTop;
-  const scrollDistance = horizontalSection.offsetHeight - window.innerHeight;
-  const maxTranslate = (panels.length - 1) * window.innerWidth;
+    const scrollY = window.scrollY;
+    const sectionTop = horizontalSection.offsetTop;
+    const scrollDistance = horizontalSection.offsetHeight - window.innerHeight;
+    const maxTranslate = (panels.length - 1) * window.innerWidth;
 
-  const introHold = 0.15;
-  const outroHold = 0.1;
+    const introHold = 0.15;
+    const outroHold = 0.1;
 
-  if (scrollY <= sectionTop) {
-    horizontalTrack.style.transform = `translateX(0px)`;
-    return;
-  }
+    if (scrollY <= sectionTop) {
+      horizontalTrack.style.transform = `translateX(0px)`;
+      return;
+    }
 
-  if (scrollY >= sectionTop + scrollDistance) {
-    horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
-    return;
-  }
+    if (scrollY >= sectionTop + scrollDistance) {
+      horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
+      return;
+    }
 
-  let progress = (scrollY - sectionTop) / scrollDistance;
+    let progress = (scrollY - sectionTop) / scrollDistance;
 
-  if (progress <= introHold) {
-    horizontalTrack.style.transform = `translateX(0px)`;
-    return;
-  }
+    if (progress <= introHold) {
+      horizontalTrack.style.transform = `translateX(0px)`;
+      return;
+    }
 
-  if (progress >= 1 - outroHold) {
-    horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
-    return;
-  }
+    if (progress >= 1 - outroHold) {
+      horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
+      return;
+    }
 
-  progress = (progress - introHold) / (1 - introHold - outroHold);
+    progress = (progress - introHold) / (1 - introHold - outroHold);
 
-  const translateX = progress * maxTranslate;
-  horizontalTrack.style.transform = `translateX(-${translateX}px)`;
-  }
-
-  // Skala om resten av scrollen efter pausen
-  progress = (progress - introHold) / (1 - introHold);
-
-  const translateX = progress * maxTranslate;
-  horizontalTrack.style.transform = `translateX(-${translateX}px)`;
+    const translateX = progress * maxTranslate;
+    horizontalTrack.style.transform = `translateX(-${translateX}px)`;
   }
 
   function updateActiveEra() {
@@ -124,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   setHorizontalHeight();
+
   window.addEventListener("scroll", onScroll);
   window.addEventListener("resize", () => {
     setHorizontalHeight();
