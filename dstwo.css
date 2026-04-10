@@ -108,12 +108,15 @@ body.loaded .scroll-hint {
 .horizontal-track {
   position: sticky;
   top: 0;
+  left: 0;
   height: 100vh;
   display: flex;
+  width: max-content;
   will-change: transform;
 }
 
 .panel {
+  width: 100vw;
   min-width: 100vw;
   height: 100vh;
   flex-shrink: 0;
