@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setHorizontalHeight() {
     if (!horizontalSection || panels.length === 0) return;
-    horizontalSection.style.height = `${panels.length * 100}vh`;
+    horizontalSection.style.height = `${panels.length * 140}vh`;
   }
 
   function updateIntroFade() {
