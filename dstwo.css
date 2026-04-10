@@ -124,7 +124,6 @@ body.loaded .scroll-hint {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background: #111;
   box-sizing: border-box;
 }
 
@@ -234,13 +233,13 @@ body.industrialism {
 
 body.modernism {
   background: #f4f4f4;
-  color: #111;
+  color: #e0e0e0;
   font-family: 'Helvetica Neue', sans-serif;
 }
 
 body.postmodernism {
   background: #00A6FB;
-  color: #111;
+  color: #e0e0e0;
   font-family: 'Georgia', serif;
 }
 
