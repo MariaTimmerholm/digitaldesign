@@ -102,7 +102,6 @@ body.loaded .scroll-hint {
 /* HORIZONTAL SECTION */
 .horizontal-section {
   position: relative;
-  overflow: hidden;
 }
 
 .horizontal-track {
@@ -122,6 +121,7 @@ body.loaded .scroll-hint {
   justify-content: center;
   padding: 2rem;
   box-sizing: border-box;
+  background: #111;
 }
 
 /* ERA */

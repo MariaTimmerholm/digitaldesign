@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Gör scrollytan lika lång som antalet paneler
   function setHorizontalHeight() {
     if (!horizontalSection || panels.length === 0) return;
-    horizontalSection.style.height = `${panels.length * 100}vh`;
+    horizontalSection.style.height = `${panels.length * 120}vh`;
   }
 
   setHorizontalHeight();
