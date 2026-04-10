@@ -179,18 +179,18 @@ function updateOutroBlur() {
 
   if (scrollY >= sectionTop + scrollDistance) {
     if (outroInner) {
-      outroInner.style.opacity = 0.7;
+      outroInner.style.opacity = 0;
       outroInner.style.transform = `translateY(30px)`;
     }
 
     if (outroTitle) {
-      outroTitle.style.filter = `blur(10px)`;
-      outroTitle.style.opacity = 0.4;
+      outroTitle.style.filter = `blur(24px)`;
+      outroTitle.style.opacity = 0;
     }
 
     outroLines.forEach((line) => {
-      line.style.filter = `blur(16px)`;
-      line.style.opacity = 0.3;
+      line.style.filter = `blur(28px)`;
+      line.style.opacity = 0;
     });
 
     return;
@@ -202,7 +202,7 @@ function updateOutroBlur() {
   const introHold = 0.25;
 
   // 2) blurra ut under mittenpartiet
-  const blurEnd = 0.8;
+  const blurEnd = 0.9;
 
   if (progress <= introHold) {
     if (outroInner) {
@@ -232,15 +232,15 @@ function updateOutroBlur() {
   }
 
   if (outroTitle) {
-    outroTitle.style.filter = `blur(${blurProgress * 10}px)`;
-    outroTitle.style.opacity = 1 - blurProgress * 0.6;
+    outroTitle.style.filter = `blur(${blurProgress * 24}px)`;
+    outroTitle.style.opacity = 1 - blurProgress;
   }
 
   outroLines.forEach((line, index) => {
     const delay = index * 0.06;
     const local = Math.max(0, Math.min(1, blurProgress - delay));
 
-    line.style.filter = `blur(${local * 16}px)`;
+    line.style.filter = `blur(${local * 28}px)`;
     line.style.opacity = 1 - local * 0.7;
   });
 }
