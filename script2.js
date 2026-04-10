@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const introSection = document.querySelector(".intro-section");
   const introInner = document.querySelector(".intro-inner");
 
+  let currentPanel = 0;
+  let isAnimating = false;
+
+  // Fade-in längre ner
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -17,39 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fadeSections.forEach(section => fadeObserver.observe(section));
 
-  // Gör scrollytan lika lång som antalet paneler
-  function setHorizontalHeight() {
-    if (!horizontalSection || panels.length === 0) return;
-    horizontalSection.style.height = `${panels.length * 120}vh`;
-  }
-
-  setHorizontalHeight();
-  window.addEventListener("resize", setHorizontalHeight);
-
-  function updateHorizontalScroll() {
-    if (!horizontalSection || !horizontalTrack) return;
-
-    const scrollY = window.scrollY;
-    const sectionTop = horizontalSection.offsetTop;
-    const scrollDistance = horizontalSection.offsetHeight - window.innerHeight;
-    const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth;
-
-    if (scrollY < sectionTop) {
-      horizontalTrack.style.transform = `translateX(0px)`;
-      return;
-    }
-
-    if (scrollY > sectionTop + scrollDistance) {
-      horizontalTrack.style.transform = `translateX(-${maxTranslate}px)`;
-      return;
-    }
-
-    const progress = (scrollY - sectionTop) / scrollDistance;
-    const translateX = progress * maxTranslate;
-
-    horizontalTrack.style.transform = `translateX(-${translateX}px)`;
-  }
-
+  // Intro fade out
   function updateIntroFade() {
     if (!introSection || !introInner) return;
 
@@ -66,21 +38,15 @@ document.addEventListener("DOMContentLoaded", () => {
     introInner.style.transform = `translateY(${progress * 40}px)`;
   }
 
-  function updateActiveEra() {
-    if (!horizontalSection || panels.length === 0) return;
+  function updatePanelPosition() {
+    if (!horizontalTrack) return;
 
-    const sectionTop = horizontalSection.offsetTop;
-    const scrollDistance = horizontalSection.offsetHeight - window.innerHeight;
-    const scrollY = window.scrollY;
-
-    if (scrollY < sectionTop || scrollY > sectionTop + scrollDistance) return;
-
-    const progress = (scrollY - sectionTop) / scrollDistance;
-    const index = Math.round(progress * (panels.length - 1));
+    horizontalTrack.style.transform = `translateX(-${currentPanel * window.innerWidth}px)`;
 
     eras.forEach(era => era.classList.remove("active"));
-    if (eras[index]) {
-      eras[index].classList.add("active");
+
+    if (eras[currentPanel]) {
+      eras[currentPanel].classList.add("active");
 
       document.body.classList.remove(
         "industrialism",
@@ -90,33 +56,71 @@ document.addEventListener("DOMContentLoaded", () => {
         "multimodal"
       );
 
-      if (eras[index].classList.contains("era-1")) {
+      if (eras[currentPanel].classList.contains("era-1")) {
         document.body.classList.add("industrialism");
       }
-      if (eras[index].classList.contains("era-2")) {
+      if (eras[currentPanel].classList.contains("era-2")) {
         document.body.classList.add("modernism");
       }
-      if (eras[index].classList.contains("era-3")) {
+      if (eras[currentPanel].classList.contains("era-3")) {
         document.body.classList.add("postmodernism");
       }
-      if (eras[index].classList.contains("era-4")) {
+      if (eras[currentPanel].classList.contains("era-4")) {
         document.body.classList.add("digital");
       }
-      if (eras[index].classList.contains("era-5")) {
+      if (eras[currentPanel].classList.contains("era-5")) {
         document.body.classList.add("multimodal");
       }
     }
   }
 
-  function onScroll() {
-    updateIntroFade();
-    updateHorizontalScroll();
-    updateActiveEra();
+  function sectionIsActive() {
+    if (!horizontalSection) return false;
+    const rect = horizontalSection.getBoundingClientRect();
+    return rect.top <= 0 && rect.bottom >= window.innerHeight;
   }
 
-  window.addEventListener("scroll", onScroll);
-  window.addEventListener("resize", onScroll);
+  window.addEventListener("scroll", () => {
+    updateIntroFade();
+  });
+
+  window.addEventListener("wheel", (e) => {
+    if (!horizontalSection || !horizontalTrack || panels.length === 0) return;
+    if (!sectionIsActive()) return;
+
+    if (isAnimating) {
+      e.preventDefault();
+      return;
+    }
+
+    const goingDown = e.deltaY > 0;
+    const goingUp = e.deltaY < 0;
+
+    if (goingDown && currentPanel < panels.length - 1) {
+      e.preventDefault();
+      currentPanel++;
+      isAnimating = true;
+      updatePanelPosition();
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 750);
+    } else if (goingUp && currentPanel > 0) {
+      e.preventDefault();
+      currentPanel--;
+      isAnimating = true;
+      updatePanelPosition();
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 750);
+    }
+    // På sista panelen + scroll ner = sidan får fortsätta ner
+    // På första panelen + scroll upp = sidan får gå tillbaka till intro
+  }, { passive: false });
+
+  window.addEventListener("resize", updatePanelPosition);
 
   document.body.classList.add("loaded");
-  onScroll();
+  updatePanelPosition();
 });
