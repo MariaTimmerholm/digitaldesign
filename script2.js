@@ -151,37 +151,99 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function updateOutroBlur() {
-    if (!outroSection || outroLines.length === 0) return;
+function updateOutroBlur() {
+  if (!outroSection || !outroLines.length) return;
 
-    const scrollY = window.scrollY;
-    const sectionTop = outroSection.offsetTop;
-    const sectionHeight = outroSection.offsetHeight;
+  const scrollY = window.scrollY;
+  const sectionTop = outroSection.offsetTop;
+  const scrollDistance = outroSection.offsetHeight - window.innerHeight;
 
-    const progress = Math.min(
-      Math.max((scrollY - sectionTop) / (sectionHeight * 0.8), 0),
-      1
-    );
-
+  if (scrollY <= sectionTop) {
     if (outroInner) {
-      outroInner.style.transform = `translateY(${progress * 20}px)`;
-      outroInner.style.opacity = 1 - progress * 0.2;
+      outroInner.style.opacity = 1;
+      outroInner.style.transform = `translateY(0px)`;
     }
 
     if (outroTitle) {
-      outroTitle.style.filter = `blur(${progress * 8}px)`;
-      outroTitle.style.opacity = 1 - progress * 0.5;
+      outroTitle.style.filter = `blur(0px)`;
+      outroTitle.style.opacity = 1;
     }
 
-    outroLines.forEach((line, index) => {
-      const delay = index * 0.08;
-      const local = Math.min(Math.max(progress - delay, 0), 1);
-
-      line.style.filter = `blur(${local * 14}px)`;
-      line.style.opacity = 1 - local * 0.7;
+    outroLines.forEach((line) => {
+      line.style.filter = `blur(0px)`;
+      line.style.opacity = 1;
     });
+
+    return;
   }
 
+  if (scrollY >= sectionTop + scrollDistance) {
+    if (outroInner) {
+      outroInner.style.opacity = 0.7;
+      outroInner.style.transform = `translateY(30px)`;
+    }
+
+    if (outroTitle) {
+      outroTitle.style.filter = `blur(10px)`;
+      outroTitle.style.opacity = 0.4;
+    }
+
+    outroLines.forEach((line) => {
+      line.style.filter = `blur(16px)`;
+      line.style.opacity = 0.3;
+    });
+
+    return;
+  }
+
+  let progress = (scrollY - sectionTop) / scrollDistance;
+
+  // 1) håll kvar skarpt först
+  const introHold = 0.25;
+
+  // 2) blurra ut under mittenpartiet
+  const blurEnd = 0.8;
+
+  if (progress <= introHold) {
+    if (outroInner) {
+      outroInner.style.opacity = 1;
+      outroInner.style.transform = `translateY(0px)`;
+    }
+
+    if (outroTitle) {
+      outroTitle.style.filter = `blur(0px)`;
+      outroTitle.style.opacity = 1;
+    }
+
+    outroLines.forEach((line) => {
+      line.style.filter = `blur(0px)`;
+      line.style.opacity = 1;
+    });
+
+    return;
+  }
+
+  let blurProgress = (progress - introHold) / (blurEnd - introHold);
+  blurProgress = Math.max(0, Math.min(1, blurProgress));
+
+  if (outroInner) {
+    outroInner.style.opacity = 1 - blurProgress * 0.3;
+    outroInner.style.transform = `translateY(${blurProgress * 30}px)`;
+  }
+
+  if (outroTitle) {
+    outroTitle.style.filter = `blur(${blurProgress * 10}px)`;
+    outroTitle.style.opacity = 1 - blurProgress * 0.6;
+  }
+
+  outroLines.forEach((line, index) => {
+    const delay = index * 0.06;
+    const local = Math.max(0, Math.min(1, blurProgress - delay));
+
+    line.style.filter = `blur(${local * 16}px)`;
+    line.style.opacity = 1 - local * 0.7;
+  });
+}
   function onScroll() {
     updateIntroFade();
     updateHorizontalScroll();

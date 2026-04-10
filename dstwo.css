@@ -258,12 +258,19 @@ body.multimodal {
 
 /* Focus intro fade */
 .outro-section {
-  min-height: 120vh;
+  position: relative;
+  height: 220vh; /* ger plats för paus + blur + exit */
+}
+
+.outro-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   padding: 3rem 2rem;
+  text-align: center;
 }
 
 .outro-inner {
@@ -275,15 +282,18 @@ body.multimodal {
   font-family: "Gasoek One", sans-serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
   margin-bottom: 1.5rem;
+  filter: blur(0);
+  opacity: 1;
+  transition: opacity 0.2s linear, filter 0.2s linear, transform 0.2s linear;
 }
 
 .outro-text span {
   display: block;
   font-size: clamp(1.2rem, 2vw, 1.6rem);
+  margin: 0.4rem 0;
   opacity: 1;
   filter: blur(0);
-  transition: opacity 0.2s linear, filter 0.2s linear;
-  margin: 0.4rem 0;
+  transition: opacity 0.2s linear, filter 0.2s linear, transform 0.2s linear;
 }
 
 @keyframes focusInOut {
