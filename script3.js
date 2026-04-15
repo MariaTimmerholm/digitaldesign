@@ -1,121 +1,237 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const startOverlay = document.getElementById("startOverlay");
+  const controlPanel = document.getElementById("controlPanel");
 
-  const sections = document.querySelectorAll(".fade-section");
-  const scrollSection = document.querySelector(".story-container");
-  const crawl = document.querySelector(".crawl");
-  const firstEra = document.querySelector(".era-1");
+  const bgAudio = document.getElementById("bgAudio");
+  const eraAudio = document.getElementById("eraAudio");
 
-  // Fade observer
-  const fadeObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  }, { threshold: 0.2 });
+  const toggleSound = document.getElementById("toggleSound");
+  const toggleAutoscroll = document.getElementById("toggleAutoscroll");
 
-  sections.forEach(section => fadeObserver.observe(section));
+  const sections = [...document.querySelectorAll(".story-section")];
 
-  // TEXT FADE
-  const texts = document.querySelectorAll(".story-text");
+  let experienceStarted = false;
+  let soundEnabled = true;
+  let autoScrollEnabled = false;
+  let autoScrollInterval = null;
+  let autoScrollPausedByUser = false;
+  let currentSectionIndex = 0;
+  let activeEraAudioSrc = "";
 
-  function updateOpacity() {
-    const center = window.innerHeight * 0.5;
+  function unlockExperience() {
+    experienceStarted = true;
+    body.classList.remove("is-locked");
+    startOverlay.classList.add("hidden");
+    controlPanel.classList.remove("hidden");
 
-    texts.forEach(text => {
-      const rect = text.getBoundingClientRect();
-      const distance = Math.abs((rect.top + rect.height / 2) - center);
+    playBackgroundAudio();
+    setThemeFromSection(sections[0]);
+    activateSection(sections[0]);
+  }
 
-      const maxDistance = 320;
-      let opacity = 1 - distance / maxDistance;
+  function playBackgroundAudio() {
+    if (!soundEnabled) return;
 
-      if (distance < 35) opacity = 1;
-
-      opacity = Math.max(opacity, 0.35);
-      opacity = Math.min(opacity, 1);
-
-      text.style.opacity = opacity;
+    bgAudio.volume = 0.35;
+    bgAudio.play().catch(() => {
+      // Browser kan blockera autoplay trots klick i vissa fall
+      console.log("Bakgrundsljud kunde inte starta direkt.");
     });
   }
 
-  // SCROLL (ALLT i samma!)
-  window.addEventListener("scroll", () => {
+  function stopBackgroundAudio() {
+    bgAudio.pause();
+  }
 
-    updateOpacity();
+  function playEraAudio(src) {
+    if (!soundEnabled || !src) return;
+    if (activeEraAudioSrc === src) return;
 
-    if (!scrollSection || !crawl || !firstEra) return;
+    activeEraAudioSrc = src;
+    eraAudio.pause();
+    eraAudio.src = src;
+    eraAudio.currentTime = 0;
+    eraAudio.volume = 0.9;
 
-    const scrollY = window.scrollY;
-    const sectionTop = scrollSection.offsetTop;
-    const sectionHeight = scrollSection.offsetHeight;
+    eraAudio.play().catch(() => {
+      console.log("Epokljud kunde inte spelas.");
+    });
+  }
 
-    if (scrollY >= sectionTop && scrollY <= sectionTop + sectionHeight) {
-      const progress = (scrollY - sectionTop) / sectionHeight;
+  function stopEraAudio() {
+    activeEraAudioSrc = "";
+    eraAudio.pause();
+    eraAudio.removeAttribute("src");
+    eraAudio.load();
+  }
 
-      crawl.style.transform = `
-        rotateX(25deg)
-        translateY(${progress * -300}px)
-        translateZ(${progress * -1000}px)
-      `;
+  function activateSection(section) {
+    sections.forEach((sec) => sec.classList.remove("active-section"));
+    section.classList.add("active-section");
 
-      crawl.style.opacity = Math.max(1 - progress * 1.5, 0);
+    currentSectionIndex = sections.indexOf(section);
+
+    setThemeFromSection(section);
+
+    const audioSrc = section.dataset.audio || "";
+    if (audioSrc) {
+      playEraAudio(audioSrc);
+    } else {
+      stopEraAudio();
+    }
+  }
+
+  function setThemeFromSection(section) {
+    body.classList.remove(
+      "theme-intro",
+      "theme-no-interaction",
+      "theme-command",
+      "theme-gui",
+      "theme-touch",
+      "theme-multimodal",
+      "theme-outro"
+    );
+
+    const era = section.dataset.era;
+
+    switch (era) {
+      case "intro":
+        body.classList.add("theme-intro");
+        break;
+      case "no-interaction":
+        body.classList.add("theme-no-interaction");
+        break;
+      case "command":
+        body.classList.add("theme-command");
+        break;
+      case "gui":
+        body.classList.add("theme-gui");
+        break;
+      case "touch":
+        body.classList.add("theme-touch");
+        break;
+      case "multimodal":
+        body.classList.add("theme-multimodal");
+        break;
+      case "outro":
+        body.classList.add("theme-outro");
+        break;
+    }
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          activateSection(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.6
+    }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+
+  function scrollToNextSection() {
+    if (!experienceStarted || !autoScrollEnabled || autoScrollPausedByUser) return;
+
+    const nextIndex = currentSectionIndex + 1;
+
+    if (nextIndex >= sections.length) {
+      stopAutoScroll();
+      toggleAutoscroll.checked = false;
+      autoScrollEnabled = false;
+      return;
     }
 
-    if (scrollY >= firstEra.offsetTop - window.innerHeight / 2) {
-      crawl.style.opacity = 0;
+    sections[nextIndex].scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  function startAutoScroll() {
+    stopAutoScroll();
+
+    autoScrollInterval = setInterval(() => {
+      scrollToNextSection();
+    }, 7000);
+  }
+
+  function stopAutoScroll() {
+    if (autoScrollInterval) {
+      clearInterval(autoScrollInterval);
+      autoScrollInterval = null;
+    }
+  }
+
+  function pauseAutoScrollTemporarily() {
+    if (!autoScrollEnabled) return;
+
+    autoScrollPausedByUser = true;
+
+    setTimeout(() => {
+      autoScrollPausedByUser = false;
+    }, 6000);
+  }
+
+  // START EXPERIENCE
+  startOverlay.addEventListener("click", unlockExperience);
+  startOverlay.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      unlockExperience();
     }
   });
 
-});
-// ===== ERA STYLE SWITCH =====
+  // SOUND TOGGLE
+  toggleSound.addEventListener("change", (event) => {
+    soundEnabled = event.target.checked;
 
-const eras = document.querySelectorAll(".era");
+    if (soundEnabled) {
+      playBackgroundAudio();
 
-const eraObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-
-      // ta bort gamla
-      eras.forEach(era => era.classList.remove("active"));
-
-      // lägg till ny
-      entry.target.classList.add("active");
-
-      document.body.classList.remove(
-        "industrialism",
-        "modernism",
-        "postmodernism",
-        "digital"
-      );
-
-      if (entry.target.classList.contains("era-1")) {
-        document.body.classList.add("industrialism");
-      }
-      if (entry.target.classList.contains("era-2")) {
-        document.body.classList.add("modernism");
-      }
-      if (entry.target.classList.contains("era-3")) {
-        document.body.classList.add("postmodernism");
-      }
-      if (entry.target.classList.contains("era-4")) {
-        document.body.classList.add("digital");
-      }
+      const activeSection = sections[currentSectionIndex];
+      const audioSrc = activeSection.dataset.audio || "";
+      if (audioSrc) playEraAudio(audioSrc);
+    } else {
+      stopBackgroundAudio();
+      stopEraAudio();
     }
   });
-}, { threshold: 0.6 });
 
-// VIKTIGT (utanför!)
-eras.forEach(era => eraObserver.observe(era));
+  // AUTO SCROLL TOGGLE
+  toggleAutoscroll.addEventListener("change", (event) => {
+    autoScrollEnabled = event.target.checked;
 
-window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
+    if (autoScrollEnabled) {
+      startAutoScroll();
+    } else {
+      stopAutoScroll();
+    }
+  });
 
-  const intro = document.querySelector(".intro");
+  // Pause auto-scroll if user scrolls manually
+  let lastWheelTime = 0;
 
-  intro.classList.add("animate");
+  window.addEventListener("wheel", () => {
+    const now = Date.now();
+    if (now - lastWheelTime > 200) {
+      pauseAutoScrollTemporarily();
+      lastWheelTime = now;
+    }
+  }, { passive: true });
 
-  setTimeout(() => {
-    intro.style.display = "none";
-    document.body.classList.add("show-title");
-  }, 1500);
+  window.addEventListener("touchmove", () => {
+    pauseAutoScrollTemporarily();
+  }, { passive: true });
+
+  window.addEventListener("keydown", (event) => {
+    const keys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Space"];
+    if (keys.includes(event.code) || keys.includes(event.key)) {
+      pauseAutoScrollTemporarily();
+    }
+  });
 });
