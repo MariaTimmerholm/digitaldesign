@@ -169,34 +169,59 @@ document.addEventListener("DOMContentLoaded", () => {
     }, waitTime);
   }
 
-  function goToNextSection() {
-    if (!autoScrollEnabled) return;
+  function smoothScrollTo(targetY, duration = 2500) {
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  const startTime = performance.now();
 
-    const nextIndex = currentSectionIndex + 1;
+  function easeInOutCubic(t) {
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
 
-    if (nextIndex >= sections.length) {
-      stopAutoScroll();
-      if (toggleAutoscroll) toggleAutoscroll.checked = false;
-      autoScrollEnabled = false;
-      return;
+  function step(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easedProgress = easeInOutCubic(progress);
+
+    window.scrollTo(0, startY + distance * easedProgress);
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
     }
+  }
 
-    activateSection(nextIndex);
+  requestAnimationFrame(step);
+}
 
-    isProgrammaticScroll = true;
+function goToNextSection() {
+  if (!autoScrollEnabled) return;
 
-    sections[nextIndex].scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+  const nextIndex = currentSectionIndex + 1;
 
-    setTimeout(() => {
-      isProgrammaticScroll = false;
+  if (nextIndex >= sections.length) {
+    stopAutoScroll();
+    if (toggleAutoscroll) toggleAutoscroll.checked = false;
+    autoScrollEnabled = false;
+    return;
+  }
 
-      if (autoScrollEnabled) {
-        scheduleNextScroll();
-      }
-    }, 1200);
+  activateSection(nextIndex);
+
+  isProgrammaticScroll = true;
+
+  const targetY = sections[nextIndex].offsetTop;
+
+  smoothScrollTo(targetY, 3500); // ändra detta värde för snabbare/långsammare scroll
+
+  setTimeout(() => {
+    isProgrammaticScroll = false;
+
+    if (autoScrollEnabled) {
+      scheduleNextScroll();
+    }
+  }, 3700);
   }
 
   function startAutoScroll() {
