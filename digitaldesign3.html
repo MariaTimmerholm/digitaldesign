@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HCI Scrollytelling Prototype</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gasoek+One&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
   <link href="dsthree.css" rel="stylesheet">
 </head>
 <body class="is-locked">
@@ -29,18 +27,15 @@
   <audio id="bgAudio" loop preload="auto">
     <source src="audio/background.mp3" type="audio/mpeg">
   </audio>
-
   <audio id="eraAudio" preload="auto"></audio>
 
   <!-- LEFT CONTROL PANEL -->
   <aside class="control-panel hidden" id="controlPanel">
     <h2>Kontroller</h2>
-
     <label class="control-item">
       <input type="checkbox" id="toggleSound" checked />
       <span>Ljud</span>
     </label>
-
     <label class="control-item">
       <input type="checkbox" id="toggleAutoscroll" />
       <span>Auto scroll</span>
@@ -58,20 +53,20 @@
         </p>
       </div>
     </section>
-
     <section class="story-section era era-1" 
       data-era="no-interaction"
-      data-audio="audio/no-interaction.mp3">
+      data-audio="audio/no-interaction.webm">
       <div class="section-inner">
         <p class="section-tag">Epok 1</p>
         <h2>No Interaction Era</h2>
         <p class="years">≈ 1940–1960</p>
         <p>
-          Datorn var inte något du interagerade med direkt. Instruktioner förbereddes i förväg och resultatet kom långt senare, ofta som utskrift.
+          Datorn var inte något användare kunde interagera med direkt. 
+          Instruktioner förbereddes i förväg och resultatet kom långt senare, ofta som utskrift.
+          Det innebar att datorn var mer av en svart låda — något mystiskt och avlägset, snarare än ett verktyg eller en partner i interaktion.
         </p>
       </div>
     </section>
-
     <section class="story-section era era-2" 
       data-era="command"
       data-audio="audio/command.mp3">
@@ -80,11 +75,13 @@
         <h2>Command Era</h2>
         <p class="years">≈ 1960–1980</p>
         <p>
-          Interaktionen blev mer direkt. Med tangentbord och terminaler kunde användare skriva kommandon och få respons i realtid.
+          Det är nu som interaktionen blev mer direkt. 
+          Med tangentbord och terminaler kunde användare skriva kommandon och få respons i realtid.
+          Det var fortfarande en ganska teknisk och krävande interaktion, men det var en stor förändring jämfört med tidigare. 
+          Datorn började bli mer av ett verktyg, även om det fortfarande krävde mycket kunskap och träning hos användaren för att använda det effektivt.
         </p>
       </div>
     </section>
-
     <section class="story-section era era-3" 
       data-era="gui"
       data-audio="audio/gui.mp3">
@@ -93,11 +90,12 @@
         <h2>GUI Era</h2>
         <p class="years">≈ 1980–2007</p>
         <p>
-          Grafiska gränssnitt gjorde datorn mer visuell, mer tillgänglig och lättare att förstå. Fönster, ikoner, menyer och musen förändrade allt.
+          Grafiska gränssnitt gjorde datorn mer visuell, mer tillgänglig och lättare att förstå. 
+          Fönster, ikoner, menyer och musen förändrade allt och gjorde det möjligt för fler människor att använda datorer utan att behöva lära sig kommandon.
+          Det var en stor demokratisering av tekniken.
         </p>
       </div>
     </section>
-
     <section class="story-section era era-4" 
       data-era="touch"
       data-audio="audio/touch.mp3">
@@ -106,11 +104,12 @@
         <h2>Touch Era</h2>
         <p class="years">≈ 2007–2015</p>
         <p>
-          Interaktion blev fysisk. Fingrar ersatte pekare och gränssnittet upplevdes som något direkt manipulerbart på skärmen.
+          Interaktion blev fysisk där avnändare kunde använda sina fingrar för att interagera med skärmen. 
+          Fingrar ersatte därmed pekare och gränssnittet upplevdes som något direkt manipulerbart. 
+          Användare kunde nu svepa, nypa och trycka på skärmen, vilket gjorde interaktionen mer intuitiv och tillgänglig för en bredare publik.
         </p>
       </div>
     </section>
-
     <section class="story-section era era-5" 
       data-era="multimodal"
       data-audio="audio/multimodal.mp3">
@@ -119,23 +118,24 @@
         <h2>Multimodal Era</h2>
         <p class="years">≈ 2015–nu</p>
         <p>
-          Interaktion sker nu genom flera kanaler samtidigt: röst, blick, rörelse, touch och AI. Gränssnittet blir allt mer osynligt.
+          Interaktion sker nu genom flera kanaler samtidigt. Det kan vara röst, blick, rörelse, touch och AI. 
+          Gränssnittet blir allt mer osynligt. Och det är inte längre bara verktyg — det är en del av vår omgivning.
+          Det har flera konsekvenser för hur vi upplever och förhåller oss till tekniken.
         </p>
       </div>
     </section>
-
     <section class="story-section outro" data-era="outro" data-audio="">
       <div class="section-inner">
         <p class="section-tag">Outro</p>
         <h2>Vad kommer härnäst?</h2>
         <p>
           När interaktion blir mer naturlig och mer osynlig förändras inte bara verktygen — 
-          utan också relationen mellan människan och tekniken.
+          utan också relationen mellan människan och tekniken. Många designer funderar nu på var gränsen går mellan det som är mänskligt och det som är tekniskt, 
+          och hur vi kan skapa en mer hållbar och etisk interaktion i framtiden.
         </p>
       </div>
     </section>
   </main>
-
   <script src="script3.js"></script>
 </body>
 </html>
