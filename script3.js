@@ -213,7 +213,7 @@ function goToNextSection() {
 
   const targetY = sections[nextIndex].offsetTop;
 
-  smoothScrollTo(targetY, 3500); // ändra detta värde för snabbare/långsammare scroll
+  smoothScrollTo(targetY, 2000); // ändra detta värde för snabbare/långsammare scroll
 
   setTimeout(() => {
     isProgrammaticScroll = false;
