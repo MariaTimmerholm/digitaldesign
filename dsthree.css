@@ -190,23 +190,34 @@ main {
 
 /* PER-ERA COLOR FEEL */
 body.theme-intro {
-  background: #090909;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", sans-serif;
 }
 
 body.theme-no-interaction {
-  background: #16120f;
+  background: #f4f4f4;
+  color: #968a8a;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 
 body.theme-command {
-  background: #101820;
+  background: #00A6FB;
+  color: #e0e0e0;
+  font-family: 'Georgia', serif;
 }
 
+
 body.theme-gui {
-  background: #111827;
+  background: #000814;
+  color: #00f5ff;
+  font-family: 'Courier New', monospace;
 }
 
 body.theme-touch {
-  background: #0e1420;
+  background: #0b1020;
+  color: #dff7ff;
+  font-family: 'Inter', sans-serif;
 }
 
 body.theme-multimodal {
