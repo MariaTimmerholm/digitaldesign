@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const sections = [...document.querySelectorAll(".story-section")];
 
+  let introRideAnimationFrame = null;
   let experienceStarted = false;
   let soundEnabled = true;
   let autoScrollEnabled = false;
@@ -18,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let autoScrollStoppedByUser = false;
   let currentSectionIndex = 0;
   let activeEraAudioSrc = "";
+  let autoScrollAnimationFrame = null;
+  let sectionScrollTimeout = null;
 
   const BG_NORMAL_VOLUME = 0.35;
   const BG_LOW_VOLUME = 0.12;
@@ -290,6 +293,73 @@ function startSectionMicroScroll(section, totalDuration) {
 }
 
   // =========================
+  // INTRO RIDE
+  // =========================
+  function stopIntroRide() {
+    if (introRideAnimationFrame) {
+      cancelAnimationFrame(introRideAnimationFrame);
+      introRideAnimationFrame = null;
+    }
+  }
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function startIntroRideToFirstSection() {
+    return new Promise((resolve) => {
+      if (!sections.length) {
+        resolve();
+        return;
+      }
+
+      stopIntroRide();
+
+      const firstSection = getFirstStorySection();
+      const startY = window.scrollY;
+      const targetY = firstSection.offsetTop;
+      const distance = targetY - startY;
+
+      const wobbleAmount = Math.min(30, Math.abs(distance) * 0.08);
+      const duration = 1800;
+      const startTime = performance.now();
+
+      function step(now) {
+        if (!autoScrollEnabled || autoScrollStoppedByUser) {
+          stopIntroRide();
+          resolve();
+          return;
+        }
+
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = easeOutCubic(progress);
+
+        const baseY = startY + distance * eased;
+
+        const wobble =
+          Math.sin(progress * Math.PI * 3) *
+          wobbleAmount *
+          (1 - progress);
+
+        window.scrollTo(0, baseY + wobble);
+
+        if (progress < 1) {
+          introRideAnimationFrame = requestAnimationFrame(step);
+        } else {
+          window.scrollTo({
+            top: targetY,
+            behavior: "auto"
+          });
+
+          introRideAnimationFrame = null;
+          resolve();
+        }
+      }
+
+      introRideAnimationFrame = requestAnimationFrame(step);
+    });
+  }
+  // =========================
   // AUTOSCROLL
   // =========================
   function getSectionDuration(section) {
@@ -317,32 +387,17 @@ function startSectionMicroScroll(section, totalDuration) {
     }, waitTime);
   }
 
-  function goToNextSection() {
-    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) {
-      return;
-    }
-
-    const nextIndex = currentSectionIndex + 1;
-
-    if (nextIndex >= sections.length) {
-      stopAutoScroll();
-
-      if (toggleAutoscroll) {
-        toggleAutoscroll.checked = false;
-      }
-
-      autoScrollEnabled = false;
-      return;
-    }
-
-    sections[nextIndex].scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
-
-  function startAutoScroll() {
+  async function startAutoScroll() {
     autoScrollStoppedByUser = false;
+
+    const firstSection = getFirstStorySection();
+
+    await startIntroRideToFirstSection();
+
+    if (firstSection) {
+      activateSection(firstSection);
+    }
+
     scheduleNextAutoScroll();
   }
 
@@ -350,6 +405,7 @@ function startSectionMicroScroll(section, totalDuration) {
     clearTimeout(autoScrollTimeout);
     autoScrollTimeout = null;
     stopSectionMicroScroll();
+    stopIntroRide();
   }
 
   function goToNextSection() {
@@ -361,7 +417,11 @@ function startSectionMicroScroll(section, totalDuration) {
 
     if (nextIndex >= sections.length) {
       stopAutoScroll();
-      toggleAutoscroll.checked = false;
+
+      if (toggleAutoscroll) {
+        toggleAutoscroll.checked = false;
+      }
+
       autoScrollEnabled = false;
       return;
     }
