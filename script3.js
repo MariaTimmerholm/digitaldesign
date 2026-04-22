@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeEraAudioSrc = "";
   let autoScrollAnimationFrame = null;
   let sectionScrollTimeout = null;
+  let autoScrollJustStarted = false;
 
   const BG_NORMAL_VOLUME = 0.35;
   const BG_LOW_VOLUME = 0.12;
@@ -397,8 +398,13 @@ function startSectionMicroScroll(section, totalDuration) {
     }
 
     autoScrollStoppedByUser = false;
+    autoScrollJustStarted = true;
 
     const firstSection = getFirstStorySection();
+
+    setTimeout(() => {
+      autoScrollJustStarted = false;
+    }, 1200);
 
     await startIntroRideToFirstSection();
 
@@ -444,6 +450,7 @@ function startSectionMicroScroll(section, totalDuration) {
 
   function userInterruptedAutoScroll() {
     if (!autoScrollEnabled) return;
+    if (autoScrollJustStarted) return;
 
     autoScrollStoppedByUser = true;
     stopAutoScroll();
@@ -483,18 +490,6 @@ function startSectionMicroScroll(section, totalDuration) {
 
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
-  }
-
-  if (toggleAutoscroll) {
-    toggleAutoscroll.addEventListener("change", (event) => {
-      autoScrollEnabled = event.target.checked;
-
-      if (autoScrollEnabled) {
-        startAutoScroll();
-      } else {
-        stopAutoScroll();
-      }
-    });
   }
 
   window.addEventListener(
