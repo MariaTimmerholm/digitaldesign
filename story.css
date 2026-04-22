@@ -20,10 +20,6 @@ body {
   z-index: 9999;
 }
 
-/* CIRKEL */
-  clip-path: circle(0% at center);
-}
-
 /* Animation */
 .intro.animate {
   animation: openCircle 1.5s ease forwards;

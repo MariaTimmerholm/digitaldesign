@@ -218,6 +218,78 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================
+  // LÖS KOD FÖR ATT DÖLJA CRAWL VID SCROLL
+  // =========================
+
+  function stopSectionMicroScroll() {
+  if (autoScrollAnimationFrame) {
+    cancelAnimationFrame(autoScrollAnimationFrame);
+    autoScrollAnimationFrame = null;
+  }
+
+  if (sectionScrollTimeout) {
+    clearTimeout(sectionScrollTimeout);
+    sectionScrollTimeout = null;
+  }
+}
+
+function startSectionMicroScroll(section, totalDuration) {
+  if (!section || !autoScrollEnabled || autoScrollStoppedByUser) return;
+
+  stopSectionMicroScroll();
+
+  const sectionTop = section.offsetTop;
+  const currentY = window.scrollY;
+
+  // Hur långt ner vi vill röra oss inom sektionen
+  const maxOffset = Math.max(0, section.offsetHeight - window.innerHeight);
+
+  // Begränsa så det blir en subtil rörelse även om sektionen är hög
+  const travel = Math.min(maxOffset, 220);
+
+  // Om sektionen inte har extra höjd alls, gör inget
+  if (travel <= 0) return;
+
+  // Använd större delen av sektionens tid till långsam scroll
+  const scrollDuration = totalDuration * 0.8;
+
+  const startY = currentY;
+  const targetY = Math.min(sectionTop + travel, sectionTop + maxOffset);
+  const distance = targetY - startY;
+
+  if (distance <= 0) return;
+
+  const startTime = performance.now();
+
+  function step(now) {
+    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
+
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / scrollDuration, 1);
+
+    // easeInOut för mjuk rörelse
+    const eased =
+      progress < 0.5
+        ? 2 * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+    const nextY = startY + distance * eased;
+    window.scrollTo(0, nextY);
+
+    if (progress < 1) {
+      autoScrollAnimationFrame = requestAnimationFrame(step);
+    } else {
+      autoScrollAnimationFrame = null;
+    }
+  }
+
+  // Liten paus innan mikroscrollen börjar
+  sectionScrollTimeout = setTimeout(() => {
+    autoScrollAnimationFrame = requestAnimationFrame(step);
+  }, 500);
+}
+
+  // =========================
   // AUTOSCROLL
   // =========================
   function getSectionDuration(section) {
@@ -226,9 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function scheduleNextAutoScroll() {
-    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) {
-      return;
-    }
+    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) return;
 
     const currentSection = sections[currentSectionIndex];
     if (!currentSection) return;
@@ -236,7 +306,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const waitTime = getSectionDuration(currentSection);
 
     clearTimeout(autoScrollTimeout);
+    stopSectionMicroScroll();
 
+    // Starta långsam scroll inom sektionen
+    startSectionMicroScroll(currentSection, waitTime);
+
+    // Hoppa vidare till nästa sektion när tiden är slut
     autoScrollTimeout = setTimeout(() => {
       goToNextSection();
     }, waitTime);
@@ -274,6 +349,27 @@ document.addEventListener("DOMContentLoaded", () => {
   function stopAutoScroll() {
     clearTimeout(autoScrollTimeout);
     autoScrollTimeout = null;
+    stopSectionMicroScroll();
+  }
+
+  function goToNextSection() {
+    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) return;
+
+    stopSectionMicroScroll();
+
+    const nextIndex = currentSectionIndex + 1;
+
+    if (nextIndex >= sections.length) {
+      stopAutoScroll();
+      toggleAutoscroll.checked = false;
+      autoScrollEnabled = false;
+      return;
+    }
+
+    sections[nextIndex].scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   }
 
   function userInterruptedAutoScroll() {
