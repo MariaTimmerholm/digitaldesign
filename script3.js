@@ -19,18 +19,63 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentSectionIndex = 0;
   let activeEraAudioSrc = "";
 
+  const BG_NORMAL_VOLUME = 0.35;
+  const BG_LOW_VOLUME = 0.12;
+  const ERA_VOLUME = 0.9;
+
   // =========================
   // START EXPERIENCE
   // =========================
   function unlockExperience() {
     experienceStarted = true;
     body.classList.remove("is-locked");
-    startOverlay.classList.add("hidden");
-    controlPanel.classList.remove("hidden");
+
+    if (startOverlay) {
+      startOverlay.classList.add("hidden");
+    }
+
+    if (controlPanel) {
+      controlPanel.classList.remove("hidden");
+    }
 
     playBackgroundAudio();
-    setThemeFromSection(sections[0]);
-    activateSection(sections[0]);
+
+    if (sections.length > 0) {
+      setThemeFromSection(sections[0]);
+      activateSection(sections[0]);
+    }
+  }
+
+  // =========================
+  // AUDIO HELPERS
+  // =========================
+  function fadeVolume(audio, targetVolume, duration = 500) {
+    if (!audio) return;
+
+    const startVolume = audio.volume;
+    const volumeChange = targetVolume - startVolume;
+    const startTime = performance.now();
+
+    function step(currentTime) {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      audio.volume = startVolume + volumeChange * progress;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function lowerBackgroundAudio() {
+    if (!bgAudio) return;
+    fadeVolume(bgAudio, BG_LOW_VOLUME, 400);
+  }
+
+  function restoreBackgroundAudio() {
+    if (!bgAudio) return;
+    fadeVolume(bgAudio, BG_NORMAL_VOLUME, 700);
   }
 
   // =========================
@@ -39,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function playBackgroundAudio() {
     if (!soundEnabled || !bgAudio) return;
 
-    bgAudio.volume = 0.35;
+    bgAudio.volume = BG_NORMAL_VOLUME;
     bgAudio.play().catch(() => {
       console.log("Bakgrundsljud kunde inte starta direkt.");
     });
@@ -55,13 +100,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (activeEraAudioSrc === src) return;
 
     activeEraAudioSrc = src;
+
     eraAudio.pause();
     eraAudio.src = src;
     eraAudio.currentTime = 0;
-    eraAudio.volume = 0.9;
+    eraAudio.volume = ERA_VOLUME;
+
+    lowerBackgroundAudio();
 
     eraAudio.play().catch(() => {
       console.log("Epokljud kunde inte spelas.");
+      restoreBackgroundAudio();
     });
   }
 
@@ -72,12 +121,23 @@ document.addEventListener("DOMContentLoaded", () => {
     eraAudio.pause();
     eraAudio.removeAttribute("src");
     eraAudio.load();
+
+    restoreBackgroundAudio();
+  }
+
+  if (eraAudio) {
+    eraAudio.addEventListener("ended", () => {
+      activeEraAudioSrc = "";
+      restoreBackgroundAudio();
+    });
   }
 
   // =========================
   // SECTION ACTIVATION
   // =========================
   function activateSection(section) {
+    if (!section) return;
+
     sections.forEach((sec) => sec.classList.remove("active-section"));
     section.classList.add("active-section");
 
@@ -92,13 +152,14 @@ document.addEventListener("DOMContentLoaded", () => {
       stopEraAudio();
     }
 
-    // Om autoscroll är aktiv: planera nästa hopp utifrån denna sektion
     if (autoScrollEnabled && !autoScrollStoppedByUser) {
       scheduleNextAutoScroll();
     }
   }
 
   function setThemeFromSection(section) {
+    if (!section) return;
+
     body.classList.remove(
       "theme-intro",
       "theme-no-interaction",
@@ -139,23 +200,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // INTERSECTION OBSERVER
   // =========================
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          activateSection(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.6
-    }
-  );
+  if (sections.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activateSection(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.6
+      }
+    );
 
-  sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => observer.observe(section));
+  }
 
   // =========================
-  // AUTOSCROLL WITH CUSTOM DURATION
+  // AUTOSCROLL
   // =========================
   function getSectionDuration(section) {
     const duration = parseInt(section.dataset.duration, 10);
@@ -163,9 +226,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function scheduleNextAutoScroll() {
-    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) return;
+    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) {
+      return;
+    }
 
     const currentSection = sections[currentSectionIndex];
+    if (!currentSection) return;
+
     const waitTime = getSectionDuration(currentSection);
 
     clearTimeout(autoScrollTimeout);
@@ -176,13 +243,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function goToNextSection() {
-    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) return;
+    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) {
+      return;
+    }
 
     const nextIndex = currentSectionIndex + 1;
 
     if (nextIndex >= sections.length) {
       stopAutoScroll();
-      toggleAutoscroll.checked = false;
+
+      if (toggleAutoscroll) {
+        toggleAutoscroll.checked = false;
+      }
+
       autoScrollEnabled = false;
       return;
     }
@@ -208,7 +281,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     autoScrollStoppedByUser = true;
     stopAutoScroll();
-    toggleAutoscroll.checked = false;
+
+    if (toggleAutoscroll) {
+      toggleAutoscroll.checked = false;
+    }
+
     autoScrollEnabled = false;
   }
 
@@ -216,7 +293,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // EVENT LISTENERS
   // =========================
 
-  // Start overlay
   if (startOverlay) {
     startOverlay.addEventListener("click", unlockExperience);
 
@@ -227,7 +303,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Sound toggle
   if (toggleSound) {
     toggleSound.addEventListener("change", (event) => {
       soundEnabled = event.target.checked;
@@ -249,12 +324,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Hindra browsern från att minnas scroll-position
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
   }
-  
-  // Autoscroll toggle
+
   if (toggleAutoscroll) {
     toggleAutoscroll.addEventListener("change", (event) => {
       autoScrollEnabled = event.target.checked;
@@ -267,7 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Stop autoscroll if user interacts manually
   window.addEventListener(
     "wheel",
     () => {
