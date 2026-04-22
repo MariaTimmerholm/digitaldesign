@@ -226,18 +226,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
 
   function stopSectionMicroScroll() {
-  if (autoScrollAnimationFrame) {
-    cancelAnimationFrame(autoScrollAnimationFrame);
-    autoScrollAnimationFrame = null;
+    if (autoScrollAnimationFrame) {
+      cancelAnimationFrame(autoScrollAnimationFrame);
+      autoScrollAnimationFrame = null;
+    }
+
+    if (sectionScrollTimeout) {
+      clearTimeout(sectionScrollTimeout);
+      sectionScrollTimeout = null;
+    }
   }
 
-  if (sectionScrollTimeout) {
-    clearTimeout(sectionScrollTimeout);
-    sectionScrollTimeout = null;
-  }
-}
-
-function startSectionMicroScroll(section, totalDuration) {
+  function startSectionMicroScroll(section, totalDuration) {
     if (!section || !autoScrollEnabled || autoScrollStoppedByUser) return;
 
     stopSectionMicroScroll();
@@ -247,7 +247,6 @@ function startSectionMicroScroll(section, totalDuration) {
     const maxTargetY = sectionTop + maxOffset;
 
     const startY = Math.max(window.scrollY, sectionTop);
-
     const travel = Math.min(maxOffset, 220);
 
     if (travel <= 0) return;
@@ -286,12 +285,6 @@ function startSectionMicroScroll(section, totalDuration) {
       autoScrollAnimationFrame = requestAnimationFrame(step);
     }, 300);
   }
-
-  // Liten paus innan mikroscrollen börjar
-  sectionScrollTimeout = setTimeout(() => {
-    autoScrollAnimationFrame = requestAnimationFrame(step);
-  }, 500);
-}
 
   // =========================
   // INTRO RIDE
