@@ -306,6 +306,10 @@ function startSectionMicroScroll(section, totalDuration) {
     return 1 - Math.pow(1 - t, 3);
   }
 
+  function getFirstStorySection() {
+    return sections.find((section) => section.dataset.era !== "intro") || sections[0];
+  }
+
   function startIntroRideToFirstSection() {
     return new Promise((resolve) => {
       if (!sections.length) {
@@ -388,11 +392,17 @@ function startSectionMicroScroll(section, totalDuration) {
   }
 
   async function startAutoScroll() {
+    if (!experienceStarted) {
+      unlockExperience();
+    }
+
     autoScrollStoppedByUser = false;
 
     const firstSection = getFirstStorySection();
 
     await startIntroRideToFirstSection();
+
+    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
     if (firstSection) {
       activateSection(firstSection);
@@ -459,23 +469,14 @@ function startSectionMicroScroll(section, totalDuration) {
     });
   }
 
-  if (toggleSound) {
-    toggleSound.addEventListener("change", (event) => {
-      soundEnabled = event.target.checked;
+  if (toggleAutoscroll) {
+    toggleAutoscroll.addEventListener("change", async (event) => {
+      autoScrollEnabled = event.target.checked;
 
-      if (soundEnabled) {
-        playBackgroundAudio();
-
-        const activeSection = sections[currentSectionIndex];
-        if (activeSection) {
-          const audioSrc = activeSection.dataset.audio || "";
-          if (audioSrc) {
-            playEraAudio(audioSrc);
-          }
-        }
+      if (autoScrollEnabled) {
+        await startAutoScroll();
       } else {
-        stopBackgroundAudio();
-        stopEraAudio();
+        stopAutoScroll();
       }
     });
   }
