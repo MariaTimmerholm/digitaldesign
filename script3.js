@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // START EXPERIENCE
   // =========================
-  function unlockExperience() {
+  function unlockExperience({ skipInitialActivation = false } = {}) {
     experienceStarted = true;
     body.classList.remove("is-locked");
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     playBackgroundAudio();
 
-    if (sections.length > 0) {
+    if (!skipInitialActivation && sections.length > 0) {
       setThemeFromSection(sections[0]);
       activateSection(sections[0]);
     }
@@ -238,53 +238,53 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
 function startSectionMicroScroll(section, totalDuration) {
-  if (!section || !autoScrollEnabled || autoScrollStoppedByUser) return;
+    if (!section || !autoScrollEnabled || autoScrollStoppedByUser) return;
 
-  stopSectionMicroScroll();
+    stopSectionMicroScroll();
 
-  const sectionTop = section.offsetTop;
-  const currentY = window.scrollY;
+    const sectionTop = section.offsetTop;
+    const maxOffset = Math.max(0, section.offsetHeight - window.innerHeight);
+    const maxTargetY = sectionTop + maxOffset;
 
-  // Hur långt ner vi vill röra oss inom sektionen
-  const maxOffset = Math.max(0, section.offsetHeight - window.innerHeight);
+    const startY = Math.max(window.scrollY, sectionTop);
 
-  // Begränsa så det blir en subtil rörelse även om sektionen är hög
-  const travel = Math.min(maxOffset, 220);
+    const travel = Math.min(maxOffset, 220);
 
-  // Om sektionen inte har extra höjd alls, gör inget
-  if (travel <= 0) return;
+    if (travel <= 0) return;
+    if (startY >= maxTargetY) return;
 
-  // Använd större delen av sektionens tid till långsam scroll
-  const scrollDuration = totalDuration * 0.8;
+    const scrollDuration = totalDuration * 0.8;
+    const targetY = Math.min(startY + travel, maxTargetY);
+    const distance = targetY - startY;
 
-  const startY = currentY;
-  const targetY = Math.min(sectionTop + travel, sectionTop + maxOffset);
-  const distance = targetY - startY;
+    if (distance <= 0) return;
 
-  if (distance <= 0) return;
+    const startTime = performance.now();
 
-  const startTime = performance.now();
+    function step(now) {
+      if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
-  function step(now) {
-    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / scrollDuration, 1);
 
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / scrollDuration, 1);
+      const eased =
+        progress < 0.5
+          ? 2 * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
-    // easeInOut för mjuk rörelse
-    const eased =
-      progress < 0.5
-        ? 2 * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      const nextY = startY + distance * eased;
+      window.scrollTo(0, nextY);
 
-    const nextY = startY + distance * eased;
-    window.scrollTo(0, nextY);
-
-    if (progress < 1) {
-      autoScrollAnimationFrame = requestAnimationFrame(step);
-    } else {
-      autoScrollAnimationFrame = null;
+      if (progress < 1) {
+        autoScrollAnimationFrame = requestAnimationFrame(step);
+      } else {
+        autoScrollAnimationFrame = null;
+      }
     }
+
+    sectionScrollTimeout = setTimeout(() => {
+      autoScrollAnimationFrame = requestAnimationFrame(step);
+    }, 300);
   }
 
   // Liten paus innan mikroscrollen börjar
@@ -311,18 +311,17 @@ function startSectionMicroScroll(section, totalDuration) {
     return sections.find((section) => section.dataset.era !== "intro") || sections[0];
   }
 
-  function startIntroRideToFirstSection() {
+  function startRideToSection(targetSection) {
     return new Promise((resolve) => {
-      if (!sections.length) {
+      if (!targetSection) {
         resolve();
         return;
       }
 
       stopIntroRide();
 
-      const firstSection = getFirstStorySection();
       const startY = window.scrollY;
-      const targetY = firstSection.offsetTop;
+      const targetY = targetSection.offsetTop;
       const distance = targetY - startY;
 
       const wobbleAmount = Math.min(30, Math.abs(distance) * 0.08);
@@ -372,6 +371,24 @@ function startSectionMicroScroll(section, totalDuration) {
     return Number.isNaN(duration) ? 15000 : duration;
   }
 
+  function getAutoScrollTargetSection() {
+    if (!experienceStarted) {
+      return getFirstStorySection();
+    }
+
+    const currentSection = sections[currentSectionIndex];
+
+    if (!currentSection) {
+      return getFirstStorySection();
+    }
+
+    if (currentSection.dataset.era === "intro") {
+      return getFirstStorySection();
+    }
+
+    return sections[currentSectionIndex + 1] || currentSection;
+  }
+
   function scheduleNextAutoScroll() {
     if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) return;
 
@@ -393,27 +410,21 @@ function startSectionMicroScroll(section, totalDuration) {
   }
 
   async function startAutoScroll() {
+    autoScrollStoppedByUser = false;
+
     if (!experienceStarted) {
-      unlockExperience();
+      unlockExperience({ skipInitialActivation: true });
     }
 
-    autoScrollStoppedByUser = false;
-    autoScrollJustStarted = true;
+    const targetSection = getAutoScrollTargetSection();
 
-    const firstSection = getFirstStorySection();
+    if (!targetSection) return;
 
-    setTimeout(() => {
-      autoScrollJustStarted = false;
-    }, 1200);
-
-    await startIntroRideToFirstSection();
+    await startRideToSection(targetSection);
 
     if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
-    if (firstSection) {
-      activateSection(firstSection);
-    }
-
+    activateSection(targetSection);
     scheduleNextAutoScroll();
   }
 
@@ -484,6 +495,27 @@ function startSectionMicroScroll(section, totalDuration) {
         await startAutoScroll();
       } else {
         stopAutoScroll();
+      }
+    });
+  }
+
+  if (toggleSound) {
+    toggleSound.addEventListener("change", (event) => {
+      soundEnabled = event.target.checked;
+
+      if (soundEnabled) {
+        playBackgroundAudio();
+
+        const activeSection = sections[currentSectionIndex];
+        if (activeSection) {
+          const audioSrc = activeSection.dataset.audio || "";
+          if (audioSrc) {
+            playEraAudio(audioSrc);
+          }
+        }
+      } else {
+        stopBackgroundAudio();
+        stopEraAudio();
       }
     });
   }
