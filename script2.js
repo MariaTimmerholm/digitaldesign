@@ -151,99 +151,97 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-function updateOutroBlur() {
-  if (!outroSection || !outroLines.length) return;
+  function updateOutroBlur() {
+    if (!outroSection || !outroLines.length) return;
 
-  const scrollY = window.scrollY;
-  const sectionTop = outroSection.offsetTop;
-  const scrollDistance = outroSection.offsetHeight - window.innerHeight;
+    const scrollY = window.scrollY;
+    const sectionTop = outroSection.offsetTop;
+    const scrollDistance = outroSection.offsetHeight - window.innerHeight;
 
-  if (scrollY <= sectionTop) {
+    if (scrollY <= sectionTop) {
+      if (outroInner) {
+        outroInner.style.opacity = 1;
+        outroInner.style.transform = `translateY(0px)`;
+      }
+
+      if (outroTitle) {
+        outroTitle.style.filter = `blur(0px)`;
+        outroTitle.style.opacity = 1;
+      }
+
+      outroLines.forEach((line) => {
+        line.style.filter = `blur(0px)`;
+        line.style.opacity = 1;
+      });
+
+      return;
+    }
+
+    if (scrollY >= sectionTop + scrollDistance) {
+      if (outroInner) {
+        outroInner.style.opacity = 0;
+        outroInner.style.transform = `translateY(30px)`;
+      }
+
+      if (outroTitle) {
+        outroTitle.style.filter = `blur(24px)`;
+        outroTitle.style.opacity = 0;
+      }
+
+      outroLines.forEach((line) => {
+        line.style.filter = `blur(28px)`;
+        line.style.opacity = 0;
+      });
+
+      return;
+    }
+
+    let progress = (scrollY - sectionTop) / scrollDistance;
+
+    const introHold = 0.25;
+    const blurEnd = 0.9;
+
+    if (progress <= introHold) {
+      if (outroInner) {
+        outroInner.style.opacity = 1;
+        outroInner.style.transform = `translateY(0px)`;
+      }
+
+      if (outroTitle) {
+        outroTitle.style.filter = `blur(0px)`;
+        outroTitle.style.opacity = 1;
+      }
+
+      outroLines.forEach((line) => {
+        line.style.filter = `blur(0px)`;
+        line.style.opacity = 1;
+      });
+
+      return;
+    }
+
+    let blurProgress = (progress - introHold) / (blurEnd - introHold);
+    blurProgress = Math.max(0, Math.min(1, blurProgress));
+
     if (outroInner) {
-      outroInner.style.opacity = 1;
-      outroInner.style.transform = `translateY(0px)`;
+      outroInner.style.opacity = 1 - blurProgress * 0.3;
+      outroInner.style.transform = `translateY(${blurProgress * 30}px)`;
     }
 
     if (outroTitle) {
-      outroTitle.style.filter = `blur(0px)`;
-      outroTitle.style.opacity = 1;
+      outroTitle.style.filter = `blur(${blurProgress * 24}px)`;
+      outroTitle.style.opacity = 1 - blurProgress;
     }
 
-    outroLines.forEach((line) => {
-      line.style.filter = `blur(0px)`;
-      line.style.opacity = 1;
+    outroLines.forEach((line, index) => {
+      const delay = index * 0.06;
+      const local = Math.max(0, Math.min(1, blurProgress - delay));
+
+      line.style.filter = `blur(${local * 28}px)`;
+      line.style.opacity = 1 - local * 0.7;
     });
-
-    return;
   }
 
-  if (scrollY >= sectionTop + scrollDistance) {
-    if (outroInner) {
-      outroInner.style.opacity = 0;
-      outroInner.style.transform = `translateY(30px)`;
-    }
-
-    if (outroTitle) {
-      outroTitle.style.filter = `blur(24px)`;
-      outroTitle.style.opacity = 0;
-    }
-
-    outroLines.forEach((line) => {
-      line.style.filter = `blur(28px)`;
-      line.style.opacity = 0;
-    });
-
-    return;
-  }
-
-  let progress = (scrollY - sectionTop) / scrollDistance;
-
-  // 1) håll kvar skarpt först
-  const introHold = 0.25;
-
-  // 2) blurra ut under mittenpartiet
-  const blurEnd = 0.9;
-
-  if (progress <= introHold) {
-    if (outroInner) {
-      outroInner.style.opacity = 1;
-      outroInner.style.transform = `translateY(0px)`;
-    }
-
-    if (outroTitle) {
-      outroTitle.style.filter = `blur(0px)`;
-      outroTitle.style.opacity = 1;
-    }
-
-    outroLines.forEach((line) => {
-      line.style.filter = `blur(0px)`;
-      line.style.opacity = 1;
-    });
-
-    return;
-  }
-
-  let blurProgress = (progress - introHold) / (blurEnd - introHold);
-  blurProgress = Math.max(0, Math.min(1, blurProgress));
-
-  if (outroInner) {
-    outroInner.style.opacity = 1 - blurProgress * 0.3;
-    outroInner.style.transform = `translateY(${blurProgress * 30}px)`;
-  }
-
-  if (outroTitle) {
-    outroTitle.style.filter = `blur(${blurProgress * 24}px)`;
-    outroTitle.style.opacity = 1 - blurProgress;
-  }
-
-  outroLines.forEach((line, index) => {
-    const delay = index * 0.06;
-    const local = Math.max(0, Math.min(1, blurProgress - delay));
-
-    line.style.filter = `blur(${local * 28}px)`;
-    line.style.opacity = 1 - local * 0.7;
-  });
-}
   function onScroll() {
     updateIntroFade();
     updateHorizontalScroll();
@@ -251,7 +249,12 @@ function updateOutroBlur() {
     updateOutroBlur();
   }
 
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
   setHorizontalHeight();
+  onScroll();
 
   window.addEventListener("scroll", onScroll);
   window.addEventListener("resize", () => {
@@ -259,6 +262,16 @@ function updateOutroBlur() {
     onScroll();
   });
 
+  window.scrollTo(0, 0);
   document.body.classList.add("loaded");
-  onScroll();
+
+  const intro = document.querySelector(".intro");
+  if (intro) {
+    intro.classList.add("animate");
+
+    setTimeout(() => {
+      intro.style.display = "none";
+      document.body.classList.add("show-title");
+    }, 1500);
+  }
 });

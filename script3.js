@@ -249,6 +249,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Hindra browsern från att minnas scroll-position
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+  
   // Autoscroll toggle
   if (toggleAutoscroll) {
     toggleAutoscroll.addEventListener("change", (event) => {

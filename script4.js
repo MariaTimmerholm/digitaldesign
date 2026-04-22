@@ -105,17 +105,23 @@ const eraObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.6 });
 
 // VIKTIGT (utanför!)
-eras.forEach(era => eraObserver.observe(era));
+// Hindra browsern från att minnas scroll-position
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
 
 window.addEventListener("load", () => {
+  window.scrollTo(0, 0);
   document.body.classList.add("loaded");
 
   const intro = document.querySelector(".intro");
 
-  intro.classList.add("animate");
+  if (intro) {
+    intro.classList.add("animate");
 
-  setTimeout(() => {
-    intro.style.display = "none";
-    document.body.classList.add("show-title");
-  }, 1500);
+    setTimeout(() => {
+      intro.style.display = "none";
+      document.body.classList.add("show-title");
+    }, 1500);
+  }
 });
