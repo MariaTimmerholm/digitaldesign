@@ -10,7 +10,6 @@
   <link href="dsfour.css" rel="stylesheet">
 </head>
 <body class="is-locked">
-
   <!-- START OVERLAY -->
   <div id="startOverlay" class="start-overlay" role="button" tabindex="0" aria-label="Klicka för att börja">
     <div class="start-overlay-inner">
@@ -22,7 +21,6 @@
       </p>
     </div>
   </div>
-
   <!-- AUDIO -->
   <audio id="bgAudio" loop preload="auto">
     <source src="audio/background.mp3" type="audio/mpeg">
@@ -41,7 +39,6 @@
       <span>Auto scroll</span>
     </label>
   </aside>
-
   <!-- MAIN CONTENT -->
   <main id="mainContent">
     <section class="story-section intro active-section" 
@@ -60,59 +57,77 @@
     <section class="story-section era era-1" 
       data-era="no-interaction"
       data-audio="audio/no-interaction.webm"
-      data-duration="22000">
-      <div class="section-inner">
-        <p class="section-tag">Epok 1</p>
-        <h2>No Interaction Era</h2>
-        <p class="years">≈ 1940–1960</p>
-        <p>
-          Datorn är inte något användare kan interagera med direkt. 
-          Instruktioner förbereds i förväg och resultatet kommer långt senare, ofta som utskrift.
-          Det innebär att datorn är mer av en svart låda — något mystiskt och avlägset, snarare än ett verktyg eller en partner i interaktion.
-        </p>
-        <p>ENIAC (1945)</p>
-        <p>
-          ENIAC var en av de första elektroniska datorerna som byggdes. 
-          Den var enorm och krävde mycket ström, men den kunde utföra komplexa beräkningar mycket snabbare än tidigare mekaniska datorer.
-          Det var en stor milstolpe i datorhistorien och visade potentialen för elektroniska datorer, även om den inte var särskilt användarvänlig eller interaktiv.
-        </p>
-        <p>Hålkort (1950-talet)</p>
-        <p>
-          Hålkort var en tidig form av datalagring och inmatning där information kodades genom att göra hål i kort. 
-          Användare förberedde sina instruktioner i förväg och matade in dem i datorn, som sedan bearbetade dem och gav resultatet senare. 
-          Det var en ganska statisk och tidskrävande process, och det fanns ingen direkt interaktion mellan användare och dator under själva bearbetningen.
-        </p>
-        <p>Batch processing (1950-talet)</p>
-        <p>
-          Batch processing var en metod där flera jobb samlades ihop och kördes samtidigt. 
-          Det var en effektiv metod för att använda datorresurser, men det innebärde att användare inte kunde få direkt respons på sina åtgärder.
-        </p>
-        <p>Magnetband (1950-talet)</p>
-        <p>
-          Magnetband var en tidig form av datalagring där information lagrades på magnetiskt material. 
-          Det var en mer flexibel metod än hålkort, men det krävde fortfarande mycket tid och ansträngning att hantera.
-        </p>
-        <p>CRT-skärmar (1950-talet)</p>
-        <p>
-          CRT-skärmar var en tidig form av datorskärm som använde katodstrålerör för att visa information. 
-          Det var en stor förbättring jämfört med tidigare metoder för att visa data, men det var fortfarande ganska begränsat i sin interaktivitet och användarvänlighet.
-        </p>
-        <p>Första programmeringsspråken (1950-talet)</p>
-        <p>
-          Första programmeringsspråken som Fortran och COBOL utvecklades under denna tid. 
-          De gjorde det möjligt för programmerare att skriva mer komplexa program på ett mer strukturerat sätt, men det var fortfarande en ganska teknisk och krävande process som krävde mycket kunskap och träning.
-        </p>
-        <p>Första operativsystemen (1950-talet)</p>
-        <p>
-          Första operativsystemen som GM-NAA I/O utvecklades under denna tid. 
-          De gjorde det möjligt för datorer att hantera flera uppgifter samtidigt och förbättrade effektiviteten, men det var fortfarande en ganska begränsad och teknisk interaktion mellan användare och dator.
-        </p>
+      data-duration="62000">
+      <div class="section-grid">
+        <div class="section-years">
+          <p class="section-tag">Epok 1</p>
+          <p class="years">≈ 1940–1960</p>
+        </div>
+        <div class="section-copy">
+          <h2>No Interaction Era</h2>
+          <p>
+            Datorn är inte något användare kan interagera med direkt. 
+            Instruktioner förbereds i förväg och resultatet kommer långt senare, ofta som utskrift.
+            Det innebär att datorn är mer av en svart låda — något mystiskt och avlägset, snarare än ett verktyg eller en partner i interaktion.
+          </p>
+          <div class="artifact">
+          <p>ENIAC (1945)</p>
+          <p>
+            ENIAC var en av de första elektroniska datorerna som byggdes. 
+            Den var enorm och krävde mycket ström, men den kunde utföra komplexa beräkningar mycket snabbare än tidigare mekaniska datorer.
+            Det var en stor milstolpe i datorhistorien och visade potentialen för elektroniska datorer, även om den inte var särskilt användarvänlig eller interaktiv.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Hålkort (1950-talet)</p>
+          <p>
+            Hålkort var en tidig form av datalagring och inmatning där information kodades genom att göra hål i kort. 
+            Användare förberedde sina instruktioner i förväg och matade in dem i datorn, som sedan bearbetade dem och gav resultatet senare. 
+            Det var en ganska statisk och tidskrävande process, och det fanns ingen direkt interaktion mellan användare och dator under själva bearbetningen.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Batch processing (1950-talet)</p>
+          <p>
+            Batch processing var en metod där flera jobb samlades ihop och kördes samtidigt. 
+            Det var en effektiv metod för att använda datorresurser, men det innebärde att användare inte kunde få direkt respons på sina åtgärder.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Magnetband (1950-talet)</p>
+          <p>
+            Magnetband var en tidig form av datalagring där information lagrades på magnetiskt material. 
+            Det var en mer flexibel metod än hålkort, men det krävde fortfarande mycket tid och ansträngning att hantera.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>CRT-skärmar (1950-talet)</p>
+          <p>
+            CRT-skärmar var en tidig form av datorskärm som använde katodstrålerör för att visa information. 
+            Det var en stor förbättring jämfört med tidigare metoder för att visa data, men det var fortfarande ganska begränsat i sin interaktivitet och användarvänlighet.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Första programmeringsspråken (1950-talet)</p>
+          <p>
+            Första programmeringsspråken som Fortran och COBOL utvecklades under denna tid. 
+            De gjorde det möjligt för programmerare att skriva mer komplexa program på ett mer strukturerat sätt, men det var fortfarande en ganska teknisk och krävande process som krävde mycket kunskap och träning.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Första operativsystemen (1950-talet)</p>
+          <p>
+            Första operativsystemen som GM-NAA I/O utvecklades under denna tid. 
+            De gjorde det möjligt för datorer att hantera flera uppgifter samtidigt och förbättrade effektiviteten, men det var fortfarande en ganska begränsad och teknisk interaktion mellan användare och dator.
+          </p>
+          </div>
+        </div>
       </div>
     </section>
     <section class="story-section era era-2"
       data-era="command"
       data-audio="audio/command.webm"
-      data-duration="25000">
+      data-duration="62000">
       <div class="section-grid">
         <div class="section-years">
           <p class="section-tag">Epok 2</p>
@@ -126,7 +141,6 @@
             Det är fortfarande en ganska teknisk och krävande interaktion, men det är en stor förändring jämfört med tidigare.
             Datorn börjar bli mer av ett verktyg, även om det fortfarande krävs mycket kunskap och träning hos användaren för att använda det effektivt.
           </p>
-
           <div class="artifact">
             <h3>ARPANET (1969)</h3>
             <p>
@@ -135,7 +149,6 @@
               Det var en stor milstolpe i utvecklingen av datornätverk och lade grunden för det moderna internet.
             </p>
           </div>
-
           <div class="artifact">
             <h3>Unix (1970)</h3>
             <p>
@@ -144,7 +157,6 @@
               Det blev snabbt populärt bland forskare och utvecklare och lade grunden för många moderna operativsystem, inklusive Linux och macOS.
             </p>
           </div>
-
           <div class="artifact">
             <h3>PC (1981)</h3>
             <p>
@@ -152,7 +164,6 @@
               Den var designad för att vara enkel att använda och tillgänglig för vanliga användare, vilket gjorde det möjligt för fler människor att ha tillgång till datorer i sitt hem eller på sitt arbete.
             </p>
           </div>
-
           <div class="artifact">
             <h3>Apple Macintosh (1984)</h3>
             <p>
@@ -161,7 +172,6 @@
             </p>
           </div>
         </div>
-
         <div class="section-media">
           <div class="image-holder image-holder-large">
             <img src="images/teletype.jpg" alt="Teletype terminal">
@@ -170,114 +180,145 @@
             <img src="images/crt.jpg" alt="CRT terminal">
           </div>
         </div>
-
       </div>
     </section>
     <section class="story-section era era-3" 
       data-era="gui"
       data-audio="audio/gui.webm"
-      data-duration="20000">
-      <div class="section-inner">
-        <p class="section-tag">Epok 3</p>
-        <h2>GUI Era</h2>
-        <p class="years">≈ 1980–2007</p>
-        <p>
-          Tillkomst av grafiska gränssnitt gör datorn mer visuell, tillgänglig och lättare att förstå. 
-          Fönster, ikoner, menyer och musen förändrar allt och gör det möjligt för fler människor att använda datorer utan att behöva lära sig kommandon.
-          Detta är en stor demokratisering av tekniken.
-        </p>
-        <h2>World Wide Web</h2>
-        <p class="years">≈ 1990–2000</p>
-        <p>Internet uppfanns av Tim Berners-Lee som gjorde det möjligt att dela information över nätverket.
-          Det tillkom en grafisk webbläsare, Mosaic, som gjorde det möjligt för vanliga människor att använda internet på ett enkelt sätt.
-          Netscape följde efter och blev snabbt den mest populära webbläsaren eftersom den var snabb, stabil och användarvänlig.
-          Den gjorde webben mainstream.
-        </p>
-        <p class="years">≈ sent 1990–nu</p>
-        <p>Hemmainternet användes med hjälp av dial-up modem.  <!-- kolla om man kan ha med det klassiska ljudet -->
-          Det var långsamt och opålitligt men det var en revolution i hur människor kommunicerade, lärde sig och underhöll sig själva.
-          Alltfler fick tillgång till e-post, chattar, forum och sociala medier. Det förändrade allt.
-        </p>  
-        <p>
-        Internet fanns tidigare, men det var först med grafiska webbläsare som 
-        <strong>Mosaic</strong> och <strong>Netscape</strong> på 1990-talet som 
-        det blev tillgängligt för vanliga människor.
-        </p>
+      data-duration="62000">
+      <div class="section-grid">
+        <div class="section-years">
+          <p class="section-tag">Epok 3</p>
+          <p class="years">≈ 1980–2007</p>
+        </div>
+        <div class="section-copy">
+          <h2>GUI Era</h2>
+          <p>
+            Tillkomst av grafiska gränssnitt gör datorn mer visuell, tillgänglig och lättare att förstå. 
+            Fönster, ikoner, menyer och musen förändrar allt och gör det möjligt för fler människor att använda datorer utan att behöva lära sig kommandon.
+            Detta är en stor demokratisering av tekniken.
+          </p>
+          <h2>World Wide Web</h2>
+          <p class="years">≈ 1990–2000</p>
+          <p>Internet uppfanns av Tim Berners-Lee som gjorde det möjligt att dela information över nätverket.
+            Det tillkom en grafisk webbläsare, Mosaic, som gjorde det möjligt för vanliga människor att använda internet på ett enkelt sätt.
+            Netscape följde efter och blev snabbt den mest populära webbläsaren eftersom den var snabb, stabil och användarvänlig.
+            Den gjorde webben mainstream.
+          </p>
+          <div class="artifact">  
+          <p class="years">≈ sent 1990–nu</p>
+          <p>Hemmainternet användes med hjälp av dial-up modem.  <!-- kolla om man kan ha med det klassiska ljudet -->
+            Det var långsamt och opålitligt men det var en revolution i hur människor kommunicerade, lärde sig och underhöll sig själva.
+            Alltfler fick tillgång till e-post, chattar, forum och sociala medier. Det förändrade allt.
+          </p>  
+          </div>
+          <p>
+          Internet fanns tidigare, men det var först med grafiska webbläsare som 
+          <strong>Mosaic</strong> och <strong>Netscape</strong> på 1990-talet som 
+          det blev tillgängligt för vanliga människor.
+          </p>
+        </div>
       </div>
     </section>
     <section class="story-section era era-4" 
       data-era="touch"
       data-audio="audio/touch.webm"
-      data-duration="26000">
-      <div class="section-inner">
-        <p class="section-tag">Epok 4</p>
-        <h2>Touch Era</h2>
-        <p class="years">≈ 2007–2015</p>
-        <p>
-          Interaktion blir fysisk där avnändare kan använda sina fingrar för att interagera med skärmen. 
-          Fingrar ersätter därmed pekare och gränssnittet upplevs mer som något direkt manipulerbart. 
-          Användare kan nu svepa, nypa och trycka på skärmen, vilket gör interaktionen mer intuitiv och tillgänglig för en ännu bredare publik.
-        </p>
-        <p>iPhone (2007)</p>
-        <p>
-          iPhone var en av de första smartphones som hade en kapacitiv pekskärm och ett intuitivt användargränssnitt. 
-          Det gjorde det möjligt för användare att interagera med sina telefoner på ett mer naturligt sätt, vilket var en stor förändring jämfört med tidigare smartphones som krävde knappar och stylus.
-        </p>
-        <p>iPad (2010)</p>
-        <p>
-          iPad var den första tablet-datorn som kom på marknaden. Den hade en stor kapacitiv pekskärm och ett intuitivt användargränssnitt, vilket gjorde det möjligt för användare att interagera med innehåll på ett mer naturligt sätt.
-        </p>
-        <p>Android (2010)</p>
-        <p>
-          Android var det första operativsystemet som kom på marknaden och som var designat för mobila enheter. Det gjorde det möjligt för användare att interagera med innehåll på ett mer naturligt sätt.
-        </p>
-        <p>Touchskärmar (2010-talet)</p>
-        <p>
-          Touchskärmar blev allt vanligare på olika typer av enheter, från smartphones och tablets till bärbara datorer och smarta klockor. 
-          Det gjorde det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, vilket var en stor förändring jämfört med tidigare enheter som krävde knappar och stylus.
-          Touchskärmar har också möjliggjort nya typer av interaktion, som svepning, nypning och tryckning, vilket har gjort det möjligt för användare att interagera med innehåll på ett mer intuitivt sätt.
-        </p>
+      data-duration="62000">
+      <div class="section-grid">
+        <div class="section-years">
+          <p class="section-tag">Epok 4</p>
+          <p class="years">≈ 2007–2015</p>
+        </div>
+        <div class="section-copy">
+          <h2>Touch Era</h2>
+          <p>
+            Interaktion blir fysisk där avnändare kan använda sina fingrar för att interagera med skärmen. 
+            Fingrar ersätter därmed pekare och gränssnittet upplevs mer som något direkt manipulerbart. 
+            Användare kan nu svepa, nypa och trycka på skärmen, vilket gör interaktionen mer intuitiv och tillgänglig för en ännu bredare publik.
+          </p>
+          <div class="artifact">
+          <p>iPhone (2007)</p>
+          <p>
+            iPhone var en av de första smartphones som hade en kapacitiv pekskärm och ett intuitivt användargränssnitt. 
+            Det gjorde det möjligt för användare att interagera med sina telefoner på ett mer naturligt sätt, vilket var en stor förändring jämfört med tidigare smartphones som krävde knappar och stylus.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>iPad (2010)</p>
+          <p>
+            iPad var den första tablet-datorn som kom på marknaden. Den hade en stor kapacitiv pekskärm och ett intuitivt användargränssnitt, vilket gjorde det möjligt för användare att interagera med innehåll på ett mer naturligt sätt.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Android (2010)</p>
+          <p>
+            Android var det första operativsystemet som kom på marknaden och som var designat för mobila enheter. Det gjorde det möjligt för användare att interagera med innehåll på ett mer naturligt sätt.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Touchskärmar (2010-talet)</p>
+          <p>
+            Touchskärmar blev allt vanligare på olika typer av enheter, från smartphones och tablets till bärbara datorer och smarta klockor. 
+            Det gjorde det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, vilket var en stor förändring jämfört med tidigare enheter som krävde knappar och stylus.
+            Touchskärmar har också möjliggjort nya typer av interaktion, som svepning, nypning och tryckning, vilket har gjort det möjligt för användare att interagera med innehåll på ett mer intuitivt sätt.
+          </p>
+          </div>
+        </div>
       </div>
     </section>
     <section class="story-section era era-5" 
       data-era="multimodal"
       data-audio="audio/multimodal.webm"
-      data-duration="25000">
-      <div class="section-inner">
-        <p class="section-tag">Epok 5</p>
-        <h2>Multimodal Era</h2>
-        <p class="years">≈ 2015–nu</p>
-        <p>
-          Interaktion sker nu genom flera kanaler samtidigt. Det kan vara röst, blick, rörelse, touch och AI. 
-          Gränssnittet blir allt mer osynligt. Och det är inte längre bara verktyg — det är en del av vår omgivning.
-          Det har flera konsekvenser, både positiva och negativa, för hur vi upplever och förhåller oss till tekniken.
-        </p>
-        <p>Röstassistenter (2010-talet)</p>
-        <p>
-          Röstassistenter som Amazon Alexa, Google Assistant och Apple Siri har blivit allt vanligare i hemmet. 
-          De gör det möjligt för användare att interagera med sina enheter på ett mer naturligt sätt, genom att använda sin röst istället för att behöva trycka på knappar eller använda en pekskärm.
-        </p>
-        <p>AI (2010-talet)</p>
-        <p>
-          AI (artificiell intelligens) har blivit allt mer avancerad och har börjat användas i olika typer av enheter, från smartphones och tablets till bärbara datorer och smarta klockor. 
-          Det gör det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, genom att använda sin röst, blick eller rörelse istället för att behöva trycka på knappar eller använda en pekskärm.
-        </p>
-        <p>Multimodala gränssnitt (2010-talet)</p>
-        <p>
-          Multimodala gränssnitt som kombinerar flera olika typer av interaktion, som röst, blick, rörelse och touch, har blivit allt vanligare i olika typer av enheter. 
-          Det gör det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, genom att använda flera olika kanaler samtidigt.
-        </p>
-        <p>Osynliga gränssnitt (2010-talet)</p>
-        <p>
-          Osynliga gränssnitt som inte kräver någon fysisk interaktion, som röst och AI, har blivit allt vanligare i olika typer av enheter. 
-          Det gör det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, utan att behöva trycka på knappar eller använda en pekskärm.
-        </p>
-        <p>Dark patterns</p>
-        <p>
-          Med den ökade användningen av AI och multimodala gränssnitt har det också blivit allt vanligare med så kallade "dark patterns", 
-          som är designmönster som är avsedda att manipulera användare att göra saker de inte vill göra, som att köpa något eller dela personlig information. 
-          Det är en etisk utmaning för designers och utvecklare att skapa gränssnitt som är både användarvänliga och etiska.
-        </p>
+      data-duration="62000">
+      <div class="section-grid">
+        <div class="section-years">
+          <p class="section-tag">Epok 5</p>
+          <p class="years">≈ 2015–nu</p>
+        </div>
+        <div class="section-copy">
+          <h2>Multimodal Era</h2>
+          <p>
+            Interaktion sker nu genom flera kanaler samtidigt. Det kan vara röst, blick, rörelse, touch och AI. 
+            Gränssnittet blir allt mer osynligt. Och det är inte längre bara verktyg — det är en del av vår omgivning.
+            Det har flera konsekvenser, både positiva och negativa, för hur vi upplever och förhåller oss till tekniken.
+          </p>
+          <div class="artifact">
+          <p>Röstassistenter (2010-talet)</p>
+          <p>
+            Röstassistenter som Amazon Alexa, Google Assistant och Apple Siri har blivit allt vanligare i hemmet. 
+            De gör det möjligt för användare att interagera med sina enheter på ett mer naturligt sätt, genom att använda sin röst istället för att behöva trycka på knappar eller använda en pekskärm.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>AI (2010-talet)</p>
+          <p>
+            AI (artificiell intelligens) har blivit allt mer avancerad och har börjat användas i olika typer av enheter, från smartphones och tablets till bärbara datorer och smarta klockor. 
+            Det gör det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, genom att använda sin röst, blick eller rörelse istället för att behöva trycka på knappar eller använda en pekskärm.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Multimodala gränssnitt (2010-talet)</p>
+          <p>
+            Multimodala gränssnitt som kombinerar flera olika typer av interaktion, som röst, blick, rörelse och touch, har blivit allt vanligare i olika typer av enheter. 
+            Det gör det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, genom att använda flera olika kanaler samtidigt.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Osynliga gränssnitt (2010-talet)</p>
+          <p>
+            Osynliga gränssnitt som inte kräver någon fysisk interaktion, som röst och AI, har blivit allt vanligare i olika typer av enheter. 
+            Det gör det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, utan att behöva trycka på knappar eller använda en pekskärm.
+          </p>
+          </div>
+          <div class="artifact">
+          <p>Dark patterns</p>
+          <p>
+            Med den ökade användningen av AI och multimodala gränssnitt har det också blivit allt vanligare med så kallade "dark patterns", 
+            som är designmönster som är avsedda att manipulera användare att göra saker de inte vill göra, som att köpa något eller dela personlig information. 
+            Det är en etisk utmaning för designers och utvecklare att skapa gränssnitt som är både användarvänliga och etiska.
+          </p>
+          </div>
+        </div>
       </div>
     </section>
     <section class="story-section outro" 
