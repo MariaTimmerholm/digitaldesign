@@ -534,6 +534,40 @@ document.addEventListener("DOMContentLoaded", () => {
       userInterruptedAutoScroll();
     }
   });
+
+  // =========================
+  // ERA 1 PANEL ACTIVATION
+  // =========================
+  const artifactPanels = [...document.querySelectorAll(".artifact-panel")];
+
+  if (artifactPanels.length > 0) {
+    const panelObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          artifactPanels.forEach((panel) => {
+            panel.classList.remove("panel-active", "panel-past");
+          });
+
+          entry.target.classList.add("panel-active");
+
+          const activeIndex = artifactPanels.indexOf(entry.target);
+
+          artifactPanels.forEach((panel, index) => {
+            if (index < activeIndex) {
+              panel.classList.add("panel-past");
+            }
+          });
+        });
+      },
+      {
+        threshold: 0.55
+      }
+    );
+
+    artifactPanels.forEach((panel) => panelObserver.observe(panel));
+  }
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
