@@ -570,58 +570,40 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================
-  // SCROLL-STYRDA ENIAC-GARDINER
+  // STICKY SCROLL-STYRDA ENIAC-GARDINER
   // =========================
   const eniacPanel = document.querySelector(".artifact-eniac");
   
-  let eniacPauseDone = false;
-  let eniacPauseActive = false;
-  
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
-  }
-  
-  function pauseAfterCurtainsOpen() {
-    eniacPauseDone = true;
-    eniacPauseActive = true;
-  
-    const lockedY = window.scrollY;
-  
-    document.body.classList.add("scroll-paused");
-  
-    window.scrollTo({
-      top: lockedY,
-      behavior: "auto"
-    });
-  
-    setTimeout(() => {
-      document.body.classList.remove("scroll-paused");
-      eniacPauseActive = false;
-    }, 5000);
   }
   
   function updateEniacCurtains() {
     if (!eniacPanel) return;
   
     const rect = eniacPanel.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-  
-    const start = windowHeight * 0.25;
-    const end = windowHeight * -0.9;
+    const scrollableDistance = eniacPanel.offsetHeight - window.innerHeight;
   
     const progress = clamp(
-      (start - rect.top) / (start - end),
+      -rect.top / scrollableDistance,
       0,
       1
     );
   
-    const curtainOpen = progress * 55;
+    /*
+      Första 20%: gardiner stängda
+      20–75%: gardiner öppnas
+      75–100%: bilden visas innan nästa sektion
+    */
+    const curtainProgress = clamp(
+      (progress - 0.2) / 0.55,
+      0,
+      1
+    );
+  
+    const curtainOpen = curtainProgress * 55;
   
     eniacPanel.style.setProperty("--curtain-open", curtainOpen);
-  
-    if (progress >= 1 && !eniacPauseDone && !eniacPauseActive) {
-      pauseAfterCurtainsOpen();
-    }
   }
   
   window.addEventListener("scroll", updateEniacCurtains, { passive: true });
