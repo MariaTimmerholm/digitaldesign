@@ -29,10 +29,6 @@ body.is-locked {
   height: 100vh;
 }
 
-body.scroll-paused {
-  overflow: hidden;
-}
-
 /* START OVERLAY */
 .start-overlay {
   position: fixed;
@@ -640,6 +636,33 @@ body.theme-outro {
 
 .era.era-scroll {
   display: block !important;
+}
+
+/* ENIAC sticky scroll-scene */
+.sticky-artifact {
+  min-height: 260vh;
+  padding: 0;
+  display: block;
+}
+
+.sticky-scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.sticky-scene .artifact-visual {
+  width: min(900px, 85vw);
+  height: min(620px, 70vh);
+}
+
+.sticky-scene .artifact-caption {
+  position: absolute;
+  left: 8vw;
+  bottom: 12vh;
 }
 
 @keyframes tapeSpin {
