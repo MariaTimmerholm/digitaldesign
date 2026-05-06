@@ -29,6 +29,10 @@ body.is-locked {
   height: 100vh;
 }
 
+body.scroll-paused {
+  overflow: hidden;
+}
+
 /* START OVERLAY */
 .start-overlay {
   position: fixed;
