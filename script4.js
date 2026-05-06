@@ -585,11 +585,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const windowHeight = window.innerHeight;
   
     /*
-      Börjar öppna när ENIAC-panelen är ungefär mitt i skärmen.
-      Öppnas mer ju längre användaren scrollar.
+      Gardinerna börjar öppnas först när panelens top
+      är nära toppen av viewporten.
     */
-    const start = windowHeight * 0.75;
-    const end = windowHeight * -0.1;
+    const start = windowHeight * 0.25;
+    const end = windowHeight * -0.9;
   
     const progress = clamp(
       (start - rect.top) / (start - end),
@@ -597,7 +597,11 @@ document.addEventListener("DOMContentLoaded", () => {
       1
     );
   
-    const curtainOpen = progress * 95;
+    /*
+      0 = stängd
+      55 = helt öppen
+    */
+    const curtainOpen = progress * 55;
   
     eniacPanel.style.setProperty("--curtain-open", curtainOpen);
   }
