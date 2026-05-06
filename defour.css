@@ -392,6 +392,188 @@ body.theme-outro {
   accent-color: white;
 }
 
+/* =========================
+   ERA 2 — COMMAND ERA
+   ========================= */
+
+.command-era {
+  display: block !important;
+  min-height: auto;
+  padding: 0;
+  border-bottom: none;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(0,255,170,0.08), transparent 30%),
+    linear-gradient(180deg, #050806 0%, #101412 100%);
+  color: #d9ffe8;
+  font-family: "Courier New", monospace;
+}
+
+.command-era::after {
+  display: none;
+}
+
+.command-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 10vw;
+}
+
+.command-header h2 {
+  font-family: "Gasoek One", sans-serif;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  color: #eafff1;
+  text-shadow: 0 0 18px rgba(0,255,160,0.25);
+}
+
+.command-header p {
+  max-width: 680px;
+}
+
+.command-node {
+  min-height: 115vh;
+  padding: 8rem 10vw;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1fr);
+  gap: 4rem;
+  align-items: center;
+  border-top: 1px solid rgba(150,255,200,0.12);
+}
+
+.command-node h3 {
+  font-size: clamp(1.8rem, 5vw, 4rem);
+  margin: 0 0 1rem;
+  color: #dfffe9;
+  text-shadow: 0 0 14px rgba(0,255,170,0.18);
+}
+
+.command-node p {
+  color: rgba(225,255,235,0.72);
+  max-width: 580px;
+}
+
+.command-node::before {
+  content: "> connect";
+  position: absolute;
+  top: 3rem;
+  left: 10vw;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: rgba(180,255,210,0.45);
+}
+
+.command-node::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.08) 0px,
+      rgba(255,255,255,0.08) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  mix-blend-mode: overlay;
+}
+
+.command-visual,
+.command-era .video-holder {
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(180,255,210,0.18);
+  box-shadow:
+    0 0 24px rgba(0,255,170,0.12),
+    inset 0 0 22px rgba(0,255,170,0.08);
+  background: rgba(0,0,0,0.35);
+}
+
+.command-visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(1) contrast(1.2) brightness(0.85);
+}
+
+.command-era .video-holder {
+  margin-top: 2rem;
+  aspect-ratio: 16 / 9;
+}
+
+.command-era .source-note {
+  font-size: 0.8rem;
+  color: rgba(225,255,235,0.5);
+  margin-top: 0.8rem;
+}
+
+/* ARPANET: kabel/signal-känsla */
+.arpanet-node {
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(0,255,170,0.06) 50%, transparent 100%);
+}
+
+/* UNIX: terminalregn */
+.unix-node {
+  overflow: hidden;
+}
+
+.unix-node::before {
+  content: "$ unix --ready";
+}
+
+.unix-node .code-rain {
+  position: absolute;
+  right: 8vw;
+  top: 20vh;
+  width: 280px;
+  height: 420px;
+  opacity: 0.35;
+  pointer-events: none;
+  overflow: hidden;
+  color: rgba(180,255,210,0.6);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Terminal/PC */
+.terminal-node::before {
+  content: "> terminal online";
+}
+
+.pc-node::before {
+  content: "> personal computer detected";
+}
+
+.command-node {
+  opacity: 0.35;
+  transform: translateY(60px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.command-node.command-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.command-node.command-past {
+  opacity: 0.22;
+  transform: translateY(-30px);
+}
+
+@media (max-width: 900px) {
+  .command-node {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 1100px) {
   .section-grid-command {
     grid-template-columns: 110px 150px minmax(0, 1fr);
