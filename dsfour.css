@@ -584,30 +584,22 @@ body.theme-outro {
 .curtain-right {
   right: 0;
 }
-/*
-.artifact-eniac.panel-active .curtain-left {
-  transform: translateX(-95%);
-}
 
-.artifact-eniac.panel-active .curtain-right {
-  transform: translateX(95%);
-}
-*/
-
+/* SCROLL-STYRDA GARDINER */
 .artifact-eniac {
   --curtain-open: 0;
 }
 
+.artifact-eniac .curtain {
+  transition: none !important;
+}
+
 .artifact-eniac .curtain-left {
-  transform: translateX(calc(var(--curtain-open) * -1%));
+  transform: translateX(calc(var(--curtain-open) * -1%)) !important;
 }
 
 .artifact-eniac .curtain-right {
-  transform: translateX(calc(var(--curtain-open) * 1%));
-}
-
-.artifact-eniac .curtain {
-  transition: none;
+  transform: translateX(calc(var(--curtain-open) * 1%)) !important;
 }
 
 /* Hålkort: lite mer papper/arkiv */
