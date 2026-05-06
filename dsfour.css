@@ -667,6 +667,19 @@ body.theme-outro {
   opacity: 1;
   transform: translateY(0);
 }
+
+.artifact-eniac .artifact-visual {
+  z-index: 1;
+}
+
+.artifact-eniac .curtain {
+  z-index: 5;
+}
+
+.artifact-eniac .artifact-caption {
+  z-index: 10;
+}
+
 /*ERA 2 STARTAR HÄR*/
 /* FORCE COMMAND ERA TO BE VERTICAL SCROLLYTELLING */
 .story-section.command-era {
