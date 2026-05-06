@@ -623,12 +623,12 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   
     /*
-      Första 20%: gardiner stängda
-      20–75%: gardiner öppnas
-      75–100%: bilden visas innan nästa sektion
+      0–15%: gardiner stängda
+      15–55%: gardiner öppnas
+      55–100%: bilden visas
     */
     const curtainProgress = clamp(
-      (progress - 0.2) / 0.35,
+      (progress - 0.15) / 0.4,
       0,
       1
     );
@@ -637,11 +637,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
     eniacPanel.style.setProperty("--curtain-open", curtainOpen);
   }
-  
-  window.addEventListener("scroll", updateEniacCurtains, { passive: true });
-  window.addEventListener("resize", updateEniacCurtains);
-  
-  updateEniacCurtains();
 
 });
 // VIKTIGT (utanför!)
