@@ -613,29 +613,30 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateEniacCurtains() {
     if (!eniacPanel) return;
   
-    const rect = eniacPanel.getBoundingClientRect();
-    const scrollableDistance = eniacPanel.offsetHeight - window.innerHeight;
+    const start = eniacPanel.offsetTop;
+    const end = start + eniacPanel.offsetHeight - window.innerHeight;
   
     const progress = clamp(
-      -rect.top / scrollableDistance,
+      (window.scrollY - start) / (end - start),
       0,
       1
     );
   
-    /*
-      0–15%: gardiner stängda
-      15–55%: gardiner öppnas
-      55–100%: bilden visas
-    */
     const curtainProgress = clamp(
-      (progress - 0.15) / 0.4,
+      progress / 0.45,
       0,
       1
     );
   
-    const curtainOpen = curtainProgress * 70;
+    const curtainOpen = curtainProgress * 100;
   
     eniacPanel.style.setProperty("--curtain-open", curtainOpen);
+  }
+  
+  window.addEventListener("scroll", updateEniacCurtains, { passive: true });
+  window.addEventListener("resize", updateEniacCurtains);
+  
+  updateEniacCurtains();
   }
 
 });
