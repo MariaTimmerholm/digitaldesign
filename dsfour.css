@@ -667,6 +667,45 @@ body.theme-outro {
   transform: translateY(0);
 }
 
+/* FORCE COMMAND ERA TO BE VERTICAL SCROLLYTELLING */
+.story-section.command-era {
+  display: block !important;
+  min-height: auto;
+  padding: 0 !important;
+  scroll-snap-align: none;
+}
+
+.command-era > * {
+  width: 100%;
+}
+
+.command-header {
+  min-height: 100vh;
+  padding: 8rem 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.command-node {
+  min-height: 120vh;
+  padding: 8rem 10vw;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+.command-era .video-holder,
+.command-visual {
+  max-width: 720px;
+}
+
+.command-visual img {
+  width: 100%;
+  display: block;
+}
+
 @keyframes tapeSpin {
   from {
     transform: rotate(0deg) scale(1.05);
