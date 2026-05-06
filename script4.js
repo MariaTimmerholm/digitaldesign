@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================
-  // LÖS KOD FÖR ATT DÖLJA CRAWL VID SCROLL
+  // Långsam autoscroll inom aktiv sektion
   // =========================
 
   function stopSectionMicroScroll() {
@@ -510,10 +510,6 @@ document.addEventListener("DOMContentLoaded", () => {
         stopEraAudio();
       }
     });
-  }
-
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
   }
 
   window.addEventListener(
