@@ -667,7 +667,7 @@ body.theme-outro {
   opacity: 1;
   transform: translateY(0);
 }
-
+/*ERA 2 STARTAR HÄR*/
 /* FORCE COMMAND ERA TO BE VERTICAL SCROLLYTELLING */
 .story-section.command-era {
   display: block !important;
@@ -705,6 +705,42 @@ body.theme-outro {
 .command-visual img {
   width: 100%;
   display: block;
+}
+.code-rain {
+  position: absolute;
+  right: 10vw;
+  top: 18vh;
+  width: 320px;
+  padding: 1.2rem;
+  border: 1px solid rgba(160, 255, 190, 0.2);
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(180, 255, 200, 0.75);
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  box-shadow: 0 0 30px rgba(0,255,170,0.12);
+  pointer-events: none;
+}
+
+.code-rain span {
+  display: block;
+  opacity: 0;
+  animation: terminalLine 4s infinite;
+}
+
+.code-rain span:nth-child(1) { animation-delay: 0s; }
+.code-rain span:nth-child(2) { animation-delay: 0.3s; }
+.code-rain span:nth-child(3) { animation-delay: 0.7s; }
+.code-rain span:nth-child(4) { animation-delay: 1.1s; }
+.code-rain span:nth-child(5) { animation-delay: 1.5s; }
+.code-rain span:nth-child(6) { animation-delay: 1.9s; }
+.code-rain span:nth-child(7) { animation-delay: 2.3s; }
+
+@keyframes terminalLine {
+  0% { opacity: 0; transform: translateY(-4px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 @keyframes tapeSpin {
