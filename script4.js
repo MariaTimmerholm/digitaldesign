@@ -610,6 +610,43 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", updateEniacCurtains);
   
   updateEniacCurtains();
+  // =========================
+// PAUSA SCROLL VID ENIAC
+// =========================
+let eniacHasPaused = false;
+let eniacScrollLocked = false;
+
+function lockScrollAtEniac() {
+  if (eniacHasPaused || eniacScrollLocked || !eniacPanel) return;
+
+  const rect = eniacPanel.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  const isEniacCentered =
+    rect.top < windowHeight * 0.25 &&
+    rect.bottom > windowHeight * 0.75;
+
+  if (!isEniacCentered) return;
+
+  eniacHasPaused = true;
+  eniacScrollLocked = true;
+
+  const lockedY = window.scrollY;
+
+  document.body.classList.add("scroll-paused");
+
+  window.scrollTo({
+    top: lockedY,
+    behavior: "auto"
+  });
+
+  setTimeout(() => {
+    document.body.classList.remove("scroll-paused");
+    eniacScrollLocked = false;
+  }, 5000);
+}
+
+window.addEventListener("scroll", lockScrollAtEniac, { passive: true });
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
