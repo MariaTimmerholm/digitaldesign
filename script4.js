@@ -538,7 +538,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // ERA 1 PANEL ACTIVATION
   // =========================
-  const artifactPanels = [...document.querySelectorAll(".artifact-panel")];
+  const artifactPanels = [...document.querySelectorAll(".era-1 .artifact-panel")];
 
   if (artifactPanels.length > 0) {
     const panelObserver = new IntersectionObserver(
