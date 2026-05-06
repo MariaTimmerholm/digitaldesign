@@ -615,6 +615,31 @@ body.theme-outro {
   animation: tapeSpin 8s linear infinite;
 }
 
+/* FORCE ERA 1 TO STACK VERTICALLY */
+.story-section.era-scroll {
+  display: block !important;
+  min-height: auto;
+  padding: 0;
+  align-items: initial;
+  scroll-snap-align: none;
+}
+
+.story-section.era-scroll > * {
+  width: 100%;
+}
+
+.story-section.era-scroll .era-header,
+.story-section.era-scroll .artifact-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.era.era-scroll {
+  display: block !important;
+}
+
 @keyframes tapeSpin {
   from {
     transform: rotate(0deg) scale(1.05);
