@@ -668,7 +668,7 @@ body.theme-outro {
 /* FIX ENIAC STICKY PANEL */
 .story-section.era-scroll .sticky-artifact {
   display: block !important;
-  min-height: 260vh;
+  min-height: 420vh;
   padding: 0;
 }
 
