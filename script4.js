@@ -574,8 +574,30 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   const eniacPanel = document.querySelector(".artifact-eniac");
   
+  let eniacPauseDone = false;
+  let eniacPauseActive = false;
+  
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
+  }
+  
+  function pauseAfterCurtainsOpen() {
+    eniacPauseDone = true;
+    eniacPauseActive = true;
+  
+    const lockedY = window.scrollY;
+  
+    document.body.classList.add("scroll-paused");
+  
+    window.scrollTo({
+      top: lockedY,
+      behavior: "auto"
+    });
+  
+    setTimeout(() => {
+      document.body.classList.remove("scroll-paused");
+      eniacPauseActive = false;
+    }, 5000);
   }
   
   function updateEniacCurtains() {
@@ -584,10 +606,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const rect = eniacPanel.getBoundingClientRect();
     const windowHeight = window.innerHeight;
   
-    /*
-      Gardinerna börjar öppnas först när panelens top
-      är nära toppen av viewporten.
-    */
     const start = windowHeight * 0.25;
     const end = windowHeight * -0.9;
   
@@ -597,56 +615,19 @@ document.addEventListener("DOMContentLoaded", () => {
       1
     );
   
-    /*
-      0 = stängd
-      55 = helt öppen
-    */
     const curtainOpen = progress * 55;
   
     eniacPanel.style.setProperty("--curtain-open", curtainOpen);
+  
+    if (progress >= 1 && !eniacPauseDone && !eniacPauseActive) {
+      pauseAfterCurtainsOpen();
+    }
   }
   
   window.addEventListener("scroll", updateEniacCurtains, { passive: true });
   window.addEventListener("resize", updateEniacCurtains);
   
   updateEniacCurtains();
-  // =========================
-// PAUSA SCROLL VID ENIAC
-// =========================
-let eniacHasPaused = false;
-let eniacScrollLocked = false;
-
-function lockScrollAtEniac() {
-  if (eniacHasPaused || eniacScrollLocked || !eniacPanel) return;
-
-  const rect = eniacPanel.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
-
-  const isEniacCentered =
-    rect.top < windowHeight * 0.25 &&
-    rect.bottom > windowHeight * 0.75;
-
-  if (!isEniacCentered) return;
-
-  eniacHasPaused = true;
-  eniacScrollLocked = true;
-
-  const lockedY = window.scrollY;
-
-  document.body.classList.add("scroll-paused");
-
-  window.scrollTo({
-    top: lockedY,
-    behavior: "auto"
-  });
-
-  setTimeout(() => {
-    document.body.classList.remove("scroll-paused");
-    eniacScrollLocked = false;
-  }, 5000);
-}
-
-window.addEventListener("scroll", lockScrollAtEniac, { passive: true });
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
