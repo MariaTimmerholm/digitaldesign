@@ -596,7 +596,7 @@ document.addEventListener("DOMContentLoaded", () => {
       75–100%: bilden visas innan nästa sektion
     */
     const curtainProgress = clamp(
-      (progress - 0.2) / 0.55,
+      (progress - 0.2) / 0.35,
       0,
       1
     );
