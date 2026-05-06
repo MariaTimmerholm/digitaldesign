@@ -561,6 +561,10 @@ body.theme-outro {
 }
 
 /* ENIAC curtains */
+.artifact-eniac {
+  --curtain-open: 0;
+}
+
 .artifact-eniac .curtain {
   position: absolute;
   top: 10vh;
@@ -574,32 +578,17 @@ body.theme-outro {
       rgba(45,45,45,0.98) 18px,
       rgba(10,10,10,0.98) 36px
     );
-  transition: transform 1.2s ease;
-}
-
-.curtain-left {
-  left: 0;
-}
-
-.curtain-right {
-  right: 0;
-}
-
-/* SCROLL-STYRDA GARDINER */
-.artifact-eniac {
-  --curtain-open: 0;
-}
-
-.artifact-eniac .curtain {
   transition: none !important;
 }
 
 .artifact-eniac .curtain-left {
-  transform: translateX(calc(var(--curtain-open) * -1%)) !important;
+  left: 0;
+  transform: translateX(calc(var(--curtain-open) * -2%)) !important;
 }
 
 .artifact-eniac .curtain-right {
-  transform: translateX(calc(var(--curtain-open) * 1%)) !important;
+  right: 0;
+  transform: translateX(calc(var(--curtain-open) * 2%)) !important;
 }
 
 /* Hålkort: lite mer papper/arkiv */
