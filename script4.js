@@ -568,7 +568,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     artifactPanels.forEach((panel) => panelObserver.observe(panel));
   }
-
+  // =========================
+  // ERA 2 COMMAND NODE ACTIVATION
+  // =========================
+  const commandNodes = [...document.querySelectorAll(".command-era .command-node")];
+  
+  if (commandNodes.length > 0) {
+    const commandObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+  
+          commandNodes.forEach((node) => {
+            node.classList.remove("command-active", "command-past");
+          });
+  
+          entry.target.classList.add("command-active");
+  
+          const activeIndex = commandNodes.indexOf(entry.target);
+  
+          commandNodes.forEach((node, index) => {
+            if (index < activeIndex) {
+              node.classList.add("command-past");
+            }
+          });
+        });
+      },
+      {
+        threshold: 0.35
+      }
+    );
+  
+    commandNodes.forEach((node) => commandObserver.observe(node));
+  }
   // =========================
   // STICKY SCROLL-STYRDA ENIAC-GARDINER
   // =========================
@@ -610,6 +642,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", updateEniacCurtains);
   
   updateEniacCurtains();
+
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
