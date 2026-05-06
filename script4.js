@@ -568,6 +568,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     artifactPanels.forEach((panel) => panelObserver.observe(panel));
   }
+
+    // =========================
+  // ERA 1 SCROLL-CONTROLLED CURTAINS
+  // =========================
+  const eniacPanel = document.querySelector(".artifact-eniac");
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function updateEniacCurtains() {
+    if (!eniacPanel) return;
+
+    const rect = eniacPanel.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    /*
+      progress = 0 när panelen precis börjar komma in
+      progress = 1 när användaren har scrollat igenom panelen
+    */
+    const progress = clamp(
+      (windowHeight - rect.top) / (windowHeight * 0.9),
+      0,
+      1
+    );
+
+    /*
+      0 = stängd
+      95 = nästan helt öppen
+    */
+    const curtainOpen = progress * 95;
+
+    eniacPanel.style.setProperty("--curtain-open", curtainOpen);
+  }
+
+  window.addEventListener("scroll", updateEniacCurtains, { passive: true });
+  window.addEventListener("resize", updateEniacCurtains);
+
+  updateEniacCurtains();
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
