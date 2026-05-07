@@ -637,8 +637,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", updateEniacCurtains);
   
   updateEniacCurtains();
-  }
-
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
