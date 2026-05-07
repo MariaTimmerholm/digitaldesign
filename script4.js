@@ -571,7 +571,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // ERA 2 COMMAND NODE ACTIVATION
   // =========================
-  const commandNodes = [...document.querySelectorAll(".command-era .command-node")];
+  const commandNodes = [...document.querySelectorAll(".command-era .command-panel")];
   
   if (commandNodes.length > 0) {
     const commandObserver = new IntersectionObserver(
