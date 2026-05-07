@@ -753,6 +753,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     guiWindows.forEach((win) => guiObserver.observe(win));
   }
+
+  // =========================
+  // ERA 4 TOUCH PANEL ACTIVATION
+  // =========================
+  const touchPanels = [...document.querySelectorAll(".touch-era .phone-panel")];
+
+  if (touchPanels.length > 0) {
+    const touchObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          touchPanels.forEach((panel) => {
+            panel.classList.remove("touch-active", "touch-past");
+          });
+
+          entry.target.classList.add("touch-active");
+
+          const activeIndex = touchPanels.indexOf(entry.target);
+
+          touchPanels.forEach((panel, index) => {
+            if (index < activeIndex) {
+              panel.classList.add("touch-past");
+            }
+          });
+        });
+      },
+      {
+        threshold: 0.55
+      }
+    );
+
+    touchPanels.forEach((panel) => touchObserver.observe(panel));
+  }
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
