@@ -581,16 +581,6 @@ body.theme-outro {
   transition: none !important;
 }
 
-.artifact-eniac .curtain-left {
-  left: 0;
-  transform: translateX(calc(var(--curtain-open) * -2%)) !important;
-}
-
-.artifact-eniac .curtain-right {
-  right: 0;
-  transform: translateX(calc(var(--curtain-open) * 2%)) !important;
-}
-
 /* Hålkort: lite mer papper/arkiv */
 .artifact-card .artifact-visual {
   width: min(760px, 82vw);
@@ -615,7 +605,6 @@ body.theme-outro {
 
 /* FORCE ERA 1 TO STACK VERTICALLY */
 .story-section.era-scroll {
-  display: block !important;
   min-height: auto;
   padding: 0;
   align-items: initial;
@@ -634,18 +623,7 @@ body.theme-outro {
   align-items: center;
 }
 
-.era.era-scroll {
-  display: block !important;
-}
-
 /* FIX ENIAC STICKY PANEL */
-.story-section.era-scroll .sticky-artifact {
-  display: block !important;
-  height: 220vh;
-  min-height: 220vh;
-  padding: 0;
-}
-
 .story-section.era-scroll .sticky-artifact .sticky-scene {
   position: sticky;
   top: 0;
@@ -672,7 +650,6 @@ body.theme-outro {
   height: 260vh;
   min-height: 260vh;
   padding: 0;
-  display: block !important;
 }
 
 .story-section.era-scroll .sticky-scene {
@@ -717,17 +694,22 @@ body.theme-outro {
   z-index: 10;
 }
 
-/*ERA 2 STARTAR HÄR*/
+.story-section.era-scroll,
+.story-section.command-era {
+  display: block;
+}
+
+/* =========================
+   ERA 2 — COMMAND ERA
+   ========================= */
 /* FORCE COMMAND ERA TO BE VERTICAL SCROLLYTELLING */
 .story-section.command-era {
-  display: block !important;
   min-height: auto;
   padding: 0 !important;
   scroll-snap-align: none;
 }
 
 .command-era {
-  display: block !important;
   min-height: auto;
   padding: 0 !important;
   background: #050806;
@@ -742,14 +724,11 @@ body.theme-outro {
   flex-direction: column;
   justify-content: center;
 }
-
-.command-node {
-  min-height: 120vh;
-  padding: 8rem 10vw;
-  display: grid;
-  grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1fr);
-  gap: 4rem;
-  align-items: center;
+.command-header h2 {
+  font-family: "Gasoek One", sans-serif;
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  line-height: 0.95;
+  margin: 0 0 1rem;
 }
 
 .command-era .video-holder,
@@ -764,8 +743,25 @@ body.theme-outro {
 
 .unix-node {
   position: relative;
+  min-height: 420vh;
+  display: block;
+  padding: 0;
 }
 
+.unix-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.unix-node h3 {
+  position: absolute;
+  top: 12vh;
+  left: 10vw;
+  z-index: 2;
+}
 .code-rain {
   position: absolute;
   inset: 0;
@@ -790,36 +786,12 @@ body.theme-outro {
 .code-rain span {
   opacity: 0;
   transform: translateY(14px);
-
-  animation: terminalFade 6s infinite;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
-.code-rain span:nth-child(1) { animation-delay: 0s; }
-.code-rain span:nth-child(2) { animation-delay: 0.5s; }
-.code-rain span:nth-child(3) { animation-delay: 1s; }
-.code-rain span:nth-child(4) { animation-delay: 1.5s; }
-.code-rain span:nth-child(5) { animation-delay: 2s; }
-.code-rain span:nth-child(6) { animation-delay: 2.5s; }
-.code-rain span:nth-child(7) { animation-delay: 3s; }
-
-@keyframes terminalFade {
-  0% {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-
-  15% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  75% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
+.code-rain span.visible-line {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .command-panel {
@@ -1150,20 +1122,6 @@ body.theme-gui .cursor-pointer {
 /* =========================
    ERA 4 — TOUCH ERA
    ========================= */
-
-.story-section.touch-era {
-  display: block !important;
-  min-height: auto;
-  padding: 0 !important;
-  background:
-    radial-gradient(circle at top, rgba(0,255,255,0.08), transparent 30%),
-    linear-gradient(180deg, #021018 0%, #041f2b 45%, #03131d 100%);
-  color: #dff7ff;
-  overflow: hidden;
-  border-bottom: none;
-  scroll-snap-align: none;
-}
-
 .touch-era::after {
   display: none;
 }
@@ -1370,6 +1328,40 @@ body.theme-gui .cursor-pointer {
   color: rgba(120,255,255,0.85);
 }
 
+/* TOUCH ERA OVERRIDE */
+.story-section.touch-era {
+  display: block;
+  min-height: auto;
+  padding: 0;
+  overflow: visible;
+  border-bottom: none;
+  scroll-snap-align: none;
+  background:
+    radial-gradient(circle at top, rgba(0,255,255,0.08), transparent 30%),
+    linear-gradient(180deg, #021018 0%, #041f2b 45%, #03131d 100%);
+  color: #dff7ff;
+}
+
+.story-section.touch-era::after {
+  display: none;
+}
+
+.story-section.touch-era .phone-scroll-scene {
+  position: relative;
+  min-height: 650vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: visible;
+  padding-bottom: 12rem;
+}
+
+.story-section.touch-era .phone-frame {
+  position: sticky;
+  top: 4vh;
+  align-self: flex-start;
+}
+
 /* ANIMATIONS */
 @keyframes pulseTap {
   0% {
@@ -1409,7 +1401,16 @@ body.theme-gui .cursor-pointer {
   }
 }
 
-/* MOBILE */
+/* MOBIL */
+@keyframes tapeSpin {
+  from {
+    transform: rotate(0deg) scale(1.05);
+  }
+  to {
+    transform: rotate(360deg) scale(1.05);
+  }
+}
+
 @media (max-width: 600px) {
   .phone-frame {
     width: 94vw;
@@ -1422,23 +1423,6 @@ body.theme-gui .cursor-pointer {
   }
 }
 
-@keyframes terminalLine {
-  0% { opacity: 0; transform: translateY(-4px); }
-  20% { opacity: 1; transform: translateY(0); }
-  80% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-@keyframes tapeSpin {
-  from {
-    transform: rotate(0deg) scale(1.05);
-  }
-  to {
-    transform: rotate(360deg) scale(1.05);
-  }
-}
-
-/* Mobil */
 @media (max-width: 760px) {
   .artifact-panel {
     min-height: 120vh;
