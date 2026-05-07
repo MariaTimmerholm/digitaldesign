@@ -755,38 +755,38 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================
-  // ERA 4 TOUCH PANEL ACTIVATION
+  // ERA 4 TOUCH PANEL ACTIVATION BY SCROLL
   // =========================
+  const touchScene = document.querySelector(".phone-scroll-scene");
   const touchPanels = [...document.querySelectorAll(".touch-era .phone-panel")];
 
-  if (touchPanels.length > 0) {
-    const touchObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+  function updateTouchPanels() {
+    if (!touchScene || touchPanels.length === 0) return;
 
-          touchPanels.forEach((panel) => {
-            panel.classList.remove("touch-active", "touch-past");
-          });
+    const rect = touchScene.getBoundingClientRect();
+    const scrollableDistance = touchScene.offsetHeight - window.innerHeight;
 
-          entry.target.classList.add("touch-active");
-
-          const activeIndex = touchPanels.indexOf(entry.target);
-
-          touchPanels.forEach((panel, index) => {
-            if (index < activeIndex) {
-              panel.classList.add("touch-past");
-            }
-          });
-        });
-      },
-      {
-        threshold: 0.55
-      }
+    const progress = clamp(
+      -rect.top / scrollableDistance,
+      0,
+      1
     );
 
-    touchPanels.forEach((panel) => touchObserver.observe(panel));
+    const activeIndex = Math.min(
+      touchPanels.length - 1,
+      Math.floor(progress * touchPanels.length)
+    );
+
+    touchPanels.forEach((panel, index) => {
+      panel.classList.toggle("touch-active", index === activeIndex);
+      panel.classList.toggle("touch-past", index < activeIndex);
+    });
   }
+
+  window.addEventListener("scroll", updateTouchPanels, { passive: true });
+  window.addEventListener("resize", updateTouchPanels);
+
+  updateTouchPanels();
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
