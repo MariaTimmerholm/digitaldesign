@@ -720,6 +720,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     audioArtifacts.forEach((artifact) => artifactAudioObserver.observe(artifact));
   }
+  // =========================
+  // ERA 3 GUI WINDOW ACTIVATION
+  // =========================
+  const guiWindows = [...document.querySelectorAll(".gui-era .gui-window")];
+
+  if (guiWindows.length > 0) {
+    const guiObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          guiWindows.forEach((win) => {
+            win.classList.remove("gui-active", "gui-past");
+          });
+
+          entry.target.classList.add("gui-active");
+
+          const activeIndex = guiWindows.indexOf(entry.target);
+
+          guiWindows.forEach((win, index) => {
+            if (index < activeIndex) {
+              win.classList.add("gui-past");
+            }
+          });
+        });
+      },
+      {
+        threshold: 0.45
+      }
+    );
+
+    guiWindows.forEach((win) => guiObserver.observe(win));
+  }
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position

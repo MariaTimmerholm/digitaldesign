@@ -26,7 +26,6 @@
     <source src="audio/background.mp3" type="audio/mpeg">
   </audio>
   <audio id="eraAudio" preload="auto"></audio>
-
   <!-- LEFT CONTROL PANEL -->
   <aside class="control-panel hidden" id="controlPanel">
     <h2>Kontroller</h2>
@@ -221,77 +220,85 @@
           <img src="images/PC.png" alt="PC">
         </div>
       </article>
-    
     </section>
-    <section class="story-section era era-3" 
+    <!-- ERA 2 SLUT -->
+    <!-- ERA 3 START -->
+    <section class="story-section era era-3 gui-era"
       data-era="gui"
       data-audio="audio/gui.webm"
       data-duration="62000">
-      <div class="section-grid">
-        <div class="section-years">
+      <div class="gui-desktop">
+        <div class="gui-header">
           <p class="section-tag">Epok 3</p>
           <p class="years">≈ 1980–2007</p>
-        </div>
-        <div class="section-copy">
           <h2>GUI Era</h2>
           <p>
-            Tillkomst av grafiska gränssnitt gör datorn mer visuell, 
-            tillgänglig och lättare att förstå. 
-            Fönster, ikoner, menyer och musen förändrar allt och 
-            gör det möjligt för fler människor att använda datorer 
-            utan att behöva lära sig kommandon.
-            Detta är en stor demokratisering av tekniken.
-          </p>
-          <section class="outro-section">
-            <div class="outro-sticky">
-              <article class="artifact-panel artifact-tape" data-audio="audio/magnetband.webm">
-                <div class="artifact-visual tape-visual">
-                  <img src="images/magnetband.png" alt="Magnetic tape reel">
-                </div>
-                <div class="artifact-caption">
-                  <p class="archive-label">Archive item 01</p>
-                  <h3>World Wide Web ≈ 1990–2000</h3>
-                  <p>
-                  Internet uppfanns av Tim Berners-Lee som gjorde det möjligt 
-                  att dela information över nätverket.
-                  </p>
-                </div>
-              </article>
-              <div class="artifact-visual">
-                <img src="images/www.png" alt="World Wide Web">
-              </div>
-            </div>
-          </section>
-          <div class="artifact">
-            <h3>Apple Macintosh (1984)</h3>
-            <p>
-            Apple Macintosh var en av de första datorerna som hade 
-            ett grafiskt användargränssnitt (GUI) och en mus.
-            </p>
-          </div>
-          <article class="command-panel pc-node" data-audio="audio/dialup.mp3">
-          <p class="years">Hemmainternet ≈ sent 1990–nu</p>
-          <p>Hemmainternet användes med hjälp av dial-up modem.  
-            Det var långsamt och opålitligt men det var en revolution 
-            i hur människor kommunicerade, lärde sig och underhöll sig själva.
-            Alltfler fick tillgång till e-post, chattar, forum och sociala medier. 
-            Det förändrade allt.
-          </p>  
-          </div>
-          <article class="command-panel pc-node" data-audio="audio/dialup.mp3">
-            <h3>Linux (1991)</h3>
-            <p>
-              Linux var ett fritt operativsystem som utvecklades av Linus Torvalds. 
-            </p>
-          </article>
-          <p>
-          Internet fanns tidigare, men det var först med grafiska webbläsare som 
-          <strong>Mosaic</strong> och <strong>Netscape</strong> på 1990-talet som 
-          det blev tillgängligt för vanliga människor.
+            Datorn blir visuell. Istället för att skriva kommandon kan användaren se, peka, klicka och manipulera objekt direkt.
           </p>
         </div>
+
+        <article class="gui-window gui-window-mac" data-audio="audio/macintosh.webm">
+          <div class="window-bar">
+            <span></span><span></span><span></span>
+            <p>Macintosh.app</p>
+          </div>
+
+          <div class="window-content">
+            <div>
+              <h3>Macintosh</h3>
+              <p>Fönster, ikoner, menyer och mus gjorde datorn mer visuell och lättare att förstå.</p>
+            </div>
+            <img src="images/Macintosh.png" alt="Macintosh">
+          </div>
+        </article>
+
+        <article class="gui-window gui-window-www" data-audio="audio/dialup.mp3">
+          <div class="window-bar">
+            <span></span><span></span><span></span>
+            <p>WorldWideWeb.html</p>
+          </div>
+
+          <div class="window-content">
+            <div>
+              <h3>World Wide Web</h3>
+              <p>Webben gjorde information klickbar, länkad och tillgänglig genom grafiska webbläsare.</p>
+            </div>
+            <img src="images/www.png" alt="World Wide Web">
+          </div>
+        </article>
+
+        <article class="gui-window gui-window-windows" data-audio="audio/click.mp3">
+          <div class="window-bar">
+            <span></span><span></span><span></span>
+            <p>Windows95.exe</p>
+          </div>
+
+          <div class="window-content">
+            <div>
+              <h3>Windows 95</h3>
+              <p>Start-menyn och skrivbordsmetaforen gjorde GUI till vardag för många användare.</p>
+            </div>
+            <img src="images/Windows.png" alt="Windows 95">
+          </div>
+        </article>
+
+        <article class="gui-window gui-window-linux" data-audio="audio/linux.webm">
+          <div class="window-bar">
+            <span></span><span></span><span></span>
+            <p>Linux.desktop</p>
+          </div>
+          <div class="window-content">
+            <div>
+              <h3>Linux</h3>
+              <p>Öppen källkod visade att grafiska gränssnitt kunde byggas, delas och förändras av många.</p>
+            </div>
+            <img src="images/Linux.png" alt="Linux">
+          </div>
+        </article>
+        <div class="cursor-pointer" aria-hidden="true"></div>
       </div>
     </section>
+    
     <section class="story-section era era-4" 
       data-era="touch"
       data-audio="audio/touch.webm"
@@ -373,13 +380,6 @@
           <p>
             Multimodala gränssnitt som kombinerar flera olika typer av interaktion, som röst, blick, rörelse och touch, har blivit allt vanligare i olika typer av enheter. 
             Det gör det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, genom att använda flera olika kanaler samtidigt.
-          </p>
-          </div>
-          <div class="artifact">
-          <h3>Osynliga gränssnitt (2010-talet)</h3>
-          <p>
-            Osynliga gränssnitt som inte kräver någon fysisk interaktion, som röst och AI, har blivit allt vanligare i olika typer av enheter. 
-            Det gör det möjligt för användare att interagera med innehåll på ett mer naturligt sätt, utan att behöva trycka på knappar eller använda en pekskärm.
           </p>
           </div>
           <div class="artifact">
