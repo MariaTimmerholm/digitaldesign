@@ -637,6 +637,89 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", updateEniacCurtains);
   
   updateEniacCurtains();
+
+  // =========================
+  // ARTIFACT AUDIO
+  // =========================
+  const artifactAudio = new Audio();
+  artifactAudio.volume = 0;
+  let activeArtifactAudioSrc = "";
+  let artifactFadeFrame = null;
+
+  function fadeArtifactAudio(targetVolume, duration = 600) {
+    if (artifactFadeFrame) {
+      cancelAnimationFrame(artifactFadeFrame);
+    }
+
+    const startVolume = artifactAudio.volume;
+    const startTime = performance.now();
+
+    function step(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      artifactAudio.volume =
+        startVolume + (targetVolume - startVolume) * progress;
+
+      if (progress < 1) {
+        artifactFadeFrame = requestAnimationFrame(step);
+      } else if (targetVolume === 0) {
+        artifactAudio.pause();
+        artifactAudio.removeAttribute("src");
+        artifactAudio.load();
+        activeArtifactAudioSrc = "";
+      }
+    }
+
+    artifactFadeFrame = requestAnimationFrame(step);
+  }
+
+  function playArtifactAudio(src) {
+    if (!soundEnabled || !src) return;
+    if (activeArtifactAudioSrc === src) return;
+
+    if (artifactFadeFrame) {
+      cancelAnimationFrame(artifactFadeFrame);
+    }
+
+    activeArtifactAudioSrc = src;
+    artifactAudio.pause();
+    artifactAudio.src = src;
+    artifactAudio.currentTime = 0;
+    artifactAudio.volume = 0;
+
+    artifactAudio.play().then(() => {
+      fadeArtifactAudio(0.9, 700);
+    }).catch(() => {
+      console.log("Artefaktljud kunde inte spelas.");
+    });
+  }
+
+  function stopArtifactAudio() {
+    if (!activeArtifactAudioSrc) return;
+    fadeArtifactAudio(0, 500);
+  }
+
+  const audioArtifacts = [
+  ...document.querySelectorAll("[data-audio]")
+  ].filter((el) => !el.classList.contains("story-section"));
+
+  if (audioArtifacts.length > 0) {
+    const artifactAudioObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playArtifactAudio(entry.target.dataset.audio);
+          } else if (activeArtifactAudioSrc === entry.target.dataset.audio) {
+            stopArtifactAudio();
+          }
+        });
+      },
+      {
+        threshold: 0.55
+      }
+    );
+
+    audioArtifacts.forEach((artifact) => artifactAudioObserver.observe(artifact));
+  }
 });
 // VIKTIGT (utanför!)
 // Hindra browsern från att minnas scroll-position
