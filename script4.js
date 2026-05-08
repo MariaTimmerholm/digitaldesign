@@ -882,18 +882,11 @@ document.addEventListener("DOMContentLoaded", () => {
       1
     );
 
-    const sendProgress = clamp(progress / 0.65, 0, 1);
-    const loProgress = clamp((progress - 0.7) / 0.25, 0, 1);
+    const sendCount = Math.floor(clamp(progress / 0.55, 0, 1) * sendText.length);
+    const loCount = Math.floor(clamp((progress - 0.6) / 0.25, 0, 1) * loText.length);
 
-    typeSend.textContent = sendText.slice(
-      0,
-      Math.floor(sendProgress * sendText.length)
-    );
-
-    typeLo.textContent = loText.slice(
-      0,
-      Math.floor(loProgress * loText.length)
-    );
+    typeSend.textContent = sendText.slice(0, sendCount);
+    typeLo.textContent = loText.slice(0, loCount);
   }
 
   window.addEventListener("scroll", updateMessageTyping, { passive: true });
