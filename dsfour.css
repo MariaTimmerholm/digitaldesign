@@ -660,7 +660,6 @@ body.theme-multimodal {
 }
 
 /* UNIX */
-
 .unix-node {
   position: relative;
   min-height: 420vh;
@@ -671,42 +670,65 @@ body.theme-multimodal {
   position: sticky;
   top: 0;
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-}
 
-.unix-node h3 {
-  position: absolute;
-  top: 12vh;
-  left: 10vw;
-  z-index: 2;
-}
-
-.code-rain {
-  position: absolute;
-  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.4rem;
+
+  padding: 6rem 2rem;
   text-align: center;
-  padding: 2rem;
-  color: rgba(180,255,200,0.88);
+}
+
+/* NETWORK ITEM */
+.unix-sticky .archive-label {
+  margin-bottom: 1rem;
+}
+
+/* UNIX TITLE */
+.unix-node h3 {
+  position: static;
+  margin: 0 0 3rem;
+
+  font-family: "Gasoek One", sans-serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.9;
+
+  color: #eafff1;
+
+  text-shadow:
+    0 0 18px rgba(0,255,170,0.18),
+    0 0 40px rgba(0,255,170,0.12);
+}
+
+/* TEXT LINES */
+.code-rain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  max-width: 900px;
+
+  color: rgba(180,255,200,0.92);
+
   font-family: "Courier New", monospace;
   font-size: clamp(1.3rem, 2vw, 2.2rem);
-  line-height: 1.5;
-  letter-spacing: 0.04em;
-  pointer-events: none;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+
   text-shadow:
-    0 0 8px rgba(0,255,170,0.35),
-    0 0 20px rgba(0,255,170,0.18);
+    0 0 8px rgba(0,255,170,0.25),
+    0 0 20px rgba(0,255,170,0.12);
 }
 
 .code-rain span {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
 .code-rain span.visible-line {
