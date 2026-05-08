@@ -895,6 +895,35 @@ document.addEventListener("DOMContentLoaded", () => {
   updateMessageTyping();
 
   // =========================
+  // ERA 2 → ERA 3 TRANSITION
+  // =========================
+  const eraTransition = document.querySelector(".command-to-gui");
+
+  function updateEraTransition() {
+    if (!eraTransition) return;
+
+    const rect = eraTransition.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    const progress = clamp(
+      (windowHeight - rect.top) / (windowHeight + rect.height),
+      0,
+      1
+    );
+
+    if (progress > 0.45) {
+      eraTransition.classList.add("transition-gui");
+    } else {
+      eraTransition.classList.remove("transition-gui");
+    }
+  }
+
+  window.addEventListener("scroll", updateEraTransition, { passive: true });
+  window.addEventListener("resize", updateEraTransition);
+
+  updateEraTransition();
+
+  // =========================
   // ERA 3 GUI WINDOW ACTIVATION
   // =========================
   const guiWindows = [...document.querySelectorAll(".gui-era .gui-window")];
