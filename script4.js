@@ -473,7 +473,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // EVENT LISTENERS
   // =========================
-
   if (startOverlay) {
     startOverlay.addEventListener("click", unlockExperience);
 
@@ -863,7 +862,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // =========================
   // SEND MESSAGE SCROLL TYPE
-  // =========================
+    // =========================
   const messagePanel = document.querySelector(".message-panel");
   const typeSend = document.querySelector(".type-send");
   const typeLo = document.querySelector(".type-lo");
@@ -874,23 +873,27 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateMessageTyping() {
     if (!messagePanel || !typeSend || !typeLo) return;
 
-    const rect = messagePanel.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    const start = messagePanel.offsetTop;
+    const end = start + messagePanel.offsetHeight - window.innerHeight;
 
     const progress = clamp(
-      (windowHeight - rect.top) / (windowHeight + rect.height),
+      (window.scrollY - start) / (end - start),
       0,
       1
     );
 
-    const sendProgress = clamp(progress / 0.6, 0, 1);
-    const loProgress = clamp((progress - 0.65) / 0.25, 0, 1);
+    const sendProgress = clamp(progress / 0.65, 0, 1);
+    const loProgress = clamp((progress - 0.7) / 0.25, 0, 1);
 
-    const sendCount = Math.floor(sendProgress * sendText.length);
-    const loCount = Math.floor(loProgress * loText.length);
+    typeSend.textContent = sendText.slice(
+      0,
+      Math.floor(sendProgress * sendText.length)
+    );
 
-    typeSend.textContent = sendText.slice(0, sendCount);
-    typeLo.textContent = loText.slice(0, loCount);
+    typeLo.textContent = loText.slice(
+      0,
+      Math.floor(loProgress * loText.length)
+    );
   }
 
   window.addEventListener("scroll", updateMessageTyping, { passive: true });
