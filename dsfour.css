@@ -710,11 +710,16 @@ body.theme-outro {
 }
 
 .command-era {
-  min-height: auto;
-  padding: 0 !important;
+  min-height: 120vh;
+  padding: 8rem 10vw;
   background: #050806;
   color: #d9ffe8;
   font-family: "Courier New", monospace;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .command-header {
