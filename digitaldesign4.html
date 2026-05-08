@@ -103,10 +103,6 @@
             <div class="artifact-visual">
               <img src="images/CRT.png" alt="CRT">
             </div>
-            <div class="artifact-caption">
-              <p class="archive-label">Archive item 03</p>
-              <h3>CRT</h3>
-            </div>
           </article>
         </div>
       </section>
@@ -133,7 +129,7 @@
       data-era="command"
       data-audio="audio/command.webm"
       data-duration="62000">
-      <div class="command-header">
+      <div class="era-header">
         <p class="section-tag">Epok 2</p>
         <p class="years">≈ 1960–1980</p>
         <h2>Command Era</h2>
@@ -141,11 +137,11 @@
             <div class="outro-sticky">
                 <div class="outro-inner">
                 <h2 class="outro-title">Det är nu som interaktionen blir mer direkt.</h2>
-                <p class="outro-text">
+                  <p class="outro-text">
                     <span>Med tangentbord och terminaler </span>
                     <span>kan användare skriva kommandon </span>
                     <span>och få respons i realtid.</span>
-                </p>
+                  </p>
                 </div>
             </div>
         </section>
@@ -160,8 +156,8 @@
                 ARPANET visade hur datorer kunde kommunicera över nätverk. 
                 Interaktionen flyttade från isolerad maskin till uppkopplad kommunikation.
               </p>
+              <p>Klicka på bilden för att se en video om ARPANET.</p>
             </div>
-
             <div class="crt-frame">
               <div class="crt-screen">
                 <iframe
@@ -179,25 +175,33 @@
           </article>
         </div>
       </section>
-
+    <!-- LO message -->
       <article class="command-panel message-panel">
         <div class="message-terminal">
-          <p class="terminal-line send-line">&gt; send message</p>
-          <p class="terminal-line lo-line">LO</p>
+          <p class="terminal-line send-line">
+            <span>&gt;</span>
+            <span class="type-send"></span>
+          </p>
+          <p class="terminal-line lo-line">
+            <span class="type-lo"></span>
+          </p>
         </div>
       </article>
-    
-      <article class="command-node unix-node" data-audio="audio/unix.webm">
-        <div class="unix-sticky">
+
+      <article class="command-panel unix-node" data-audio="audio/unix.webm">
+        <div class="command-centered-text">
+          <div class="unix-sticky">
+          <p class="archive-label">Network item 02</p>
           <h3>Unix (1970)</h3>
-          <div class="code-rain" aria-hidden="true">
-            <span>Unix utvecklades på AT&T Bell Labs i USA</span>
-            <span>och gjorde textbaserade kommandon</span>
-            <span>centrala och blev grunden</span>
-            <span>för många moderna operativsystem.</span>
-            <span>Exempel på sådana är</span>
-            <span>Linux, macOS och många BSD-varianter, samt</span>
-            <span>programmeringsspråket C</span>
+            <div class="code-rain" aria-hidden="true">
+              <span>Unix utvecklades på AT&T Bell Labs i USA</span>
+              <span>och gjorde textbaserade kommandon</span>
+              <span>centrala och blev grunden</span>
+              <span>för många moderna operativsystem.</span>
+              <span>Exempel på sådana är</span>
+              <span>Linux, macOS och många BSD-varianter, samt</span>
+              <span>programmeringsspråket C</span>
+            </div>
           </div>
         </div>
       </article>

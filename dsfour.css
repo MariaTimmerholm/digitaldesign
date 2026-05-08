@@ -780,9 +780,25 @@ body.theme-outro {
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.message-panel.command-active .lo-line {
+.type-send::after,
+.type-lo::after {
+  content: "▌";
+  animation: cursorBlink 0.8s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 45% {
+    opacity: 1;
+  }
+
+  46%, 100% {
+    opacity: 0;
+  }
+}
+
+.lo-line {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* Focus intro fade */

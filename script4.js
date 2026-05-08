@@ -860,6 +860,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
     audioArtifacts.forEach((artifact) => artifactAudioObserver.observe(artifact));
   }
+
+  // =========================
+  // SEND MESSAGE SCROLL TYPE
+  // =========================
+  const messagePanel = document.querySelector(".message-panel");
+  const typeSend = document.querySelector(".type-send");
+  const typeLo = document.querySelector(".type-lo");
+
+  const sendText = " send message";
+  const loText = "LO";
+
+  function updateMessageTyping() {
+    if (!messagePanel || !typeSend || !typeLo) return;
+
+    const rect = messagePanel.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    const progress = clamp(
+      (windowHeight - rect.top) / (windowHeight + rect.height),
+      0,
+      1
+    );
+
+    const sendProgress = clamp(progress / 0.6, 0, 1);
+    const loProgress = clamp((progress - 0.65) / 0.25, 0, 1);
+
+    const sendCount = Math.floor(sendProgress * sendText.length);
+    const loCount = Math.floor(loProgress * loText.length);
+
+    typeSend.textContent = sendText.slice(0, sendCount);
+    typeLo.textContent = loText.slice(0, loCount);
+  }
+
+  window.addEventListener("scroll", updateMessageTyping, { passive: true });
+  window.addEventListener("resize", updateMessageTyping);
+
+  updateMessageTyping();
+
   // =========================
   // ERA 3 GUI WINDOW ACTIVATION
   // =========================
