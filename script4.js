@@ -744,37 +744,39 @@ document.addEventListener("DOMContentLoaded", () => {
   // STICKY SCROLL-STYRDA ENIAC-GARDINER
   // =========================
   const eniacPanel = document.querySelector(".artifact-eniac");
-  
+
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
   }
-  
+
   function updateEniacCurtains() {
     if (!eniacPanel) return;
-  
-    const start = eniacPanel.offsetTop;
-    const end = start + eniacPanel.offsetHeight - window.innerHeight;
-  
+
+    const rect = eniacPanel.getBoundingClientRect();
+    const scrollableDistance = eniacPanel.offsetHeight - window.innerHeight;
+
+    if (scrollableDistance <= 0) return;
+
     const progress = clamp(
-      (window.scrollY - start) / (end - start),
+      -rect.top / scrollableDistance,
       0,
       1
     );
-  
+
     const curtainProgress = clamp(
       progress / 0.45,
       0,
       1
     );
-  
+
     const curtainOpen = curtainProgress * 100;
-  
+
     eniacPanel.style.setProperty("--curtain-open", curtainOpen);
   }
-  
+
   window.addEventListener("scroll", updateEniacCurtains, { passive: true });
   window.addEventListener("resize", updateEniacCurtains);
-  
+
   updateEniacCurtains();
 
   // =========================

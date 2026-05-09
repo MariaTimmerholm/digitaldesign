@@ -413,15 +413,15 @@ body.theme-multimodal {
 }
 
 /* ENIAC sticky curtain scene */
+.artifact-eniac {
+  --curtain-open: 0 !important;
+  position: relative;
+}
 
 .story-section.era-scroll .sticky-artifact {
   height: 260vh;
   min-height: 260vh;
   padding: 0;
-}
-
-.artifact-eniac {
-  --curtain-open: 0;
 }
 
 .artifact-eniac .sticky-scene {
@@ -431,9 +431,11 @@ body.theme-multimodal {
   display: grid;
   place-items: center;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .artifact-eniac .artifact-visual {
+  position: relative;
   z-index: 1;
   opacity: 1;
   transform: scale(1);
@@ -446,12 +448,13 @@ body.theme-multimodal {
   bottom: 0;
   width: 50%;
   z-index: 5;
+  display: block;
   background:
     repeating-linear-gradient(
       90deg,
-      rgba(20,20,20,0.98) 0px,
-      rgba(45,45,45,0.98) 18px,
-      rgba(10,10,10,0.98) 36px
+      #111 0px,
+      #333 18px,
+      #080808 36px
     );
   transition: none;
 }
@@ -464,6 +467,10 @@ body.theme-multimodal {
 .artifact-eniac .curtain-right {
   right: 0;
   transform: translateX(calc(var(--curtain-open) * 1%));
+}
+
+.artifact-eniac .artifact-caption {
+  z-index: 10;
 }
 
 .artifact-card .artifact-visual {
