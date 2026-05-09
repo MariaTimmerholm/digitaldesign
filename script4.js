@@ -763,7 +763,7 @@ document.addEventListener("DOMContentLoaded", () => {
       1
     );
 
-    const curtainOpen = progress * 100;
+    const curtainOpen = clamp(progress / 0.45, 0, 1) * 100;
 
     eniacPanel.style.setProperty("--curtain-open", curtainOpen);
   }
