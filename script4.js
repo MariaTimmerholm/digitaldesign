@@ -752,24 +752,18 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateEniacCurtains() {
     if (!eniacPanel) return;
 
-    const rect = eniacPanel.getBoundingClientRect();
-    const scrollableDistance = eniacPanel.offsetHeight - window.innerHeight;
+    const start = eniacPanel.getBoundingClientRect().top + window.scrollY;
+    const end = start + eniacPanel.offsetHeight - window.innerHeight;
 
-    if (scrollableDistance <= 0) return;
+    if (end <= start) return;
 
     const progress = clamp(
-      -rect.top / scrollableDistance,
+      (window.scrollY - start) / (end - start),
       0,
       1
     );
 
-    const curtainProgress = clamp(
-      progress / 0.45,
-      0,
-      1
-    );
-
-    const curtainOpen = curtainProgress * 100;
+    const curtainOpen = progress * 100;
 
     eniacPanel.style.setProperty("--curtain-open", curtainOpen);
   }
