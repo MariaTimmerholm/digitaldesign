@@ -130,7 +130,6 @@ h1, h2, h3 {
 /* =========================
    START OVERLAY
 ========================= */
-
 .start-overlay {
   position: fixed;
   inset: 0;
@@ -260,6 +259,7 @@ h1, h2, h3 {
   margin: 0 0 1rem;
   font-size: .78rem;
   color: var(--muted);
+  margin-bottom: 0.5rem;
 }
 
 .story-section h1 {
@@ -273,7 +273,7 @@ h1, h2, h3 {
 }
 
 .years {
-  margin: 0 0 1.2rem;
+  margin: 0.5rem 0 1.5rem;
   color: rgba(255,255,255,.55);
   font-size: .95rem;
 }
@@ -346,8 +346,10 @@ body.theme-multimodal {
 .command-header,
 .touch-header {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 6rem 10vw;
 }
@@ -355,7 +357,11 @@ body.theme-multimodal {
 .era-header .era-intro,
 .touch-header {
   max-width: 760px;
-  margin: 0 auto;
+  margin: 0;
+}
+
+.era-header h2 {
+  margin: 0;
 }
 
 /* =========================
@@ -651,13 +657,13 @@ body.theme-multimodal {
 .code-rain {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 1.2rem;
   max-width: 900px;
   margin-top: 2rem;
   font-family: "Courier New", monospace;
-  font-size: clamp(1.1rem, 2vw, 2rem);
+  font-size: clamp(1.8rem, 3vw, 3.5rem);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.7;
   transform: translateY(40vh);
   will-change: transform;
 }
