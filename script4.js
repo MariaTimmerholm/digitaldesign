@@ -475,19 +475,26 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateMessageTyping() {
     if (!messagePanel || !typeSend || !typeLo) return;
 
-    const start = messagePanel.offsetTop;
-    const end = start + messagePanel.offsetHeight - window.innerHeight;
+    const rect = messagePanel.getBoundingClientRect();
+    const scrollDistance = messagePanel.offsetHeight - window.innerHeight;
+    if (scrollDistance <= 0) return;
 
-    const progress = clamp((window.scrollY - start) / (end - start));
+    const progress = clamp(-rect.top / scrollDistance, 0, 1);
 
     const sendText = " send message";
     const loText = "LO";
 
-    const sendCount = Math.floor(clamp(progress / 0.55) * sendText.length);
-    const loCount = Math.floor(clamp((progress - 0.6) / 0.25) * loText.length);
+    const sendCount = Math.floor(clamp(progress / 0.45) * sendText.length);
+    const loCount = Math.floor(clamp((progress - 0.45) / 0.25) * loText.length);
 
     typeSend.textContent = sendText.slice(0, sendCount);
     typeLo.textContent = loText.slice(0, loCount);
+
+    const loLine = document.querySelector(".lo-line");
+
+    if (loLine) {
+      loLine.classList.toggle("is-typing", progress >= 0.45);
+    }
   }
 
   function updateEraTransition() {
