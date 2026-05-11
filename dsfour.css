@@ -719,6 +719,17 @@ body.theme-multimodal {
   border: 0;
 }
 
+.arpanet-zoom {
+  transform: scale(0.72);
+  opacity: 0.45;
+
+  transition:
+    transform 0.18s linear,
+    opacity 0.18s linear;
+
+  will-change: transform;
+}
+
 /* MESSAGE TERMINAL */
 
 .message-panel,

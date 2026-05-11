@@ -560,6 +560,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const arpanetPanel = document.querySelector(".arpanet-panel");
+  const arpanetZoom = document.querySelector(".arpanet-zoom");
+
+  function updateArpanetZoom() {
+    if (!arpanetPanel || !arpanetZoom) return;
+
+    const rect = arpanetPanel.getBoundingClientRect();
+    const scrollDistance = arpanetPanel.offsetHeight + window.innerHeight;
+
+    const progress = clamp(
+      (window.innerHeight - rect.top) / scrollDistance,
+      0,
+      1
+    );
+
+    let scale;
+    let opacity;
+
+    // Växer
+    if (progress < 0.45) {
+      const p = progress / 0.45;
+
+      scale = 0.72 + p * 0.45;
+      opacity = 0.45 + p * 0.55;
+    }
+
+    // Krymper
+    else {
+      const p = (progress - 0.45) / 0.55;
+
+      scale = 1.17 - p * 0.32;
+      opacity = 1 - p * 0.35;
+    }
+
+    arpanetZoom.style.transform = `scale(${scale})`;
+    arpanetZoom.style.opacity = opacity;
+  }
+
   function onScroll() {
     updateUnixLines();
     updateEniacCurtains();
@@ -567,6 +605,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateEraTransition();
     updateTouchPanels();
     updateOutroBlur();
+    updateArpanetZoom();
   }
 
   /* =========================
