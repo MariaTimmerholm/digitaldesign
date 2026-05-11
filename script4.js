@@ -414,6 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const unixNode = document.querySelector(".unix-node");
   const codeRain = document.querySelector(".unix-node .code-rain");
+  const unixLines = [...document.querySelectorAll(".unix-node .code-rain span")];
   const eniacPanel = $(".artifact-eniac");
   const messagePanel = $(".message-panel");
   const eraTransition = $(".command-to-gui");
@@ -429,10 +430,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const typeLo = $(".type-lo");
 
   function updateUnixLines() {
-    if (!unixNode || !codeRain) return;
+    if (!unixNode || !codeRain || unixLines.length === 0) return;
 
     const rect = unixNode.getBoundingClientRect();
     const scrollDistance = unixNode.offsetHeight - window.innerHeight;
+
+    if (scrollDistance <= 0) return;
 
     const progress = clamp(
       -rect.top / scrollDistance,
@@ -440,8 +443,19 @@ document.addEventListener("DOMContentLoaded", () => {
       1
     );
 
-    codeRain.style.setProperty("--unix-scroll", progress);
-    codeRain.style.setProperty("--unix-progress", `${progress * 100}%`);
+    // Texten flyter nerifrån och upp
+    const moveY = 42 - progress * 90;
+    codeRain.style.transform = `translateY(${moveY}vh)`;
+
+    // När en rad passerar denna punkt blir den grön
+    const revealPoint = window.innerHeight * 0.62;
+
+    unixLines.forEach((line) => {
+      const lineRect = line.getBoundingClientRect();
+      const lineCenter = lineRect.top + lineRect.height / 2;
+
+      line.classList.toggle("visible-line", lineCenter < revealPoint);
+    });
   }
 
   function updateEniacCurtains() {
