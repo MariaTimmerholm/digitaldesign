@@ -704,11 +704,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function onScroll() {
     updateIntroFade();
-    updateHorizontalScroll();
-    updateActiveEra();
     updateOutroBlur();
   }
 
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  setHorizontalHeight();
+  onScroll();
+
+  window.addEventListener("scroll", onScroll);
+  window.addEventListener("resize", () => {
+    setHorizontalHeight();
+    onScroll();
+  });
 
   // =========================
   // UNIX TEXT REVEAL ON SCROLL
