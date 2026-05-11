@@ -444,11 +444,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     // Texten flyter nerifrån och upp
-    const moveY = 42 - progress * 90;
+    const moveY = 24 - progress * 38;
     codeRain.style.transform = `translateY(${moveY}vh)`;
 
     // När en rad passerar denna punkt blir den grön
-    const revealPoint = window.innerHeight * 0.62;
+    const revealPoint = window.innerHeight * 0.78;
 
     unixLines.forEach((line) => {
       const lineRect = line.getBoundingClientRect();

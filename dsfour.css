@@ -63,6 +63,71 @@ h1, h2, h3 {
 }
 
 /* =========================
+   ERA 1 — NO INTERACTION
+========================= */
+
+.era-1 h3 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #d6d1c4;
+}
+
+/* =========================
+   ERA 2 — COMMAND
+========================= */
+
+.era-2 h3 {
+  font-family: "Courier New", monospace;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  color: #eafff1;
+
+  text-shadow:
+    0 0 12px rgba(0,255,170,0.35),
+    0 0 28px rgba(0,255,170,0.18);
+}
+
+/* =========================
+   ERA 3 — GUI
+========================= */
+
+.era-3 h3 {
+  font-family: "Arial", sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #111;
+}
+
+/* =========================
+   ERA 4 — TOUCH
+========================= */
+
+.era-4 h3 {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 600;
+  color: white;
+}
+
+/* =========================
+   ERA 5 — MULTIMODAL
+========================= */
+
+.era-5 h3 {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #7ee8ff
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
    START OVERLAY
 ========================= */
 
@@ -296,16 +361,6 @@ body.theme-multimodal {
 /* =========================
    NO INTERACTION
 ========================= */
-
-.no-interaction h3 {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: clamp(1.8rem, 3vw, 3rem);
-  text-transform: uppercase;
-  letter-spacing: .18em;
-  font-weight: 500;
-  color: #d6d1c4;
-}
-
 .artifact-panel {
   position: relative;
   min-height: 130vh;
@@ -485,13 +540,6 @@ body.theme-multimodal {
 .command-centered-text {
   max-width: 760px;
   margin-bottom: 4rem;
-}
-
-.command-centered-text h3 {
-  margin: 0 0 1rem;
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  color: #eafff1;
-  text-shadow: 0 0 20px rgba(0,255,170,.25);
 }
 
 .command-centered-text p {
@@ -748,12 +796,6 @@ body.theme-multimodal {
   padding: 3rem;
 }
 
-.window-content h3 {
-  margin: 0 0 1rem;
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  color: #111;
-}
-
 .window-content img {
   max-height: 360px;
   object-fit: contain;
@@ -874,12 +916,6 @@ body.theme-gui .cursor-pointer { opacity: 1; }
   margin: 0;
   font-size: .72rem;
   color: rgba(180,255,255,.42);
-}
-
-.phone-panel h3 {
-  margin: 0;
-  font-size: clamp(2rem, 7vw, 4rem);
-  color: #fff;
 }
 
 .phone-panel img {
