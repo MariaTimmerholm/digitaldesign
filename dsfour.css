@@ -715,20 +715,16 @@ body.theme-multimodal {
 }
 
 .code-rain span {
-  color: #5f5f5f; /* grå från början */
-  opacity: 0;
-  transform: translateY(16px);
+  color: #5f5f5f;
+  opacity: 1;              /* ändra från 0 till 1 */
+  transform: translateY(0); /* ändra från 16px till 0 */
   text-shadow: none;
   transition:
-    opacity 0.35s ease,
-    transform 0.35s ease,
     color 0.35s ease,
     text-shadow 0.35s ease;
 }
 
 .code-rain span.visible-line {
-  opacity: 1;
-  transform: translateY(0);
   color: rgba(180,255,200,0.92);
   text-shadow:
     0 0 8px rgba(0,255,170,0.45),
