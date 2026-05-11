@@ -412,8 +412,8 @@ document.addEventListener("DOMContentLoaded", () => {
      SCROLL EFFECTS
   ========================= */
 
-  const unixNode = $(".unix-node");
-  const unixLines = $$(".unix-node .code-rain span");
+  const unixNode = document.querySelector(".unix-node");
+  const codeRain = document.querySelector(".unix-node .code-rain");
   const eniacPanel = $(".artifact-eniac");
   const messagePanel = $(".message-panel");
   const eraTransition = $(".command-to-gui");
@@ -429,18 +429,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const typeLo = $(".type-lo");
 
   function updateUnixLines() {
-    if (!unixNode || !unixLines.length) return;
+    if (!unixNode || !codeRain) return;
 
     const rect = unixNode.getBoundingClientRect();
-    const start = window.innerHeight * 0.75;
-    const end = -rect.height + window.innerHeight * 0.35;
+    const scrollDistance = unixNode.offsetHeight - window.innerHeight;
 
-    const progress = clamp((start - rect.top) / (start - end));
-    const visibleCount = Math.floor(progress * unixLines.length);
+    const progress = clamp(
+      -rect.top / scrollDistance,
+      0,
+      1
+    );
 
-    unixLines.forEach((line, index) => {
-      line.classList.toggle("visible-line", index < visibleCount);
-    });
+    codeRain.style.setProperty("--unix-scroll", progress);
+    codeRain.style.setProperty("--unix-progress", `${progress * 100}%`);
   }
 
   function updateEniacCurtains() {
