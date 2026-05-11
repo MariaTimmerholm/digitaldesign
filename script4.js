@@ -570,6 +570,69 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
+    1970 TERMINAL — ISOLERAD
+  ========================= */
+
+  const seventiesTerminalPanel = document.querySelector(".seventies-terminal-panel");
+  const seventiesLines = [
+    ...document.querySelectorAll(".seventies-terminal-panel .seventies-type-line")
+  ];
+
+  let seventiesTerminalStarted = false;
+
+  function seventiesTypeText(element, text, speed = 55) {
+    return new Promise((resolve) => {
+      let index = 0;
+      element.textContent = "";
+
+      const interval = setInterval(() => {
+        element.textContent += text[index];
+        index++;
+
+        if (index >= text.length) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  async function startSeventiesTerminal() {
+    if (seventiesTerminalStarted) return;
+    if (!seventiesTerminalPanel || seventiesLines.length === 0) return;
+
+    seventiesTerminalStarted = true;
+    seventiesTerminalPanel.classList.add("seventies-active");
+
+    for (const line of seventiesLines) {
+      const text = line.dataset.text || "";
+
+      if (line.classList.contains("seventies-slow-line")) {
+        await seventiesTypeText(line, text, 420);
+      } else {
+        await seventiesTypeText(line, text, 55);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 420));
+    }
+  }
+
+  if (seventiesTerminalPanel) {
+    const seventiesObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startSeventiesTerminal();
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    seventiesObserver.observe(seventiesTerminalPanel);
+  }
+
+  /* =========================
      ARTIFACT AUDIO
   ========================= */
 
