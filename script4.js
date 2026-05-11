@@ -726,24 +726,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const unixNode = document.querySelector(".unix-node");
   const unixLines = [...document.querySelectorAll(".unix-node .code-rain span")];
 
-  function updateUnixLines() {
-    if (!unixNode || unixLines.length === 0) return;
+function updateUnixLines() {
+  if (!unixNode || unixLines.length === 0) return;
 
-    const start = unixNode.offsetTop;
-    const end = start + unixNode.offsetHeight - window.innerHeight;
+  const rect = unixNode.getBoundingClientRect();
+  const start = window.innerHeight * 0.75;
+  const end = -rect.height + window.innerHeight * 0.35;
+  const progress = clamp(
+    (start - rect.top) / (start - end),
+    0,
+    1
+  );
 
-    const progress = clamp(
-      (window.scrollY - start) / (end - start),
-      0,
-      1
-    );
+  const visibleCount = Math.floor(progress * unixLines.length);
 
-    const visibleCount = Math.floor(progress * (unixLines.length + 1));
-
-    unixLines.forEach((line, index) => {
-      line.classList.toggle("visible-line", index < visibleCount);
-    });
-  }
+  unixLines.forEach((line, index) => {
+    line.classList.toggle("visible-line", index < visibleCount);
+  });
+}
 
   window.addEventListener("scroll", updateUnixLines, { passive: true });
   window.addEventListener("resize", updateUnixLines);
