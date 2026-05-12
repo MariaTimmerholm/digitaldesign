@@ -565,9 +565,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const activePanel = touchPanels[activeTouchIndex];
     const audioSrc = activePanel?.dataset.audio;
 
-    if (audioSrc && typeof playArtifactAudio === "function") {
-      playArtifactAudio(audioSrc);
-    }
+  if (audioSrc && experienceStarted && typeof playArtifactAudio === "function") {
+    playArtifactAudio(audioSrc);
+  }
   }
 
   function nextTouchPanel() {
@@ -601,8 +601,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-
-  showTouchPanel(0);
 
   function updateOutroBlur() {
     if (!outroSection || !outroLines.length) return;
@@ -871,6 +869,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
   }
-
-  onScroll();
+  showTouchPanel(0);
+   onScroll();
 });
