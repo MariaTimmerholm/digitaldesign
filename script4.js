@@ -409,6 +409,50 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
+    COMMAND TO GUI TRANSITION TYPE
+  ========================= */
+
+  const commandToGuiTransition = document.querySelector(".command-to-gui");
+  const commandToGuiText = document.querySelector(".command-to-gui .transition-text");
+
+  let commandToGuiStarted = false;
+
+  function typeTransitionText(element, text, speed = 70) {
+    return new Promise((resolve) => {
+      let index = 0;
+      element.textContent = "";
+
+      const interval = setInterval(() => {
+        element.textContent += text[index];
+        index++;
+
+        if (index >= text.length) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  if (commandToGuiTransition && commandToGuiText) {
+    const transitionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !commandToGuiStarted) {
+            commandToGuiStarted = true;
+
+            const text = commandToGuiText.dataset.text || "Nästa era laddar...";
+            typeTransitionText(commandToGuiText, text, 75);
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    transitionObserver.observe(commandToGuiTransition);
+  }
+
+  /* =========================
      SCROLL EFFECTS
   ========================= */
 
@@ -498,14 +542,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateEraTransition() {
-    if (!eraTransition) return;
-
-    const rect = eraTransition.getBoundingClientRect();
-    const progress = clamp(
-      (window.innerHeight - rect.top) / (window.innerHeight + rect.height)
-    );
-
-    eraTransition.classList.toggle("transition-gui", progress > 0.45);
+    return;
   }
 
   function updateTouchPanels() {

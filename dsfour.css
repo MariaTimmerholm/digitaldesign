@@ -834,10 +834,18 @@ body.theme-multimodal {
 /* =========================
    ERA TRANSITION
 ========================= */
-
 .era-transition {
   min-height: 140vh;
   overflow: hidden;
+  background: #050806; /* samma som command era */
+}
+
+.transition-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
 }
 
 .transition-text {
@@ -846,16 +854,14 @@ body.theme-multimodal {
   letter-spacing: .08em;
   color: var(--terminal);
   text-align: center;
-  text-shadow: 0 0 12px rgba(0,255,170,.45), 0 0 34px rgba(0,255,170,.25);
+  text-shadow:
+    0 0 12px rgba(0,255,170,.45),
+    0 0 34px rgba(0,255,170,.25);
 }
 
 .transition-text::after {
   content: "▌";
   animation: cursorBlink .8s infinite;
-}
-
-.era-transition.transition-gui {
-  background: linear-gradient(180deg, #050806 0%, #9fc7e8 80%, #d7ecff 100%);
 }
 
 /* =========================
