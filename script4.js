@@ -545,24 +545,67 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  function updateTouchPanels() {
-    if (!touchScene || !touchPanels.length) return;
+  const phoneScreen = document.querySelector(".phone-screen");
+  const touchPanels = [...document.querySelectorAll(".touch-era .phone-panel")];
+  const phonePrev = document.querySelector(".phone-prev");
+  const phoneNext = document.querySelector(".phone-next");
 
-    const rect = touchScene.getBoundingClientRect();
-    const scrollableDistance = touchScene.offsetHeight - window.innerHeight;
+  let activeTouchIndex = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
 
-    const progress = clamp(-rect.top / scrollableDistance);
+  function showTouchPanel(index) {
+    if (!touchPanels.length) return;
 
-    const activeIndex = Math.min(
-      touchPanels.length - 1,
-      Math.floor(progress * touchPanels.length)
-    );
+    activeTouchIndex = Math.max(0, Math.min(index, touchPanels.length - 1));
 
-    touchPanels.forEach((panel, index) => {
-      panel.classList.toggle("touch-active", index === activeIndex);
-      panel.classList.toggle("touch-past", index < activeIndex);
+    touchPanels.forEach((panel, i) => {
+      panel.classList.toggle("touch-active", i === activeTouchIndex);
+      panel.classList.toggle("touch-past", i < activeTouchIndex);
+      panel.classList.toggle("touch-next", i > activeTouchIndex);
     });
+
+    const activePanel = touchPanels[activeTouchIndex];
+    const audioSrc = activePanel?.dataset.audio;
+
+    if (audioSrc && typeof playArtifactAudio === "function") {
+      playArtifactAudio(audioSrc);
+    }
   }
+
+  function nextTouchPanel() {
+    showTouchPanel(activeTouchIndex + 1);
+  }
+
+  function prevTouchPanel() {
+    showTouchPanel(activeTouchIndex - 1);
+  }
+
+  phoneNext?.addEventListener("click", nextTouchPanel);
+  phonePrev?.addEventListener("click", prevTouchPanel);
+
+  phoneScreen?.addEventListener("pointerdown", (event) => {
+    touchStartX = event.clientX;
+    touchStartY = event.clientY;
+    phoneScreen.classList.add("is-dragging");
+  });
+
+  phoneScreen?.addEventListener("pointerup", (event) => {
+    phoneScreen.classList.remove("is-dragging");
+
+    const diffX = event.clientX - touchStartX;
+    const diffY = event.clientY - touchStartY;
+
+    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX < 0) {
+        nextTouchPanel();
+      } else {
+        prevTouchPanel();
+      }
+    }
+  });
+
+  showTouchPanel(0);
 
   function updateOutroBlur() {
     if (!outroSection || !outroLines.length) return;
@@ -633,7 +676,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateEniacCurtains();
     updateMessageTyping();
     updateEraTransition();
-    updateTouchPanels();
     updateOutroBlur();
     updateArpanetZoom();
   }
