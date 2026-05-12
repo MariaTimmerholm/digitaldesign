@@ -369,10 +369,10 @@ body.theme-multimodal {
 ========================= */
 .artifact-panel {
   position: relative;
-  min-height: 130vh;
+  min-height: 100vh;
   display: grid;
   place-items: center;
-  padding: 8rem 8vw;
+  padding: 5rem 8vw;
   overflow: hidden;
 }
 
@@ -458,8 +458,8 @@ body.theme-multimodal {
 }
 
 .story-section.era-scroll .sticky-artifact {
-  height: 260vh;
-  min-height: 260vh;
+  height: 160vh;
+  min-height: 160vh;
   padding: 0;
 }
 
