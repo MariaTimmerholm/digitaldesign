@@ -462,9 +462,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const eniacPanel = $(".artifact-eniac");
   const messagePanel = $(".message-panel");
   const eraTransition = $(".command-to-gui");
-  const touchScene = $(".phone-scroll-scene");
-  const touchPanels = $$(".touch-era .phone-panel");
-
   const outroSection = $(".outro-section");
   const outroInner = $(".outro-inner");
   const outroTitle = $(".outro-title");
