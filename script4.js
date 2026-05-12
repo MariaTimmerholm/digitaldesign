@@ -560,42 +560,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const arpanetPanel = document.querySelector(".arpanet-panel");
+  const arpanetSection = document.querySelector(".arpanet-scroll-section");
   const arpanetZoom = document.querySelector(".arpanet-zoom");
 
   function updateArpanetZoom() {
-    if (!arpanetPanel || !arpanetZoom) return;
+    if (!arpanetSection || !arpanetZoom) return;
 
-    const rect = arpanetPanel.getBoundingClientRect();
-    const scrollDistance = arpanetPanel.offsetHeight + window.innerHeight;
+    const rect = arpanetSection.getBoundingClientRect();
+    const scrollDistance = arpanetSection.offsetHeight - window.innerHeight;
+
+    if (scrollDistance <= 0) return;
 
     const progress = clamp(
-      (window.innerHeight - rect.top) / scrollDistance,
+      -rect.top / scrollDistance,
       0,
       1
     );
 
     let scale;
-    let opacity;
 
-    // Växer
-    if (progress < 0.45) {
-      const p = progress / 0.45;
-
-      scale = 0.72 + p * 0.45;
-      opacity = 0.45 + p * 0.55;
-    }
-
-    // Krymper
-    else {
-      const p = (progress - 0.45) / 0.55;
-
-      scale = 1.17 - p * 0.32;
-      opacity = 1 - p * 0.35;
+    if (progress < 0.5) {
+      const p = progress / 0.5;
+      scale = 0.65 + p * 0.55; // 0.65 → 1.2
+    } else {
+      const p = (progress - 0.5) / 0.5;
+      scale = 1.2 - p * 0.35; // 1.2 → 0.85
     }
 
     arpanetZoom.style.transform = `scale(${scale})`;
-    arpanetZoom.style.opacity = opacity;
+    arpanetZoom.style.opacity = 0.5 + Math.min(progress, 1 - progress) * 1;
   }
 
   function onScroll() {
