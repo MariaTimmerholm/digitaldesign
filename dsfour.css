@@ -298,7 +298,7 @@ h1, h2, h3 {
     rotate(var(--angle))
     translateX(190px)
     rotate(calc(-1 * var(--angle)));
-  animation: orbit 28s linear infinite;
+  animation: orbit 38s linear infinite;
   animation-delay: var(--delay);
 }
 
