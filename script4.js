@@ -673,6 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateEraTransition();
     updateOutroBlur();
     updateArpanetZoom();
+    updateMultimodalScroll();
   }
 
   /* =========================
@@ -811,6 +812,61 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     audioArtifacts.forEach((artifact) => artifactAudioObserver.observe(artifact));
+  }
+
+  const multiScenes = [...document.querySelectorAll(".multimodal-era .multi-scene")];
+  const aiType = document.querySelector(".ai-type");
+
+  const aiText = "Generate multimodal interface...";
+
+  function typeAiPrompt(progress) {
+    if (!aiType) return;
+
+    const count = Math.floor(progress * aiText.length);
+    aiType.textContent = aiText.slice(0, count);
+  }
+
+  if (multiScenes.length > 0) {
+    const multiObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          multiScenes.forEach((scene) => {
+            scene.classList.remove("multi-active", "multi-past");
+          });
+
+          entry.target.classList.add("multi-active");
+
+          const activeIndex = multiScenes.indexOf(entry.target);
+
+          multiScenes.forEach((scene, index) => {
+            if (index < activeIndex) {
+              scene.classList.add("multi-past");
+            }
+          });
+        });
+      },
+      {
+        threshold: 0.45
+      }
+    );
+
+    multiScenes.forEach((scene) => multiObserver.observe(scene));
+  }
+
+  function updateMultimodalScroll() {
+    const aiScene = document.querySelector(".ai-scene");
+    if (!aiScene) return;
+
+    const rect = aiScene.getBoundingClientRect();
+
+    const progress = Math.min(
+      Math.max((window.innerHeight - rect.top) / window.innerHeight, 0),
+      1
+    );
+
+    typeAiPrompt(progress);
   }
 
   /* =========================

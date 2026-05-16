@@ -112,19 +112,258 @@ h1, h2, h3 {
 /* =========================
    ERA 5 — MULTIMODAL
 ========================= */
+/* =========================
+   ERA 5 — MULTIMODAL
+========================= */
 
-.era-5 h3 {
-  font-family: "Inter", sans-serif;
-  font-size: clamp(1.8rem, 4vw, 3.5rem);
+.story-section.multimodal-era {
+  display: block;
+  min-height: auto;
+  padding: 0;
+  border-bottom: none;
+  background:
+    radial-gradient(circle at top, rgba(126,232,255,.12), transparent 35%),
+    linear-gradient(180deg, #05070f, #090f1f 45%, #030407);
+  color: #e8fbff;
+  overflow: hidden;
+}
 
-  background: linear-gradient(
-    90deg,
-    #ffffff,
-    #7ee8ff
-  );
+.story-section.multimodal-era::after {
+  display: none;
+}
 
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.multimodal-header {
+  min-height: 100vh;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 7rem 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.multimodal-header h2 {
+  margin: 0 0 1rem;
+  font-family: "Gasoek One", sans-serif;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: .95;
+}
+
+.multimodal-header p {
+  color: rgba(232,251,255,.72);
+}
+
+.multimodal-scroll {
+  position: relative;
+}
+
+.multi-scene {
+  min-height: 120vh;
+  padding: 8rem 10vw;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.multi-content {
+  max-width: 780px;
+  position: relative;
+  z-index: 2;
+  opacity: .25;
+  transform: translateY(50px) scale(.96);
+  transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.multi-scene.multi-active .multi-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.multi-content h3 {
+  margin: 0 0 1rem;
+  font-family: "Gasoek One", sans-serif;
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  line-height: .95;
+}
+
+.multi-content p {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 680px;
+  color: rgba(232,251,255,.72);
+}
+
+/* VOICE */
+
+.waveform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  margin-top: 3rem;
+  height: 120px;
+}
+
+.waveform span {
+  width: 8px;
+  height: 28px;
+  border-radius: 999px;
+  background: #7ee8ff;
+  box-shadow: 0 0 18px rgba(126,232,255,.6);
+  animation: wavePulse 1.2s ease-in-out infinite;
+}
+
+.waveform span:nth-child(2n) { animation-delay: .15s; }
+.waveform span:nth-child(3n) { animation-delay: .3s; }
+.waveform span:nth-child(4n) { animation-delay: .45s; }
+
+.voice-orbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .8rem;
+  margin-top: 2rem;
+}
+
+.voice-orbs span {
+  padding: .7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(126,232,255,.24);
+  background: rgba(126,232,255,.08);
+  box-shadow: 0 0 28px rgba(126,232,255,.12);
+}
+
+/* AI */
+
+.ai-prompt {
+  margin: 2.5rem auto 0;
+  max-width: 720px;
+  padding: 1.4rem 1.6rem;
+  text-align: left;
+  font-family: "Courier New", monospace;
+  font-size: clamp(1.2rem, 2.2vw, 2rem);
+  color: #dff7ff;
+  border: 1px solid rgba(126,232,255,.22);
+  background: rgba(0,0,0,.45);
+  box-shadow: 0 0 42px rgba(126,232,255,.12);
+}
+
+.ai-cursor {
+  animation: cursorBlink .8s infinite;
+}
+
+/* MULTIMODAL SYSTEM */
+
+.human-system {
+  position: relative;
+  width: min(520px, 86vw);
+  height: min(520px, 86vw);
+  margin: 3rem auto 0;
+}
+
+.human-core,
+.signal {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.human-core {
+  inset: 34%;
+  background: rgba(126,232,255,.14);
+  border: 1px solid rgba(126,232,255,.35);
+  box-shadow:
+    0 0 40px rgba(126,232,255,.25),
+    inset 0 0 30px rgba(126,232,255,.12);
+  font-family: "Courier New", monospace;
+  font-size: 2rem;
+}
+
+.signal {
+  width: 96px;
+  height: 96px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  opacity: .2;
+  transform: scale(.8);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.multi-active .signal {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.s1 { top: 0; left: 50%; transform: translateX(-50%) scale(.8); }
+.s2 { right: 0; top: 28%; }
+.s3 { right: 12%; bottom: 4%; }
+.s4 { left: 12%; bottom: 4%; }
+.s5 { left: 0; top: 28%; }
+
+/* DARK PATTERNS */
+
+.dark-scene {
+  background:
+    radial-gradient(circle at center, rgba(255,0,90,.16), transparent 42%),
+    #050005;
+}
+
+.dark-ui {
+  margin: 3rem auto 0;
+  width: min(420px, 90vw);
+  padding: 1.5rem;
+  border-radius: 28px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 0 60px rgba(255,0,90,.16);
+}
+
+.dark-ui button {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: .8rem;
+  border: 0;
+  border-radius: 999px;
+  background: #ff2d75;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dark-ui .ghost {
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.45);
+  font-size: .85rem;
+  transform: scale(.86);
+}
+
+.fake-notification {
+  margin-top: 1rem;
+  padding: .9rem 1rem;
+  border-radius: 18px;
+  background: rgba(0,0,0,.45);
+  color: rgba(255,255,255,.8);
+  animation: notificationFloat 2s ease-in-out infinite;
+}
+
+/* ACTIVE VARIATIONS */
+
+.voice-scene.multi-active .waveform span {
+  animation-play-state: running;
+}
+
+.ai-scene.multi-active .ai-prompt {
+  box-shadow: 0 0 60px rgba(126,232,255,.25);
+}
+
+.dark-scene.multi-active .dark-ui {
+  animation: darkGlitch 1.8s infinite;
 }
 
 /* =========================
@@ -1293,6 +1532,26 @@ body.theme-gui .cursor-pointer { opacity: 1; }
 @keyframes tapeSpin {
   from { transform: rotate(0deg) scale(1.05); }
   to { transform: rotate(360deg) scale(1.05); }
+}
+
+@keyframes wavePulse {
+  0%, 100% {
+    height: 24px;
+    opacity: .45;
+  }
+
+  50% {
+    height: 105px;
+    opacity: 1;
+  }
+}
+
+@keyframes darkGlitch {
+  0%, 100% { transform: translate(0,0); }
+  20% { transform: translate(-2px,1px); }
+  40% { transform: translate(2px,-1px); }
+  60% { transform: translate(-1px,-2px); }
+  80% { transform: translate(1px,2px); }
 }
 
 /* =========================
