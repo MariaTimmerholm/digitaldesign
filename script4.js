@@ -407,6 +407,41 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleAutoscroll && (toggleAutoscroll.checked = false);
     stopAutoScroll();
   }
+  /* =========================
+    OVERLAY FOR IMAGES
+  ========================= */
+  const imageOverlay = document.querySelector("#imageOverlay");
+  const imageOverlayImg = document.querySelector("#imageOverlay img");
+  const imageOverlayClose = document.querySelector(".image-overlay-close");
+
+  document.querySelectorAll(".image-open-btn img").forEach((img) => {
+    img.addEventListener("click", () => {
+      imageOverlayImg.src = img.src;
+      imageOverlayImg.alt = img.alt;
+      imageOverlay.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  function closeImageOverlay() {
+    imageOverlay.classList.remove("is-open");
+    imageOverlayImg.src = "";
+    document.body.style.overflow = "";
+  }
+
+  imageOverlayClose?.addEventListener("click", closeImageOverlay);
+
+  imageOverlay?.addEventListener("click", (event) => {
+    if (event.target === imageOverlay) {
+      closeImageOverlay();
+    }
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeImageOverlay();
+    }
+  });
 
   /* =========================
     COMMAND TO GUI TRANSITION TYPE

@@ -87,7 +87,9 @@
       <section class="artifact-scroll-section">
         <article class="artifact-panel artifact-card">
           <div class="artifact-visual">
-            <img src="images/card.png" alt="Punched card">
+            <button class="image-open-btn" type="button" aria-label="Visa hålkort i större format" data-image="images/card-large.png">
+              <img src="images/card.png" alt="Punched card">
+            </button>
           </div>
           <div class="artifact-caption">
             <p class="archive-label">Archive item 02</p>
@@ -543,6 +545,10 @@
       </div>
     </section>
   </main>
+  <div class="image-overlay" id="imageOverlay">
+    <button class="image-overlay-close" type="button" aria-label="Stäng bild">×</button>
+    <img src="" alt="">
+  </div>
   <script src="script4.js"></script>
 </body>
 </html>

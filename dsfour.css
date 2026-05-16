@@ -693,6 +693,51 @@ body.theme-multimodal {
   line-height: 1.65;
 }
 
+.image-open-btn {
+  all: unset;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+}
+
+.image-open-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: none;
+  place-items: center;
+  background: rgba(0,0,0,.88);
+  backdrop-filter: blur(10px);
+}
+
+.image-overlay.is-open {
+  display: grid;
+}
+
+.image-overlay img {
+  max-width: 92vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.image-overlay-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  border: 0;
+  background: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+}
 /* ENIAC */
 
 .artifact-eniac {
