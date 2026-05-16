@@ -924,6 +924,17 @@ body.theme-multimodal {
 /* =========================
    COMMAND ERA
 ========================= */
+.command-transition {
+  position: relative;
+  z-index: 5;
+  background: transparent;
+}
+
+.command-era {
+  position: relative;
+  margin-top: -100vh; /* VIKTIGT */
+  z-index: 1;
+}
 
 .story-section.command-era {
   background: #050806;
@@ -937,6 +948,17 @@ body.theme-multimodal {
   display: grid;
   place-items: center;
   text-align: center;
+}
+
+.command-header {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }
 
 .command-header h2 {
