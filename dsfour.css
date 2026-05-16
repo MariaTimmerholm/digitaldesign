@@ -925,6 +925,7 @@ body.theme-multimodal {
    COMMAND ERA
 ========================= */
 .command-transition {
+  height: 140vh;
   position: relative;
   z-index: 5;
   background: transparent;
@@ -932,7 +933,7 @@ body.theme-multimodal {
 
 .command-era {
   position: relative;
-  margin-top: -100vh; /* VIKTIGT */
+  margin-top: -100vh;
   z-index: 1;
 }
 
@@ -959,6 +960,7 @@ body.theme-multimodal {
   justify-content: center;
   align-items: center;
   z-index: 1;
+  transform: translateY(-16vh);
 }
 
 .command-header h2 {

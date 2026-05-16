@@ -653,7 +653,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (outroInner) {
       outroInner.style.opacity = 1 - blurProgress;
-      outroInner.style.transform = `translateY(${blurProgress * 30}px)`;
+      outroInner.style.transform = `translateY(${blurProgress * 20}px)`;
     }
 
     if (outroTitle) {
