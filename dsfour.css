@@ -265,16 +265,13 @@ h1, h2, h3 {
   margin: 3rem auto 0;
 }
 
-.human-core,
-.signal {
+.human-core {
   position: absolute;
+  inset: 34%;
+  z-index: 3;
   display: grid;
   place-items: center;
   border-radius: 50%;
-}
-
-.human-core {
-  inset: 34%;
   background: rgba(126,232,255,.14);
   border: 1px solid rgba(126,232,255,.35);
   box-shadow:
@@ -285,26 +282,31 @@ h1, h2, h3 {
 }
 
 .signal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
   width: 96px;
   height: 96px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
   border: 1px solid rgba(255,255,255,.18);
   background: rgba(255,255,255,.06);
   color: #fff;
-  opacity: .2;
-  transform: scale(.8);
-  transition: opacity .6s ease, transform .6s ease;
+  transform:
+    rotate(var(--angle))
+    translateX(190px)
+    rotate(calc(-1 * var(--angle)));
+  animation: orbit 28s linear infinite;
+  animation-delay: var(--delay);
 }
 
-.multi-active .signal {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.s1 { top: 0; left: 50%; transform: translateX(-50%) scale(.8); }
-.s2 { right: 0; top: 28%; }
-.s3 { right: 12%; bottom: 4%; }
-.s4 { left: 12%; bottom: 4%; }
-.s5 { left: 0; top: 28%; }
+.s1 { --angle: 0deg; --delay: 0s; }
+.s2 { --angle: 72deg; --delay: -3.6s; }
+.s3 { --angle: 144deg; --delay: -7.2s; }
+.s4 { --angle: 216deg; --delay: -10.8s; }
+.s5 { --angle: 288deg; --delay: -14.4s; }
 
 /* DARK PATTERNS */
 
@@ -1555,6 +1557,22 @@ body.theme-gui .cursor-pointer { opacity: 1; }
   40% { transform: translate(2px,-1px); }
   60% { transform: translate(-1px,-2px); }
   80% { transform: translate(1px,2px); }
+}
+
+@keyframes orbit {
+  from {
+    transform:
+      rotate(var(--angle))
+      translateX(190px)
+      rotate(calc(-1 * var(--angle)));
+  }
+
+  to {
+    transform:
+      rotate(calc(var(--angle) + 360deg))
+      translateX(190px)
+      rotate(calc(-1 * (var(--angle) + 360deg)));
+  }
 }
 
 /* =========================
