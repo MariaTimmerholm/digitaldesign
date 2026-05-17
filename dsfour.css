@@ -21,12 +21,12 @@ html {
 }
 
 body {
+  position: relative;
   margin: 0;
   overflow-x: hidden;
-  background: var(--bg);
+  background: #050505;
   color: var(--text);
   font-family: "Inter", sans-serif;
-  transition: background var(--ease), color var(--ease);
 }
 
 body.is-locked {
@@ -34,8 +34,45 @@ body.is-locked {
   height: 100vh;
 }
 
+.era-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #050505;
+}
+
+.era-bg-current {
+  opacity: 1;
+}
+
+.era-bg-next {
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+
+main,
+.start-overlay,
+.control-panel,
+.image-overlay {
+  position: relative;
+}
+
 main {
   scroll-snap-type: none;
+  z-index: 1;
+}
+
+.start-overlay {
+  z-index: 9999;
+}
+
+.control-panel {
+  z-index: 1000;
+}
+
+.image-overlay {
+  z-index: 99999;
 }
 
 img {
@@ -378,11 +415,7 @@ body.theme-multimodal {
 .story-section.gui-era,
 .story-section.touch-era,
 .story-section.multimodal-era {
-  display: block;
-  min-height: auto;
-  padding: 0;
-  border-bottom: none;
-  scroll-snap-align: none;
+  background: transparent;
 }
 
 .story-section.era-scroll::after,
@@ -1512,7 +1545,6 @@ body.theme-gui .cursor-pointer {
 .s5 { --angle: 288deg; --delay: -14.4s; }
 
 /* DARK PATTERNS */
-
 .dark-scene {
   background:
     radial-gradient(circle at center, rgba(255,0,90,.16), transparent 42%),
