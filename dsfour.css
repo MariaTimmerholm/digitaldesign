@@ -47,11 +47,9 @@ button,
 input {
   font: inherit;
 }
-
 /* =========================
    TEXT BASICS
 ========================= */
-
 h1,
 h2,
 h3 {
@@ -94,41 +92,109 @@ h3 {
   line-height: 1.5;
   color: rgba(255,255,255,.55);
 }
-
 /* =========================
-   ERA H3 STYLES
+   ERA TYPOGRAPHY — H2 + H3
 ========================= */
-
+/* ERA 1 — NO INTERACTION */
+/* INTRO */
+.intro h1,
+.intro h2,
+.intro h3 {
+  font-family: "Gasoek One", sans-serif;
+}
+.era-1 h2,
 .era-1 h3 {
   font-family: "IBM Plex Mono", monospace;
-  font-size: clamp(1.8rem, 3vw, 3rem);
-  letter-spacing: .18em;
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: #d6d1c4;
 }
 
+/* ERA 2 — COMMAND */
+.era-2 h2,
 .era-2 h3 {
-  font-family: var(--font-mono);
-  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-family: "VT323", monospace;
+  letter-spacing: .04em;
   color: #eafff1;
   text-shadow:
     0 0 12px rgba(0,255,170,.35),
     0 0 28px rgba(0,255,170,.18);
 }
 
+/* ERA 3 — GUI */
+.era-3 h2,
 .era-3 h3 {
-  font-family: Arial, sans-serif;
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -.04em;
   color: #111;
 }
 
+/* ERA 4 — TOUCH */
+.era-4 h2,
 .era-4 h3 {
   font-family: "Inter", sans-serif;
-  font-size: clamp(2rem, 6vw, 4.5rem);
+  letter-spacing: -.05em;
   font-weight: 600;
   color: white;
 }
 
+/* ERA 5 — MULTIMODAL */
+.era-5 h2,
+.era-5 h3,
+.multimodal-era h2,
+.multimodal-era h3 {
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: .02em;
+  color: #e8fbff;
+}
+
+/* OUTRO */
+.outro h2,
+.outro h3 {
+  font-family: "Helvetica Neue", "Inter", sans-serif;
+}
+
+/* H3 sizes per era */
+.era-1 h3 {
+  font-size: clamp(1.8rem, 3vw, 3rem);
+}
+
+.era-2 h3 {
+  font-size: clamp(2.5rem, 7vw, 6rem);
+}
+
+.era-3 h3 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.era-4 h3 {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+}
+
+.era-5 h3,
+.multimodal-era h3 {
+  font-size: clamp(2.4rem, 7vw, 6rem);
+}
+.era-1 h2 {
+  font-size: clamp(2.4rem, 6vw, 5rem);
+}
+
+.era-2 h2 {
+  font-size: clamp(2.8rem, 8vw, 6rem);
+}
+
+.era-3 h2 {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+}
+
+.era-4 h2 {
+  font-size: clamp(3rem, 9vw, 7rem);
+}
+
+.era-5 h2,
+.multimodal-era h2 {
+  font-size: clamp(3rem, 9vw, 7rem);
+}
 /* =========================
    START OVERLAY
 ========================= */
