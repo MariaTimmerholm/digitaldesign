@@ -520,7 +520,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     // Texten flyter nerifrån och upp
-    const moveY = 120 - progress * 360;
+    const moveY = 180 - progress * 260;
     codeRain.style.transform = `translateY(${moveY}vh)`;
 
     // När en rad passerar denna punkt blir den grön

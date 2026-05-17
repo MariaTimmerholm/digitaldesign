@@ -819,7 +819,7 @@ body.theme-multimodal {
 
 /* UNIX CODE RAIN */
 .unix-node {
-  min-height: 220vh;
+  min-height: 380vh;
   padding: 0;
 }
 
@@ -841,31 +841,17 @@ body.theme-multimodal {
   margin: 0 auto;
 }
 
-.unix-node h3 {
-  width: 100%;
-  max-width: none;
-  margin: 0 0 2rem;
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 10vw, 9rem);
-  line-height: 0.85;
-  color: #eafff1;
-  text-align: center;
-  text-shadow:
-    0 0 18px rgba(0,255,170,.22),
-    0 0 42px rgba(0,255,170,.12);
-}
-
 .unix-node .code-rain {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2.2rem;
   width: min(1100px, 92vw);
   max-width: none;
   margin: 2rem auto 0;
   font-family: var(--font-mono);
   font-size: clamp(1.6rem, 2.4vw, 3rem);
   font-weight: 700;
-  line-height: 1.55;
+  line-height: 1.9;
   transform: translateY(120px);
   will-change: transform;
 }
