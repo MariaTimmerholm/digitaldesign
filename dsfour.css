@@ -34,45 +34,19 @@ body.is-locked {
   height: 100vh;
 }
 
-.era-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: #050505;
-}
-
-.era-bg-current {
-  opacity: 1;
-}
-
-.era-bg-next {
-  opacity: 0;
-  transition: opacity 1.1s ease;
-}
-
-main,
-.start-overlay,
-.control-panel,
-.image-overlay {
-  position: relative;
-}
-
 main {
   scroll-snap-type: none;
-  z-index: 1;
 }
 
-.start-overlay {
-  z-index: 9999;
-}
-
-.control-panel {
-  z-index: 1000;
-}
-
-.image-overlay {
-  z-index: 99999;
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #050505;
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  transition:
+    background 0.8s ease,
+    color 0.8s ease;
 }
 
 img {
@@ -381,6 +355,7 @@ h3 {
 body.theme-intro,
 body.theme-outro {
   background: #050505;
+  color: #f3f3f3;
 }
 
 body.theme-no-interaction {
@@ -390,23 +365,24 @@ body.theme-no-interaction {
 
 body.theme-command {
   background: #050806;
-  color: #e0e0e0;
+  color: #d9ffe8;
 }
 
 body.theme-gui {
-  background: #00a6fb;
-  color: #e0e0e0;
+  background: #9fc7e8;
+  color: #111;
 }
 
 body.theme-touch {
-  background: #000814;
-  color: #00f5ff;
+  background: #021018;
+  color: #dff7ff;
 }
 
 body.theme-multimodal {
-  background: #0b1020;
-  color: #dff7ff;
+  background: #05070f;
+  color: #e8fbff;
 }
+
 /* =========================
    SHARED ERA STRUCTURE
 ========================= */
@@ -415,6 +391,11 @@ body.theme-multimodal {
 .story-section.gui-era,
 .story-section.touch-era,
 .story-section.multimodal-era {
+  display: block;
+  min-height: auto;
+  padding: 0;
+  border-bottom: none;
+  scroll-snap-align: none;
   background: transparent;
 }
 
@@ -452,7 +433,6 @@ body.theme-multimodal {
   max-width: none;
   margin: 0 0 1rem;
   text-align: center;
-  white-space: normal;
 }
 
 .era-header .era-intro,
@@ -461,14 +441,6 @@ body.theme-multimodal {
   max-width: 760px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.artifact-caption h3,
-.command-centered-text h3,
-.multi-content h3,
-.phone-panel h3,
-.window-content h3 {
-  max-width: none;
 }
 /* =========================
    ERA 1 — NO INTERACTION
@@ -1630,6 +1602,13 @@ body.theme-gui .cursor-pointer {
   display: block;
   margin: .4rem 0;
   font-size: clamp(1.2rem, 2vw, 1.6rem);
+}
+
+.story-section.command-era,
+.story-section.gui-era,
+.story-section.touch-era,
+.story-section.multimodal-era {
+  background: transparent;
 }
 
 /* =========================

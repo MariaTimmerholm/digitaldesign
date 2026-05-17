@@ -32,66 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const BG_LOW_VOLUME = 0.12;
   const ERA_VOLUME = 0.9;
 
-  const bgCurrent = document.querySelector(".era-bg-current");
-  const bgNext = document.querySelector(".era-bg-next");
-
-  const eraBackgrounds = {
-    intro: `
-      radial-gradient(circle at center, rgba(255,255,255,.08), transparent 38%),
-      linear-gradient(180deg, #050505, #111111)
-    `,
-
-    "no-interaction": `
-      radial-gradient(circle at center, rgba(255,255,255,.08), transparent 42%),
-      linear-gradient(180deg, #1a1a1a, #101010)
-    `,
-
-    command: `
-      radial-gradient(circle at center, rgba(0,255,170,.08), transparent 42%),
-      linear-gradient(180deg, #050806, #06110b)
-    `,
-
-    gui: `
-      radial-gradient(circle at top, rgba(255,255,255,.45), transparent 36%),
-      linear-gradient(180deg, #9fc7e8, #d7ecff 45%, #b7d4ef)
-    `,
-
-    touch: `
-      radial-gradient(circle at top, rgba(0,255,255,.08), transparent 30%),
-      linear-gradient(180deg, #021018, #041f2b 45%, #03131d)
-    `,
-
-    multimodal: `
-      radial-gradient(circle at top, rgba(126,232,255,.12), transparent 35%),
-      linear-gradient(180deg, #05070f, #090f1f 45%, #030407)
-    `,
-
-    outro: `
-      radial-gradient(circle at center, rgba(255,255,255,.08), transparent 38%),
-      linear-gradient(180deg, #050505, #111111)
-    `
-  };
-
-  let activeBackgroundEra = "";
-  let backgroundTimer = null;
-
-  function setEraBackground(era) {
-    if (!bgCurrent || !bgNext) return;
-    if (!era || era === activeBackgroundEra) return;
-
-    const nextBackground = eraBackgrounds[era] || eraBackgrounds.intro;
-
-    bgNext.style.background = nextBackground;
-    bgNext.style.opacity = "1";
-
-    clearTimeout(backgroundTimer);
-
-    backgroundTimer = setTimeout(() => {
-      bgCurrent.style.background = nextBackground;
-      bgNext.style.opacity = "0";
-      activeBackgroundEra = era;
-    }, 1100);
-  }
   /* =========================
      AUDIO
   ========================= */
@@ -207,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (era) {
       body.classList.add(`theme-${era}`);
-      setEraBackground(era);
     }
   }
 
@@ -582,8 +521,8 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     // Texten flyter nerifrån och upp
-    const moveY = 180 - progress * 260;
-    codeRain.style.transform = `translateY(${moveY}vh)`;
+  const moveY = 180 - progress * 260;
+  codeRain.style.transform = `translateY(${moveY}px)`;
 
     // När en rad passerar denna punkt blir den grön
     const revealPoint = window.innerHeight * 0.78;
