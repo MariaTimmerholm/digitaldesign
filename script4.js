@@ -209,194 +209,139 @@ document.addEventListener("DOMContentLoaded", () => {
   observeActiveItems($$(".gui-era .gui-window"), "gui-active", "gui-past", 0.45);
 
   /* =========================
-     AUTOSCROLL
+    AUTOSCROLL — UPDATED
   ========================= */
 
-  function stopAnimation(frame) {
-    if (frame) cancelAnimationFrame(frame);
+  const autoStops = [...document.querySelectorAll("[data-autostop]")];
+
+  let autoStopIndex = 0;
+  let autoScrollTimeout = null;
+  let autoScrollFrame = null;
+  let autoScrollEnabled = false;
+  let autoScrollStoppedByUser = false;
+
+  function getAutoStopDuration(stop) {
+    const duration = parseInt(stop?.dataset.duration, 10);
+    return Number.isNaN(duration) ? 12000 : duration;
   }
 
-  function stopSectionMicroScroll() {
-    stopAnimation(autoScrollFrame);
-    autoScrollFrame = null;
+  function getCurrentAutoStopIndex() {
+    let closestIndex = 0;
+    let closestDistance = Infinity;
 
-    clearTimeout(sectionScrollTimeout);
-    sectionScrollTimeout = null;
-  }
+    autoStops.forEach((stop, index) => {
+      const distance = Math.abs(stop.getBoundingClientRect().top);
 
-  function stopIntroRide() {
-    stopAnimation(introRideFrame);
-    introRideFrame = null;
-  }
-
-  function getSectionDuration(section) {
-    const duration = parseInt(section?.dataset.duration, 10);
-    return Number.isNaN(duration) ? 15000 : duration;
-  }
-
-  function getFirstStorySection() {
-    return sections.find((section) => section.dataset.era !== "intro") || sections[0];
-  }
-
-  function getAutoScrollTargetSection() {
-    if (!experienceStarted) return getFirstStorySection();
-
-    const currentSection = sections[currentSectionIndex];
-
-    if (!currentSection || currentSection.dataset.era === "intro") {
-      return getFirstStorySection();
-    }
-
-    return sections[currentSectionIndex + 1] || currentSection;
-  }
-
-  function easeInOut(t) {
-    return t < 0.5
-      ? 2 * t * t
-      : 1 - Math.pow(-2 * t + 2, 2) / 2;
-  }
-
-  function easeOutCubic(t) {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
-  function startSectionMicroScroll(section, totalDuration) {
-    if (!section || !autoScrollEnabled || autoScrollStoppedByUser) return;
-
-    stopSectionMicroScroll();
-
-    const sectionTop = section.offsetTop;
-    const maxOffset = Math.max(0, section.offsetHeight - window.innerHeight);
-    const maxTargetY = sectionTop + maxOffset;
-
-    const startY = Math.max(window.scrollY, sectionTop);
-    const targetY = Math.min(startY + 220, maxTargetY);
-    const distance = targetY - startY;
-
-    if (distance <= 0) return;
-
-    const scrollDuration = totalDuration * 0.8;
-    const startTime = performance.now();
-
-    function step(now) {
-      if (!autoScrollEnabled || autoScrollStoppedByUser) return;
-
-      const progress = clamp((now - startTime) / scrollDuration);
-      window.scrollTo(0, startY + distance * easeInOut(progress));
-
-      if (progress < 1) {
-        autoScrollFrame = requestAnimationFrame(step);
-      } else {
-        autoScrollFrame = null;
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
       }
-    }
+    });
 
-    sectionScrollTimeout = setTimeout(() => {
-      autoScrollFrame = requestAnimationFrame(step);
-    }, 300);
+    return closestIndex;
   }
 
-  function startRideToSection(targetSection) {
-    return new Promise((resolve) => {
-      if (!targetSection) return resolve();
+  function stopAutoScrollAnimation() {
+    if (autoScrollFrame) {
+      cancelAnimationFrame(autoScrollFrame);
+      autoScrollFrame = null;
+    }
 
-      stopIntroRide();
+    clearTimeout(autoScrollTimeout);
+    autoScrollTimeout = null;
+  }
+
+  function smoothScrollToElement(element, duration = 1400) {
+    return new Promise((resolve) => {
+      if (!element) return resolve();
 
       const startY = window.scrollY;
-      const targetY = targetSection.offsetTop;
+      const targetY = element.getBoundingClientRect().top + window.scrollY;
       const distance = targetY - startY;
-      const wobbleAmount = Math.min(30, Math.abs(distance) * 0.08);
-      const duration = 1800;
       const startTime = performance.now();
+
+      function easeInOut(t) {
+        return t < 0.5
+          ? 2 * t * t
+          : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      }
 
       function step(now) {
         if (!autoScrollEnabled || autoScrollStoppedByUser) {
-          stopIntroRide();
           return resolve();
         }
 
-        const progress = clamp((now - startTime) / duration);
-        const eased = easeOutCubic(progress);
-        const wobble =
-          Math.sin(progress * Math.PI * 3) *
-          wobbleAmount *
-          (1 - progress);
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = easeInOut(progress);
 
-        window.scrollTo(0, startY + distance * eased + wobble);
+        window.scrollTo(0, startY + distance * eased);
 
         if (progress < 1) {
-          introRideFrame = requestAnimationFrame(step);
+          autoScrollFrame = requestAnimationFrame(step);
         } else {
-          window.scrollTo(0, targetY);
-          introRideFrame = null;
+          autoScrollFrame = null;
           resolve();
         }
       }
 
-      introRideFrame = requestAnimationFrame(step);
+      autoScrollFrame = requestAnimationFrame(step);
     });
   }
 
-  function scheduleNextAutoScroll() {
-    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) return;
+  function scheduleNextAutoStop() {
+    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
-    const currentSection = sections[currentSectionIndex];
-    if (!currentSection) return;
+    const currentStop = autoStops[autoStopIndex];
+    if (!currentStop) return;
 
-    const waitTime = getSectionDuration(currentSection);
+    const waitTime = getAutoStopDuration(currentStop);
 
     clearTimeout(autoScrollTimeout);
-    stopSectionMicroScroll();
 
-    startSectionMicroScroll(currentSection, waitTime);
+    autoScrollTimeout = setTimeout(async () => {
+      if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
-    autoScrollTimeout = setTimeout(goToNextSection, waitTime);
+      autoStopIndex++;
+
+      const nextStop = autoStops[autoStopIndex];
+
+      if (!nextStop) {
+        autoScrollEnabled = false;
+
+        if (toggleAutoscroll) {
+          toggleAutoscroll.checked = false;
+        }
+
+        stopAutoScrollAnimation();
+        return;
+      }
+
+      await smoothScrollToElement(nextStop, 1600);
+      scheduleNextAutoStop();
+    }, waitTime);
   }
 
   async function startAutoScroll() {
+    autoScrollEnabled = true;
     autoScrollStoppedByUser = false;
 
     if (!experienceStarted) {
       unlockExperience({ skipInitialActivation: true });
     }
 
-    const targetSection = getAutoScrollTargetSection();
-    if (!targetSection) return;
+    autoStopIndex = getCurrentAutoStopIndex();
 
-    await startRideToSection(targetSection);
+    const currentStop = autoStops[autoStopIndex];
 
-    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
-
-    activateSection(targetSection);
-    scheduleNextAutoScroll();
+    if (currentStop) {
+      await smoothScrollToElement(currentStop, 1200);
+      scheduleNextAutoStop();
+    }
   }
 
   function stopAutoScroll() {
-    clearTimeout(autoScrollTimeout);
-    autoScrollTimeout = null;
-
-    stopSectionMicroScroll();
-    stopIntroRide();
-  }
-
-  function goToNextSection() {
-    if (!experienceStarted || !autoScrollEnabled || autoScrollStoppedByUser) return;
-
-    stopSectionMicroScroll();
-
-    const nextSection = sections[currentSectionIndex + 1];
-
-    if (!nextSection) {
-      autoScrollEnabled = false;
-      toggleAutoscroll && (toggleAutoscroll.checked = false);
-      stopAutoScroll();
-      return;
-    }
-
-    nextSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+    autoScrollEnabled = false;
+    stopAutoScrollAnimation();
   }
 
   function userInterruptedAutoScroll() {
@@ -405,8 +350,11 @@ document.addEventListener("DOMContentLoaded", () => {
     autoScrollStoppedByUser = true;
     autoScrollEnabled = false;
 
-    toggleAutoscroll && (toggleAutoscroll.checked = false);
-    stopAutoScroll();
+    if (toggleAutoscroll) {
+      toggleAutoscroll.checked = false;
+    }
+
+    stopAutoScrollAnimation();
   }
   /* =========================
     OVERLAY FOR IMAGES

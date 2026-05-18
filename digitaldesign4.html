@@ -42,6 +42,7 @@
   <main id="mainContent">
     <section class="story-section intro active-section" 
     data-era="intro"
+    data-autostop
     data-audio="audio/intro.webm" 
     data-duration="18000">
       <div class="section-inner">
@@ -56,6 +57,7 @@
     <!-- ERA 1 Början -->
     <section class="story-section era era-1 era-scroll"
       data-era="no-interaction"
+      data-autostop
       data-audio="audio/no-interaction.webm"
       data-duration="62000">
       <div class="era-header">
@@ -84,7 +86,7 @@
           </div>
         </div>
       </article>
-      <section class="artifact-scroll-section">
+      <section class="artifact-scroll-section" data-autostop data-duration="8000">
         <article class="artifact-panel artifact-card" data-audio="audio/arpanet.mp3">
           <div class="artifact-visual">
             <button class="image-open-btn" type="button" aria-label="Visa hålkort i större format" data-image="images/card-large.png">
@@ -100,14 +102,14 @@
           </div>
         </article>
       </section>
-      <section class="artifact-scroll-section">
+      <section class="artifact-scroll-section" data-autostop data-duration="8000">
         <article class="artifact-panel artifact-batch" data-audio="audio/crt.mp3">
           <div class="artifact-visual">
             <img src="images/CRT.png" alt="CRT">
           </div>
         </article>
       </section>
-      <section class="artifact-scroll-section">
+      <section class="artifact-scroll-section" data-autostop data-duration="8000">
         <article class="artifact-panel artifact-tape" data-audio="audio/film.mp3">
           <div class="artifact-visual tape-visual">
             <img src="images/magnetband.png" alt="Magnetic tape reel">
@@ -140,13 +142,14 @@
     </section>
     <section class="story-section era era-2 command-era"
       data-era="command"
+      data-autostop=""
       data-duration="62000">
       <div class="era-header">
         <p class="section-tag">Epok 2</p>
         <p class="years">≈ 1960–1980</p>
         <h2>Command Era</h2>
       </div>
-      <section class="arpanet-scroll-section">  
+      <section class="arpanet-scroll-section" data-autostop data-duration="18000">  
         <div class="outro-sticky">
           <article class="command-panel arpanet-panel" data-audio="audio/arpanet.webm">
             <div class="command-centered-text">
@@ -176,7 +179,7 @@
         </div>
       </section>
       <!-- LO message -->
-      <article class="command-panel message-panel">
+      <article class="command-panel message-panel" data-autostop data-duration="8000">
         <div class="message-sticky">
           <div class="message-terminal">
           <p class="terminal-line send-line">
@@ -189,7 +192,7 @@
         </div>
       </article>
       <!-- UNIX -->
-      <article class="command-panel unix-node" data-audio="audio/unix.webm">
+      <article class="command-panel unix-node" data-audio="audio/unix.webm" data-autostop data-duration="10000">
         <div class="command-centered-text">
           <div class="unix-sticky">
           <p class="archive-label">Network item 02</p>
@@ -209,7 +212,7 @@
         </div>
       </article>
       <!-- TERMINALER -->    
-      <article class="seventies-terminal-panel">
+      <article class="seventies-terminal-panel" data-autostop data-duration="12000">
         <div class="seventies-terminal-sticky">
           <div class="seventies-terminal-copy seventies-copy-one"></div>
           <div class="seventies-terminal-copy seventies-copy-two"></div>
@@ -237,7 +240,7 @@
         </div>
       </article>
     
-      <article class="command-panel pc-node" data-audio="audio/keyboard.mp3">
+      <article class="command-panel pc-node" data-audio="audio/keyboard.mp3" data-autostop data-duration="10000">
         <h3>PC (1981)</h3>
         <p>
           PC (Personal Computer) var den första personliga datorn som lanserades av IBM.
@@ -255,8 +258,9 @@
     <!-- ERA 2 SLUT -->
     <!-- ERA 3 START -->
     <section class="story-section era era-3 gui-era"
-      data-era="gui"
-      data-duration="62000">
+      data-autostop
+      data-duration="62000"
+      data-era="gui">
       <div class="gui-desktop">
         <div class="gui-header">
           <p class="section-tag">Epok 3</p>
@@ -412,6 +416,7 @@
     <!-- ERA 5 START -->
      <section class="story-section era era-5 multimodal-era"
       data-era="multimodal"
+      data-autostop
       data-duration="62000">
       <div class="multimodal-header" data-audio="audio/multimodalintro.mp3">
         <p class="section-tag">Epok 5</p>
@@ -484,8 +489,9 @@
         </article>
       </div>
     </section>
-    <section class="story-section outro" 
+    <section class="story-section outro"
     data-era="outro" 
+    data-autostop
     data-audio="audio/outro.webm"
     data-duration="20000">
       <div class="section-inner">
