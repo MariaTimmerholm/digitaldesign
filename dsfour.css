@@ -61,6 +61,53 @@ button,
 input {
   font: inherit;
 }
+
+/* =========================
+   BODY THEMES
+========================= */
+body.theme-intro,
+body.theme-outro {
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,.08), transparent 38%),
+    linear-gradient(180deg, #050505, #111111);
+  color: #f3f3f3;
+}
+
+body.theme-no-interaction {
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,.08), transparent 42%),
+    linear-gradient(180deg, #1a1a1a, #101010);
+  color: #e0e0e0;
+}
+
+body.theme-command {
+  background:
+    radial-gradient(circle at center, rgba(0,255,170,.08), transparent 42%),
+    linear-gradient(180deg, #050806, #06110b);
+  color: #d9ffe8;
+}
+
+body.theme-gui {
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,.45), transparent 36%),
+    linear-gradient(180deg, #9fc7e8, #d7ecff 45%, #b7d4ef);
+  color: #111;
+}
+
+body.theme-touch {
+  background:
+    radial-gradient(circle at top, rgba(0,255,255,.08), transparent 30%),
+    linear-gradient(180deg, #021018, #041f2b 45%, #03131d);
+  color: #dff7ff;
+}
+
+body.theme-multimodal {
+  background:
+    radial-gradient(circle at top, rgba(126,232,255,.12), transparent 35%),
+    linear-gradient(180deg, #05070f, #090f1f 45%, #030407);
+  color: #e8fbff;
+}
+
 /* =========================
    TEXT BASICS
 ========================= */
@@ -352,51 +399,7 @@ h3 {
   font-size: clamp(2rem, 6vw, 4rem);
 }
 
-/* =========================
-   BODY THEMES
-========================= */
-body.theme-intro,
-body.theme-outro {
-  background:
-    radial-gradient(circle at center, rgba(255,255,255,.08), transparent 38%),
-    linear-gradient(180deg, #050505, #111111);
-  color: #f3f3f3;
-}
 
-body.theme-no-interaction {
-  background:
-    radial-gradient(circle at center, rgba(255,255,255,.08), transparent 42%),
-    linear-gradient(180deg, #1a1a1a, #101010);
-  color: #e0e0e0;
-}
-
-body.theme-command {
-  background:
-    radial-gradient(circle at center, rgba(0,255,170,.08), transparent 42%),
-    linear-gradient(180deg, #050806, #06110b);
-  color: #d9ffe8;
-}
-
-body.theme-gui {
-  background:
-    radial-gradient(circle at top, rgba(255,255,255,.45), transparent 36%),
-    linear-gradient(180deg, #9fc7e8, #d7ecff 45%, #b7d4ef);
-  color: #111;
-}
-
-body.theme-touch {
-  background:
-    radial-gradient(circle at top, rgba(0,255,255,.08), transparent 30%),
-    linear-gradient(180deg, #021018, #041f2b 45%, #03131d);
-  color: #dff7ff;
-}
-
-body.theme-multimodal {
-  background:
-    radial-gradient(circle at top, rgba(126,232,255,.12), transparent 35%),
-    linear-gradient(180deg, #05070f, #090f1f 45%, #030407);
-  color: #e8fbff;
-}
 /* =========================
    SHARED ERA STRUCTURE
 ========================= */
@@ -1767,4 +1770,25 @@ body.theme-gui .cursor-pointer {
       translateX(145px)
       rotate(calc(-1 * var(--angle)));
   }
+}
+
+/* =========================
+   FINAL ERA BACKGROUND OVERRIDE
+   Ska ligga sist i CSS
+========================= */
+
+.story-section.era-scroll,
+.story-section.command-era,
+.story-section.gui-era,
+.story-section.touch-era,
+.story-section.multimodal-era {
+  background: transparent;
+}
+
+.story-section.era-scroll::after,
+.story-section.command-era::after,
+.story-section.gui-era::after,
+.story-section.touch-era::after,
+.story-section.multimodal-era::after {
+  display: none;
 }
