@@ -413,7 +413,6 @@ h3 {
   padding: 0;
   border-bottom: none;
   scroll-snap-align: none;
-  background: transparent;
 }
 
 .story-section.era-scroll::after,
@@ -1770,25 +1769,4 @@ body.theme-gui .cursor-pointer {
       translateX(145px)
       rotate(calc(-1 * var(--angle)));
   }
-}
-
-/* =========================
-   FINAL ERA BACKGROUND OVERRIDE
-   Ska ligga sist i CSS
-========================= */
-
-.story-section.era-scroll,
-.story-section.command-era,
-.story-section.gui-era,
-.story-section.touch-era,
-.story-section.multimodal-era {
-  background: transparent;
-}
-
-.story-section.era-scroll::after,
-.story-section.command-era::after,
-.story-section.gui-era::after,
-.story-section.touch-era::after,
-.story-section.multimodal-era::after {
-  display: none;
 }
