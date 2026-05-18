@@ -686,7 +686,6 @@ h3 {
 }
 
 .story-section.command-era {
-  background: #050806;
   color: var(--terminal);
   font-family: var(--font-mono);
 }
@@ -798,9 +797,6 @@ h3 {
 .era-transition {
   min-height: 220vh;
   padding: 0;
-  background:
-    radial-gradient(circle at center, rgba(0,255,170,.08), transparent 40%),
-    #050806;
 }
 
 .message-terminal {
@@ -898,9 +894,6 @@ h3 {
   min-height: 220vh;
   padding: 0;
   overflow: hidden;
-  background:
-    radial-gradient(circle at center, rgba(0,255,170,.08), transparent 42%),
-    #050806;
 }
 
 .seventies-terminal-sticky {
@@ -1007,7 +1000,6 @@ h3 {
 .era-transition {
   min-height: 140vh;
   overflow: hidden;
-  background: #050806;
 }
 
 .transition-text {
@@ -1026,7 +1018,6 @@ h3 {
 ========================= */
 
 .story-section.gui-era {
-  background: linear-gradient(180deg, #9fc7e8, #d7ecff 45%, #b7d4ef);
   color: #111;
 }
 
@@ -1152,9 +1143,6 @@ body.theme-gui .cursor-pointer {
 
 .story-section.touch-era {
   overflow: visible;
-  background:
-    radial-gradient(circle at top, rgba(0,255,255,.08), transparent 30%),
-    linear-gradient(180deg, #021018, #041f2b 45%, #03131d);
   color: #dff7ff;
 }
 
@@ -1361,11 +1349,7 @@ body.theme-gui .cursor-pointer {
 /* =========================
    MULTIMODAL ERA
 ========================= */
-
 .story-section.multimodal-era {
-  background:
-    radial-gradient(circle at top, rgba(126,232,255,.12), transparent 35%),
-    linear-gradient(180deg, #05070f, #090f1f 45%, #030407);
   color: #e8fbff;
   overflow: hidden;
 }
@@ -1769,4 +1753,12 @@ body.theme-gui .cursor-pointer {
       translateX(145px)
       rotate(calc(-1 * var(--angle)));
   }
+}
+
+.story-section.era-scroll,
+.story-section.command-era,
+.story-section.gui-era,
+.story-section.touch-era,
+.story-section.multimodal-era {
+  background: transparent;
 }
