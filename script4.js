@@ -689,17 +689,24 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     let scale;
+    let opacity;
 
-    if (progress < 0.5) {
-      const p = progress / 0.5;
+    // Första delen: videon växer
+    if (progress < 0.65) {
+      const p = progress / 0.65;
+
       scale = 0.65 + p * 0.55; // 0.65 → 1.2
-    } else {
-      const p = (progress - 0.5) / 0.5;
-      scale = 1.2 - p * 0.35; // 1.2 → 0.85
+      opacity = 0.5 + p * 0.5; // 0.5 → 1
+    }
+
+    // Resten av sektionen: videon stannar stor
+    else {
+      scale = 1.2;
+      opacity = 1;
     }
 
     arpanetZoom.style.transform = `scale(${scale})`;
-    arpanetZoom.style.opacity = 0.5 + Math.min(progress, 1 - progress) * 1;
+    arpanetZoom.style.opacity = opacity;
   }
 
   function onScroll() {
