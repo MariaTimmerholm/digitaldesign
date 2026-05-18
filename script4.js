@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let introRideFrame = null;
   let sectionScrollTimeout = null;
 
-  const BG_NORMAL_VOLUME = 0.08;
-  const BG_LOW_VOLUME = 0.12;
+  const BG_NORMAL_VOLUME = 0.15;
+  const BG_LOW_VOLUME = 0.08;
   const ERA_VOLUME = 0.9;
 
   /* =========================
@@ -161,10 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const audioSrc = section.dataset.audio || "";
     audioSrc ? playEraAudio(audioSrc) : stopEraAudio();
-
-    if (autoScrollEnabled && !autoScrollStoppedByUser) {
-      scheduleNextAutoScroll();
-    }
   }
 
   function observeActiveItems(items, activeClass, pastClass, threshold = 0.4) {
@@ -215,10 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const autoStops = [...document.querySelectorAll("[data-autostop]")];
 
   let autoStopIndex = 0;
-  let autoScrollTimeout = null;
-  let autoScrollFrame = null;
-  let autoScrollEnabled = false;
-  let autoScrollStoppedByUser = false;
 
   function getAutoStopDuration(stop) {
     const duration = parseInt(stop?.dataset.duration, 10);
@@ -267,9 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       function step(now) {
-        if (!autoScrollEnabled || autoScrollStoppedByUser) {
-          return resolve();
-        }
 
         const progress = Math.min((now - startTime) / duration, 1);
         const eased = easeInOut(progress);
