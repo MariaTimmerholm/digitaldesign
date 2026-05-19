@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let introRideFrame = null;
   let sectionScrollTimeout = null;
 
-  const BG_NORMAL_VOLUME = 0.10;
+  const BG_NORMAL_VOLUME = 0.7;
   const BG_LOW_VOLUME = 0.04;
   const ERA_VOLUME = 0.5;
 
