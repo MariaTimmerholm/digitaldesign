@@ -582,6 +582,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  let touchAutoTimer = null;
+
+  function stopTouchAutoSwipe() {
+    if (touchAutoTimer) {
+      clearTimeout(touchAutoTimer);
+      touchAutoTimer = null;
+    }
+  }
+
+  function startTouchAutoSwipe() {
+    if (!touchPanels.length) return;
+
+    stopTouchAutoSwipe();
+
+    showTouchPanel(0);
+
+    let index = 0;
+
+    function step() {
+      if (!autoScrollEnabled || autoScrollStoppedByUser) return;
+
+      index++;
+
+      if (index >= touchPanels.length) {
+        stopTouchAutoSwipe();
+        return;
+      }
+
+      showTouchPanel(index);
+
+      touchAutoTimer = setTimeout(step, 4200);
+    }
+
+    touchAutoTimer = setTimeout(step, 4200);
+  }
+
   function updateOutroBlur() {
     if (!outroSection || !outroLines.length) return;
 
