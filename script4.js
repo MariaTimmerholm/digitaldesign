@@ -187,17 +187,24 @@ document.addEventListener("DOMContentLoaded", () => {
     items.forEach((item) => observer.observe(item));
   }
 
-  if (sections.length) {
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) activateSection(entry.target);
-        });
-      },
-      { threshold: 0.6 }
-    );
+  function updateActiveSectionByScroll() {
+    if (!sections.length) return;
 
-    sections.forEach((section) => sectionObserver.observe(section));
+    const triggerPoint = window.innerHeight * 0.45;
+
+    let activeSection = sections[0];
+
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+
+      if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
+        activeSection = section;
+      }
+    });
+
+    if (activeSection && sections[currentSectionIndex] !== activeSection) {
+      activateSection(activeSection);
+    }
   }
 
   observeActiveItems($$(".era-1 .artifact-panel"), "panel-active", "panel-past", 0.15);
@@ -647,6 +654,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function onScroll() {
+    updateActiveSectionByScroll();
     updateUnixLines();
     updateEniacCurtains();
     updateMessageTyping();
