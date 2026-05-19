@@ -822,7 +822,8 @@ h3 {
 }
 
 .terminal-cursor::after,
-.transition-text::after {
+.transition-loading::after,
+.transition-done.is-visible::after {
   content: "▌";
   display: inline-block;
   margin-left: .15rem;

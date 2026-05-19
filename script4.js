@@ -447,6 +447,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function typeTransitionText(element, text, speed = 70) {
     return new Promise((resolve) => {
+      if (!element) {
+        resolve();
+        return;
+      }
+
       let index = 0;
       element.textContent = "";
 
@@ -462,17 +467,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (commandToGuiTransition && commandToGuiText) {
+  if (commandToGuiTransition && loadingText && doneText) {
     const transitionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      async (entries) => {
+        for (const entry of entries) {
           if (entry.isIntersecting && !commandToGuiStarted) {
             commandToGuiStarted = true;
 
-            const text = commandToGuiText.dataset.text || "Nästa era laddar...";
-            typeTransitionText(commandToGuiText, text, 75);
+            const loading = loadingText.dataset.text || "Nästa era laddar...";
+            const done = doneText.dataset.text || "Laddningen är klar.";
+
+            loadingText.textContent = "";
+            doneText.textContent = "";
+            doneText.classList.remove("is-visible");
+
+            await typeTransitionText(loadingText, loading, 75);
+
+            setTimeout(async () => {
+              doneText.classList.add("is-visible");
+              await typeTransitionText(doneText, done, 75);
+            }, 3000);
           }
-        });
+        }
       },
       { threshold: 0.45 }
     );
