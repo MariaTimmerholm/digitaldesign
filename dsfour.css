@@ -1138,6 +1138,7 @@ h3 {
 
 body.theme-gui .cursor-pointer {
   opacity: 1;
+  animation: floatingCursor 9s ease-in-out infinite;
 }
 
 /* =========================
@@ -1761,6 +1762,7 @@ body.theme-gui .cursor-pointer {
       rotate(calc(-1 * var(--angle)));
   }
 }
+
 /* =========================
    FINAL BACKGROUND OVERRIDE
    Ska ligga längst ner
