@@ -1026,8 +1026,8 @@ h3 {
 
 .gui-desktop {
   position: relative;
-  min-height: 560vh;
-  padding: 0 8vw 12rem;
+  min-height: 460vh;
+  padding: 0 8vw 4rem;
   overflow: hidden;
 }
 
@@ -1057,7 +1057,7 @@ h3 {
   position: relative;
   width: min(920px, 88vw);
   min-height: 520px;
-  margin: 22vh auto;
+  margin: 16vh auto;
   border: 2px solid #1f1f1f;
   background: #f2f2f2;
   box-shadow:
@@ -1125,7 +1125,7 @@ h3 {
   height: 48px;
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%) rotate(-18deg);
+  transform: rotate(-18deg);
   transition: opacity .3s ease;
 }
 
@@ -1138,7 +1138,7 @@ h3 {
 
 body.theme-gui .cursor-pointer {
   opacity: 1;
-  animation: floatingCursor 9s ease-in-out infinite;
+  animation: floatingCursorPosition 12s ease-in-out infinite;
 }
 
 /* =========================
@@ -1666,6 +1666,32 @@ body.theme-gui .cursor-pointer {
   50% {
     height: 105px;
     opacity: 1;
+  }
+}
+
+@keyframes floatingCursorPosition {
+  0%, 100% {
+    left: 50%;
+    top: 50%;
+    transform: rotate(-18deg);
+  }
+
+  25% {
+    left: 54%;
+    top: 46%;
+    transform: rotate(-12deg);
+  }
+
+  50% {
+    left: 47%;
+    top: 54%;
+    transform: rotate(-22deg);
+  }
+
+  75% {
+    left: 53%;
+    top: 52%;
+    transform: rotate(-15deg);
   }
 }
 
