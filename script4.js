@@ -174,6 +174,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (audioSrc) {
       playEraAudio(audioSrc);
     }
+
+    if (section.classList.contains("touch-era") && autoScrollEnabled) {
+      startTouchAutoSwipe();
+    } else {
+      stopTouchAutoSwipe();
+    }
   }
 
   function observeActiveItems(items, activeClass, pastClass, threshold = 0.4) {
@@ -385,6 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function stopAutoScroll() {
     autoScrollEnabled = false;
     stopAutoScrollAnimation();
+    stopTouchAutoSwipe();
   }
 
   function userInterruptedAutoScroll() {
