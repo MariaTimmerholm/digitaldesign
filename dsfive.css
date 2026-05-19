@@ -99,32 +99,26 @@ body.loaded .scroll-hint {
   }
 }
 
-/* HORIZONTAL SECTION */
-.horizontal-section {
+/* VERTICAL SECTION */
+.vertical-section {
   position: relative;
-  height: 500vh;
+  min-height: auto;
 }
 
-.horizontal-track {
-  position: sticky;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  display: flex;
-  width: max-content;
-  will-change: transform;
-  transition: transform 0.2s ease-out;
+.vertical-track {
+  display: block;
+  width: 100%;
+  transform: none !important;
 }
 
 .panel {
-  width: 100vw;
-  min-width: 100vw;
-  height: 100vh;
-  flex-shrink: 0;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 5rem 2rem;
   box-sizing: border-box;
 }
 
