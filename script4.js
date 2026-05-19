@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const BG_NORMAL_VOLUME = 0.15;
   const BG_LOW_VOLUME = 0.08;
-  const ERA_VOLUME = 0.9;
+  const ERA_VOLUME = 0.7;
 
   /* =========================
      AUDIO

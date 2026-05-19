@@ -21,10 +21,14 @@ html {
 }
 
 body {
-  position: relative;
+  min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background: #050505;
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,.08), transparent 38%),
+    linear-gradient(180deg, #050505, #111111);
+  background-attachment: fixed;
+  background-size: cover;
   color: var(--text);
   font-family: "Inter", sans-serif;
   transition:
@@ -39,17 +43,6 @@ body.is-locked {
 
 main {
   scroll-snap-type: none;
-}
-
-body {
-  margin: 0;
-  overflow-x: hidden;
-  background: #050505;
-  color: var(--text);
-  font-family: "Inter", sans-serif;
-  transition:
-    background 0.8s ease,
-    color 0.8s ease;
 }
 
 img {
@@ -70,6 +63,8 @@ body.theme-outro {
   background:
     radial-gradient(circle at center, rgba(255,255,255,.08), transparent 38%),
     linear-gradient(180deg, #050505, #111111);
+  background-attachment: fixed;
+  background-size: cover;
   color: #f3f3f3;
 }
 
@@ -77,6 +72,8 @@ body.theme-no-interaction {
   background:
     radial-gradient(circle at center, rgba(255,255,255,.08), transparent 42%),
     linear-gradient(180deg, #1a1a1a, #101010);
+  background-attachment: fixed;
+  background-size: cover;
   color: #e0e0e0;
 }
 
@@ -84,6 +81,8 @@ body.theme-command {
   background:
     radial-gradient(circle at center, rgba(0,255,170,.08), transparent 42%),
     linear-gradient(180deg, #050806, #06110b);
+  background-attachment: fixed;
+  background-size: cover;
   color: #d9ffe8;
 }
 
@@ -91,6 +90,8 @@ body.theme-gui {
   background:
     radial-gradient(circle at top, rgba(255,255,255,.45), transparent 36%),
     linear-gradient(180deg, #9fc7e8, #d7ecff 45%, #b7d4ef);
+  background-attachment: fixed;
+  background-size: cover;
   color: #111;
 }
 
@@ -98,6 +99,8 @@ body.theme-touch {
   background:
     radial-gradient(circle at top, rgba(0,255,255,.08), transparent 30%),
     linear-gradient(180deg, #021018, #041f2b 45%, #03131d);
+  background-attachment: fixed;
+  background-size: cover;
   color: #dff7ff;
 }
 
@@ -105,6 +108,8 @@ body.theme-multimodal {
   background:
     radial-gradient(circle at top, rgba(126,232,255,.12), transparent 35%),
     linear-gradient(180deg, #05070f, #090f1f 45%, #030407);
+  background-attachment: fixed;
+  background-size: cover;
   color: #e8fbff;
 }
 
@@ -1754,6 +1759,10 @@ body.theme-gui .cursor-pointer {
       rotate(calc(-1 * var(--angle)));
   }
 }
+/* =========================
+   FINAL BACKGROUND OVERRIDE
+   Ska ligga längst ner
+========================= */
 
 .story-section.era-scroll,
 .story-section.command-era,
@@ -1761,4 +1770,12 @@ body.theme-gui .cursor-pointer {
 .story-section.touch-era,
 .story-section.multimodal-era {
   background: transparent;
+}
+
+.story-section.era-scroll::after,
+.story-section.command-era::after,
+.story-section.gui-era::after,
+.story-section.touch-era::after,
+.story-section.multimodal-era::after {
+  display: none;
 }
