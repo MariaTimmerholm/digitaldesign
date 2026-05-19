@@ -1,0 +1,345 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #1a1a1a;
+  color: white;
+  overflow-x: hidden;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+/* INTRO */
+.intro-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.intro-inner {
+  max-width: 800px;
+  transition: opacity 0.2s linear, transform 0.2s linear;
+}
+
+.big-title {
+  font-family: "Gasoek One", sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  line-height: 1;
+  margin: 0 0 1rem;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.intro-lead {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  line-height: 1.6;
+  text-align: center;
+  max-width: 750px;
+  margin: 1rem auto 2rem;
+  letter-spacing: 0.01em;
+}
+
+.intro-lead span {
+  display: block;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.scroll-hint {
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* När sidan laddat */
+body.loaded .big-title {
+  animation: fadeUp 1s ease forwards;
+}
+
+body.loaded .intro-lead span:nth-child(1) {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.45s;
+}
+
+body.loaded .intro-lead span:nth-child(2) {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.65s;
+}
+
+body.loaded .intro-lead span:nth-child(3) {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.85s;
+}
+
+body.loaded .intro-lead span:nth-child(4) {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 1.05s;
+}
+
+body.loaded .intro-lead span:nth-child(5) {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 1.25s;
+}
+
+body.loaded .scroll-hint {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 1.45s;
+}
+
+/* KEYFRAMES */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* HORIZONTAL SECTION */
+.horizontal-section {
+  position: relative;
+  height: 500vh;
+}
+
+.horizontal-track {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+}
+
+.panel {
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* ERA */
+.era {
+  text-align: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 2rem; 
+  transition: opacity 0.6s ease;
+}
+
+.era-content {
+  width: min(1100px, 100%);
+  max-width: 1100px;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  transform: scale(0.92);
+  opacity: 0.45;
+}
+
+.era.active .era-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.era h2 {
+  font-family: "Gasoek One", sans-serif;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.era p {
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 750px;
+  margin: 0 auto 2rem;
+}
+
+/* CARD / IMAGE GRID */
+.project-img {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.project-img img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.pdf-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.pdf-overlay p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.project-img:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.75);
+}
+
+.project-img:hover .pdf-overlay {
+  opacity: 1;
+}
+
+/* SECTION AFTER TIMELINE */
+.projects {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+/* FADE-IN */
+.fade-section {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fade-section.visible {
+  opacity: 1;
+}
+
+/* BODY THEMES */
+body.industrialism {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+}
+
+body.modernism {
+  background: #f4f4f4;
+  color: #968a8a;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+body.postmodernism {
+  background: #00A6FB;
+  color: #e0e0e0;
+  font-family: 'Georgia', serif;
+}
+
+body.digital {
+  background: #000814;
+  color: #00f5ff;
+  font-family: 'Courier New', monospace;
+}
+
+body.multimodal {
+  background: #0b1020;
+  color: #dff7ff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Focus intro fade */
+.outro-section {
+  position: relative;
+  height: 220vh; /* ger plats för paus + blur + exit */
+}
+
+.outro-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.outro-inner {
+  max-width: 800px;
+  transition: opacity 0.2s linear, transform 0.2s linear;
+}
+
+.outro-title {
+  font-family: "Gasoek One", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1.5rem;
+  filter: blur(0);
+  opacity: 1;
+  transition: opacity 0.2s linear, filter 0.2s linear, transform 0.2s linear;
+}
+
+.outro-text span {
+  display: block;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  margin: 0.4rem 0;
+  opacity: 1;
+  filter: blur(0);
+  transition: opacity 0.2s linear, filter 0.2s linear, transform 0.2s linear;
+}
+
+@keyframes focusInOut {
+  0% {
+    opacity: 0;
+    filter: blur(18px);
+    transform: scale(1.03);
+  }
+
+  20% {
+    opacity: 1;
+    filter: blur(6px);
+  }
+
+  35%,
+  65% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(16px);
+    transform: scale(0.99);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .panel {
+    padding: 1.25rem;
+  }
+
+  .era-content {
+    transform: none;
+    opacity: 1;
+  }
+
+  .era.active .era-content {
+    transform: none;
+  }
+
+  .intro-lead,
+  .era p,
+  .pdf-overlay p {
+    font-size: 0.95rem;
+  }
+}

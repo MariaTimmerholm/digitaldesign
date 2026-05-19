@@ -62,7 +62,7 @@
       <div class="era-header"
       data-audio="audio/no-interaction.webm">
         <p class="section-tag">Epok 1</p>
-        <h2>No Interaction Era</h2>
+        <h2>Ingen interaktion</h2>
         <p class="years">≈ 1940–1960</p>
         <p class="era-intro">
           Datorn var ännu inte ett verktyg för direkt interaktion. 
@@ -139,7 +139,9 @@
     </section>
     <!-- ERA 1 SLUT -->
     <!-- ERA 2 START -->
-    <section class="outro-section command-transition">
+    <section 
+    class="story-section outro-section command-transition"
+    data-era="command">
       <div class="outro-sticky">
         <div class="outro-inner">
           <h2 class="outro-title">
@@ -160,14 +162,14 @@
       <div class="era-header">
         <p class="section-tag">Epok 2</p>
         <p class="years">≈ 1960–1980</p>
-        <h2>Command Era</h2>
+        <h2>Kommandostyrd interaktion</h2>
       </div>
       <section class="arpanet-scroll-section" data-autostop data-duration="18000">  
         <div class="outro-sticky">
           <article class="command-panel arpanet-panel" data-audio="audio/arpanet.webm">
             <div class="command-centered-text">
-              <p class="archive-label">Network item 01</p>
-              <h3>ARPANET</h3>
+              <p class="archive-label">Nätverksartefakt 01</p>
+              <h3>ARPANET (1969)</h3>
               <p>
                 ARPANET visade hur datorer kunde kommunicera över nätverk. 
                 Interaktionen flyttade från isolerad maskin till uppkopplad kommunikation.
@@ -208,7 +210,7 @@
       <article class="command-panel unix-node">
         <div class="command-centered-text">
           <div class="unix-sticky">
-          <p class="archive-label">Network item 02</p>
+          <p class="archive-label">Nätverksartefakt 02</p>
             <div class="command-visual">
               <img src="images/unix.png" alt="Unix">
             </div>
@@ -217,18 +219,20 @@
             data-autostop 
             data-duration="10000"
             aria-hidden="true">
-              <span>Unix utvecklades på AT&T Bell Labs i USA</span>
-              <span>och gjorde textbaserade kommandon</span>
-              <span>centrala och blev grunden</span>
+              <span>Unix utvecklades på</span>
+              <span>AT&T Bell Labs i USA ≈ 1969</span>
+              <span>Unix gjorde textbaserade</span> 
+              <span>kommandon centrala</span>
+              <span>och blev grunden</span>
               <span>för många moderna operativsystem.</span>
-              <span>Exempel på sådana är</span>
-              <span>Linux, macOS och många BSD-varianter, samt</span>
+              <span>Exempelvis: Linux, macOS</span>
+              <span>många BSD-varianter, samt</span>
               <span>programmeringsspråket C</span>
             </div>
           </div>
         </div>
       </article>
-      <!-- TERMINALER -->    
+      <!-- TERMINALER 
       <article class="seventies-terminal-panel" data-autostop data-duration="20000">
         <div class="seventies-terminal-sticky">
           <div class="seventies-terminal-copy seventies-copy-one"></div>
@@ -256,7 +260,7 @@
           </div>
         </div>
       </article>
-    
+    -->    
       <article class="command-panel pc-node" 
       data-audio="audio/keyboard.mp3" 
       data-autostop data-duration="10000">
@@ -271,8 +275,8 @@
     </section>
     <section class="era-transition command-to-gui">
       <div class="transition-sticky">
-        <p class="transition-text" data-text="Nästa era laddar..."></p>
-        <p class="transition-text" data-text="...laddningen är klar"></p>
+        <p class="transition-text transition-loading" data-text="Nästa era laddar..."></p>
+        <p class="transition-text transition-done" data-text="...laddningen är klar"></p>
       </div>
     </section>
     <!-- ERA 2 SLUT -->
@@ -294,7 +298,7 @@
         <article class="gui-window gui-window-mac" data-audio="audio/macintosh.webm">
           <div class="window-bar">
             <span></span><span></span><span></span>
-            <p>Macintosh.app</p>
+            <p>Macintosh.app.1984</p>
           </div>
 
           <div class="window-content">
@@ -309,7 +313,7 @@
         <article class="gui-window gui-window-www" data-audio="audio/dialup.mp3">
           <div class="window-bar">
             <span></span><span></span><span></span>
-            <p>WorldWideWeb.html</p>
+            <p>WorldWideWeb.html.1991</p>
           </div>
 
           <div class="window-content">
@@ -321,25 +325,10 @@
           </div>
         </article>
 
-        <article class="gui-window gui-window-windows" data-audio="audio/click.mp3">
-          <div class="window-bar">
-            <span></span><span></span><span></span>
-            <p>Windows95.exe</p>
-          </div>
-
-          <div class="window-content">
-            <div>
-              <h3>Windows 95</h3>
-              <p>Start-menyn och skrivbordsmetaforen gjorde GUI till vardag för många användare.</p>
-            </div>
-            <img src="images/windows.png" alt="Windows 95">
-          </div>
-        </article>
-
         <article class="gui-window gui-window-linux" data-audio="audio/linux.webm">
           <div class="window-bar">
             <span></span><span></span><span></span>
-            <p>Linux.desktop</p>
+            <p>Linux.desktop.1991</p>
           </div>
           <div class="window-content">
             <div>
@@ -349,7 +338,20 @@
             <img src="images/linux.png" alt="Linux">
           </div>
         </article>
-        <div class="cursor-pointer" aria-hidden="true"></div>
+
+        <article class="gui-window gui-window-windows" data-audio="audio/click.mp3">
+          <div class="window-bar">
+            <span></span><span></span><span></span>
+            <p>Windows95.exe.1995</p>
+          </div>
+          <div class="window-content">
+            <div>
+              <h3>Windows 95</h3>
+              <p>Start-menyn och skrivbordsmetaforen gjorde GUI till vardag för många användare.</p>
+            </div>
+            <img src="images/windows.png" alt="Windows 95">
+          </div>
+        </article>
       </div>
     </section>
     <!-- ERA 3 SLUT -->
@@ -359,7 +361,7 @@
       data-duration="62000">
       <div class="touch-header">
         <p class="section-tag">Epok 4</p>
-        <p class="years">≈ 2007–2015</p>
+        <p class="years">≈ 2007– nu</p>
         <h2>Touch Era</h2>
         <p>
           Skärmen blir både yta och kontroll. Fingret ersätter muspekaren, och interaktionen känns mer fysisk, direkt och kroppslig.
@@ -381,16 +383,17 @@
             </article>
 
             <article class="phone-panel iphone-panel" data-audio="audio/iphone.webm">
-              <p class="phone-label">Artifact 01</p>
+              <p class="phone-label">Artifakt 01</p>
               <h3>iPhone</h3>
               <p>Multi-touch gör mobilen till ett direkt manipulerbart gränssnitt.</p>
               <img src="images/iphone.png" alt="iPhone">
             </article>
 
             <article class="phone-panel android-panel" data-audio="audio/android.webm">
-              <p class="phone-label">Artifact 02</p>
+              <p class="phone-label">Artifakt 02</p>
               <h3>Android</h3>
-              <p>Smartphones blir bredare tillgängliga och app-ekosystemet växer.</p>
+              <p>Alltfler människor har möjlighet att skaffa smartphone
+                och människor delas i iPhone vs Android användare.</p>
               <img src="images/android.png" alt="Android">
 
               <div class="app-grid">
@@ -401,18 +404,20 @@
             </article>
 
             <article class="phone-panel apps-panel" data-audio="audio/notification.mp3">
-              <p class="phone-label">Interaction 02</p>
+              <p class="phone-label">Interaktion 02</p>
               <h3>Appar</h3>
-              <p>Gränssnittet delas upp i små tjänster: kartor, kamera, musik, meddelanden.</p>
+              <p>Gränssnittet delas upp i små tjänster.</p>
+              <p>Nu designas appar efter syfte och behov</p>
+              <p>Användaren överösas med alternativ</p>
 
               <div class="notification-card">
-                Ny notis
+                Ny notifikation: "Du har 3 nya meddelanden"
               </div>
             </article>
 
             <article class="phone-panel gps-camera-panel" data-audio="audio/swipe.mp3">
-              <p class="phone-label">Sensors</p>
-              <h3>GPS + Kamera</h3>
+              <p class="phone-label">Sensorer</p>
+              <h3>GPS & Kamera</h3>
               <p>Telefonen börjar känna av plats, rörelse och omgivning.</p>
 
               <div class="sensor-icons">
@@ -423,9 +428,11 @@
             </article>
 
             <article class="phone-panel ipad-panel" data-audio="audio/swipe.mp3">
-              <p class="phone-label">Artifact 03</p>
+              <p class="phone-label">Artifakt 03</p>
               <h3>iPad</h3>
-              <p>Touch flyttar från fickan till större ytor för läsning, skapande och spel.</p>
+              <p>Så småningom designar olika varumärken plattor. 
+                Touch finns inte enbart på smartphone utan 
+                på större enheter som är mer lämpliga för läsning, skapande och spel.</p>
               <img src="images/ipad.png" alt="iPad">
             </article>
           </div>
@@ -440,10 +447,10 @@
       data-duration="62000">
       <div class="multimodal-header" data-audio="audio/multimodalintro.mp3">
         <p class="section-tag">Epok 5</p>
-        <p class="years">≈ 2015–nu</p>
+        <p class="years">≈ 2011–nu</p>
         <h2>Multimodal Era</h2>
         <p>
-          Interaktionen sker inte längre genom en enda kanal. System börjar tolka röst, bild, rörelse,
+          Interaktionen sker inte längre genom en enda kanal. System tolkar röst, bild, rörelse,
           blick och kontext samtidigt.
         </p>
       </div>
@@ -452,8 +459,9 @@
         data-audio="audio/swipe.mp3">
           <div class="multi-content">
             <p class="archive-label">Signal 01</p>
-            <h3>Röstassistenter</h3>
-            <p>Röst blir ett gränssnitt. Användaren behöver inte längre trycka eller klicka, utan kan tala till systemet.</p>
+            <h3>Röstassistenter (2011-2014)</h3>
+            <p>Röst blir ett gränssnitt. Användaren behöver inte längre trycka, klicka eller swipa,
+               utan kan tala direkt till systemet.</p>
             <div class="voice-orbs">
               <span>Alexa</span>
               <span>Siri</span>
@@ -471,7 +479,7 @@
         data-audio="audio/swipe.mp3">
           <div class="multi-content">
             <p class="archive-label">Signal 02</p>
-            <h3>Generativ AI</h3>
+            <h3>Generativ AI (2022)</h3>
             <p>Gränssnitt börjar svara, skapa och föreslå. Interaktionen blir mer dialogbaserad och mindre förutsägbar.</p>
             <div class="ai-prompt">
               <span>&gt;</span>
@@ -485,7 +493,7 @@
         data-audio="audio/swipe.mp3">
           <div class="multi-content">
             <p class="archive-label">Signal 03</p>
-            <h3>Multimodala gränssnitt</h3>
+            <h3>Multimodala gränssnitt (2023)</h3>
             <p>Systemet kombinerar flera signaler samtidigt: röst, ansikte, blick, rörelse och bild.</p>
             <div class="human-system">
               <div class="human-core">AI</div>

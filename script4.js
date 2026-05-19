@@ -440,9 +440,60 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================= */
 
   const commandToGuiTransition = document.querySelector(".command-to-gui");
-  const commandToGuiText = document.querySelector(".command-to-gui .transition-text");
+  const loadingText = document.querySelector(".command-to-gui .transition-loading");
+  const doneText = document.querySelector(".command-to-gui .transition-done");
 
   let commandToGuiStarted = false;
+
+  function typeTransitionText(element, text, speed = 70) {
+    return new Promise((resolve) => {
+      if (!element) {
+        resolve();
+        return;
+      }
+
+      let index = 0;
+      element.textContent = "";
+
+      const interval = setInterval(() => {
+        element.textContent += text[index];
+        index++;
+
+        if (index >= text.length) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  if (commandToGuiTransition && loadingText && doneText) {
+    const transitionObserver = new IntersectionObserver(
+      async (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !commandToGuiStarted) {
+            commandToGuiStarted = true;
+
+            const loading = loadingText.dataset.text || "Nästa era laddar...";
+            const done = doneText.dataset.text || "Laddningen är klar.";
+
+            doneText.textContent = "";
+            doneText.classList.remove("is-visible");
+
+            await typeTransitionText(loadingText, loading, 75);
+
+            setTimeout(async () => {
+              doneText.classList.add("is-visible");
+              await typeTransitionText(doneText, done, 75);
+            }, 3000);
+          }
+        }
+      },
+      { threshold: 0.45 }
+    );
+
+    transitionObserver.observe(commandToGuiTransition);
+  }
 
   function typeTransitionText(element, text, speed = 70) {
     return new Promise((resolve) => {
