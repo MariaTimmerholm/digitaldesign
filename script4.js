@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let introRideFrame = null;
   let sectionScrollTimeout = null;
 
-  const BG_NORMAL_VOLUME = 0.15;
+  const BG_NORMAL_VOLUME = 0.13;
   const BG_LOW_VOLUME = 0.08;
-  const ERA_VOLUME = 0.7;
+  const ERA_VOLUME = 0.5;
 
   /* =========================
      AUDIO
@@ -288,33 +288,38 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
     const currentStop = autoStops[autoStopIndex];
-    if (!currentStop) return;
+    const nextStop = autoStops[autoStopIndex + 1];
+
+    if (!currentStop || !nextStop) {
+      autoScrollEnabled = false;
+
+      if (toggleAutoscroll) {
+        toggleAutoscroll.checked = false;
+      }
+
+      stopAutoScrollAnimation();
+      return;
+    }
 
     const waitTime = getAutoStopDuration(currentStop);
 
     clearTimeout(autoScrollTimeout);
 
+    // Liten paus först, så användaren hinner uppfatta artefakten
+    const pauseTime = Math.min(2500, waitTime * 0.25);
+
+    // Resten av tiden används till långsam glid-scroll
+    const slowScrollTime = waitTime - pauseTime;
+
     autoScrollTimeout = setTimeout(async () => {
       if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
+      await smoothScrollToElement(nextStop, slowScrollTime);
+
       autoStopIndex++;
 
-      const nextStop = autoStops[autoStopIndex];
-
-      if (!nextStop) {
-        autoScrollEnabled = false;
-
-        if (toggleAutoscroll) {
-          toggleAutoscroll.checked = false;
-        }
-
-        stopAutoScrollAnimation();
-        return;
-      }
-
-      await smoothScrollToElement(nextStop, 1600);
       scheduleNextAutoStop();
-    }, waitTime);
+    }, pauseTime);
   }
 
   async function startAutoScroll() {
