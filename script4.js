@@ -220,9 +220,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  observeActiveItems($$(".era-1 .artifact-panel"), "panel-active", "panel-past", 0.15);
   observeActiveItems($$(".command-era .command-panel"), "command-active", "command-past", 0.35);
   observeActiveItems($$(".gui-era .gui-window"), "gui-active", "gui-past", 0.45);
+
+  const artifactPanels = $$(".era-1 .artifact-panel");
+
+  function updateArtifactPanelsByScroll() {
+    if (!artifactPanels.length) return;
+
+    const triggerPoint = window.innerHeight * 0.52;
+
+    let activeIndex = 0;
+    let closestDistance = Infinity;
+
+    artifactPanels.forEach((panel, index) => {
+      const rect = panel.getBoundingClientRect();
+
+      const panelCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(panelCenter - triggerPoint);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        activeIndex = index;
+      }
+    });
+
+    artifactPanels.forEach((panel, index) => {
+      panel.classList.toggle("panel-active", index === activeIndex);
+      panel.classList.toggle("panel-past", index < activeIndex);
+    });
+  }
 
   /* =========================
     AUTOSCROLL — UPDATED
@@ -711,6 +738,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function onScroll() {
     updateActiveSectionByScroll();
+    updateArtifactPanelsByScroll();
     updateUnixLines();
     updateEniacCurtains();
     updateMessageTyping();
