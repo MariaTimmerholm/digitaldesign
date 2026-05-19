@@ -848,7 +848,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const multiScenes = [...document.querySelectorAll(".multimodal-era .multi-scene")];
   const aiType = document.querySelector(".ai-type");
 
-  const aiText = "Generate multimodal interface...";
+  const aiText = "Fråga vad som helst...";
 
   function typeAiPrompt(progress) {
     if (!aiType) return;
