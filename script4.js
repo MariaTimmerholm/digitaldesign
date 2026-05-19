@@ -110,6 +110,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function stopAllNonBackgroundAudio() {
+    stopEraAudio();
+
+    if (typeof stopArtifactAudio === "function") {
+      stopArtifactAudio();
+    }
+  }
+
   /* =========================
      START
   ========================= */
@@ -159,8 +167,13 @@ document.addEventListener("DOMContentLoaded", () => {
     currentSectionIndex = sections.indexOf(section);
     setThemeFromSection(section);
 
+    stopAllNonBackgroundAudio();
+
     const audioSrc = section.dataset.audio || "";
-    audioSrc ? playEraAudio(audioSrc) : stopEraAudio();
+
+    if (audioSrc) {
+      playEraAudio(audioSrc);
+    }
   }
 
   function observeActiveItems(items, activeClass, pastClass, threshold = 0.4) {
@@ -804,12 +817,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function playArtifactAudio(src) {
-    if (!soundEnabled || !src || activeArtifactAudioSrc === src) return;
+    if (!soundEnabled || !src) return;
+    if (activeArtifactAudioSrc === src) return;
 
-    if (artifactFadeFrame) cancelAnimationFrame(artifactFadeFrame);
+    if (artifactFadeFrame) {
+      cancelAnimationFrame(artifactFadeFrame);
+      artifactFadeFrame = null;
+    }
+
+    artifactAudio.pause();
+    artifactAudio.currentTime = 0;
+    artifactAudio.removeAttribute("src");
+    artifactAudio.load();
 
     activeArtifactAudioSrc = src;
-    artifactAudio.pause();
     artifactAudio.src = src;
     artifactAudio.currentTime = 0;
     artifactAudio.volume = 0;
@@ -820,7 +841,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function stopArtifactAudio() {
-    if (activeArtifactAudioSrc) fadeArtifactAudio(0, 500);
+    if (artifactFadeFrame) {
+      cancelAnimationFrame(artifactFadeFrame);
+      artifactFadeFrame = null;
+    }
+
+    artifactAudio.pause();
+    artifactAudio.currentTime = 0;
+    artifactAudio.removeAttribute("src");
+    artifactAudio.load();
+
+    activeArtifactAudioSrc = "";
   }
 
   const audioArtifacts = $$("[data-audio]")
@@ -832,11 +863,12 @@ document.addEventListener("DOMContentLoaded", () => {
         entries.forEach((entry) => {
           const src = entry.target.dataset.audio;
 
-          if (entry.isIntersecting) {
-            playArtifactAudio(src);
-          } else if (activeArtifactAudioSrc === src) {
-            stopArtifactAudio();
-          }
+        if (entry.isIntersecting) {
+          stopEraAudio();
+          playArtifactAudio(src);
+        } else if (activeArtifactAudioSrc === src) {
+          stopArtifactAudio();
+        }
         });
       },
       { threshold: 0.55 }
