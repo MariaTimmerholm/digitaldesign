@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let introRideFrame = null;
   let sectionScrollTimeout = null;
 
-  const BG_NORMAL_VOLUME = 0.13;
-  const BG_LOW_VOLUME = 0.08;
+  const BG_NORMAL_VOLUME = 0.10;
+  const BG_LOW_VOLUME = 0.04;
   const ERA_VOLUME = 0.5;
 
   /* =========================
@@ -250,25 +250,36 @@ document.addEventListener("DOMContentLoaded", () => {
     autoScrollTimeout = null;
   }
 
-  function smoothScrollToElement(element, duration = 1400) {
+  function smoothScrollToElement(element, duration = 8000) {
     return new Promise((resolve) => {
-      if (!element) return resolve();
+      if (!element) {
+        resolve();
+        return;
+      }
+
+      if (autoScrollFrame) {
+        cancelAnimationFrame(autoScrollFrame);
+        autoScrollFrame = null;
+      }
 
       const startY = window.scrollY;
       const targetY = element.getBoundingClientRect().top + window.scrollY;
       const distance = targetY - startY;
       const startTime = performance.now();
 
-      function easeInOut(t) {
-        return t < 0.5
-          ? 2 * t * t
-          : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      function easeInOutSine(t) {
+        return -(Math.cos(Math.PI * t) - 1) / 2;
       }
 
       function step(now) {
+        if (!autoScrollEnabled || autoScrollStoppedByUser) {
+          autoScrollFrame = null;
+          resolve();
+          return;
+        }
 
         const progress = Math.min((now - startTime) / duration, 1);
-        const eased = easeInOut(progress);
+        const eased = easeInOutSine(progress);
 
         window.scrollTo(0, startY + distance * eased);
 
@@ -301,25 +312,16 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const waitTime = getAutoStopDuration(currentStop);
+    const duration = getAutoStopDuration(currentStop);
 
     clearTimeout(autoScrollTimeout);
 
-    // Liten paus först, så användaren hinner uppfatta artefakten
-    const pauseTime = Math.min(2500, waitTime * 0.25);
-
-    // Resten av tiden används till långsam glid-scroll
-    const slowScrollTime = waitTime - pauseTime;
-
-    autoScrollTimeout = setTimeout(async () => {
+    smoothScrollToElement(nextStop, duration).then(() => {
       if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
-      await smoothScrollToElement(nextStop, slowScrollTime);
-
       autoStopIndex++;
-
       scheduleNextAutoStop();
-    }, pauseTime);
+    });
   }
 
   async function startAutoScroll() {
