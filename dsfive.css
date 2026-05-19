@@ -120,6 +120,7 @@ body.loaded .scroll-hint {
   justify-content: center;
   padding: 5rem 2rem;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* ERA */
@@ -136,8 +137,8 @@ body.loaded .scroll-hint {
   width: min(1100px, 100%);
   max-width: 1100px;
   transition: transform 0.6s ease, opacity 0.6s ease;
-  transform: scale(0.92);
-  opacity: 0.45;
+  transform: scale(1);
+  opacity: 1;
 }
 
 .era.active .era-content {
@@ -156,6 +157,37 @@ body.loaded .scroll-hint {
   line-height: 1.7;
   max-width: 750px;
   margin: 0 auto 2rem;
+}
+
+/* ERA-BACKGROUNDS FÖR VERTIKAL SCROLL */
+.era-1 {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+}
+
+.era-2 {
+  background: #f4f4f4;
+  color: #968a8a;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.era-3 {
+  background: #00A6FB;
+  color: #e0e0e0;
+  font-family: 'Georgia', serif;
+}
+
+.era-4 {
+  background: #000814;
+  color: #00f5ff;
+  font-family: 'Courier New', monospace;
+}
+
+.era-5 {
+  background: #0b1020;
+  color: #dff7ff;
+  font-family: 'Inter', sans-serif;
 }
 
 /* CARD / IMAGE GRID */
@@ -217,37 +249,6 @@ body.loaded .scroll-hint {
 
 .fade-section.visible {
   opacity: 1;
-}
-
-/* BODY THEMES */
-body.industrialism {
-  background: #1a1a1a;
-  color: #e0e0e0;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", sans-serif;
-}
-
-body.modernism {
-  background: #f4f4f4;
-  color: #968a8a;
-  font-family: 'Helvetica Neue', sans-serif;
-}
-
-body.postmodernism {
-  background: #00A6FB;
-  color: #e0e0e0;
-  font-family: 'Georgia', serif;
-}
-
-body.digital {
-  background: #000814;
-  color: #00f5ff;
-  font-family: 'Courier New', monospace;
-}
-
-body.multimodal {
-  background: #0b1020;
-  color: #dff7ff;
-  font-family: 'Inter', sans-serif;
 }
 
 /* Focus intro fade */
