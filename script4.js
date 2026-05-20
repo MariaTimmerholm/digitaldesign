@@ -172,6 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (audioSrc) {
       playEraAudio(audioSrc);
+    } else {
+      stopEraAudio();
     }
 
     if (section.classList.contains("touch-era") && autoScrollEnabled) {
