@@ -221,12 +221,19 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.add("show-title");
     }, 1500);
   }
-  
-    function toggleProcessImages() {
-    const processImages = document.getElementById("processImages");
+});
 
-    if (!processImages) return;
+  function toggleProcessImages() {
+    const processImages = document.getElementById("processImages");
+    const button = document.getElementById("processButton");
+
+    if (!processImages || !button) return;
 
     processImages.classList.toggle("d-none");
+
+    if (processImages.classList.contains("d-none")) {
+      button.textContent = "Visa processbilder";
+    } else {
+      button.textContent = "Dölj processbilder";
+    }
   }
-});
