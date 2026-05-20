@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let autoScrollTimeout = null;
   let autoScrollFrame = null;
 
-  const BG_NORMAL_VOLUME = 0.07;
-  const BG_LOW_VOLUME = 0.04;
+  const BG_NORMAL_VOLUME = 0.04;
+  const BG_LOW_VOLUME = 0.02;
   const ERA_VOLUME = 0.5;
 
   /* =========================
