@@ -213,7 +213,7 @@ body.loaded .scroll-hint {
 
 .project-img-large {
   height: 660px;
-  width: 660px;
+  width: 100%;
 }
 
 .pdf-overlay {
