@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-    AUTOSCROLL — SMOOTH ROUTE
+    AUTOSCROLL — CONTINUOUS CRAWL
   ========================= */
 
   const autoStops = [
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getAutoStopDuration(stop) {
     const duration = parseInt(stop?.dataset.duration, 10);
-    return Number.isNaN(duration) ? 9000 : duration;
+    return Number.isNaN(duration) ? 18000 : duration;
   }
 
   function getStopTargetY(stop) {
@@ -278,20 +278,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const rect = stop.getBoundingClientRect();
     const absoluteTop = rect.top + window.scrollY;
-
     const offset = parseInt(stop.dataset.offset || "0", 10);
 
-    /*
-      Om stoppet är högre än viewporten:
-      scrolla till början av sektionen.
-
-      Om stoppet är mindre:
-      centrera det mjukt i viewporten.
-    */
+    // Stora sektioner: gå till början
     if (stop.offsetHeight > window.innerHeight * 0.9) {
       return absoluteTop + offset;
     }
 
+    // Mindre element: centrera dem mjukt
     return absoluteTop - (window.innerHeight - stop.offsetHeight) / 2 + offset;
   }
 
@@ -314,12 +308,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return closestIndex;
   }
 
-  function easeInOutCubic(t) {
-    return t < 0.5
-      ? 4 * t * t * t
-      : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
-
   function stopAutoScrollAnimation() {
     if (autoScrollFrame) {
       cancelAnimationFrame(autoScrollFrame);
@@ -330,7 +318,11 @@ document.addEventListener("DOMContentLoaded", () => {
     autoScrollTimeout = null;
   }
 
-  function smoothScrollToStop(stop, duration = 9000) {
+  /*
+    Den här scrollar med jämn hastighet.
+    Ingen ease-in/ease-out = inget konstigt stopp mellan punkter.
+  */
+  function crawlToStop(stop, duration = 18000) {
     return new Promise((resolve) => {
       if (!stop) {
         resolve();
@@ -343,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const targetY = getStopTargetY(stop);
       const distance = targetY - startY;
 
-      if (Math.abs(distance) < 4) {
+      if (Math.abs(distance) < 3) {
         resolve();
         return;
       }
@@ -358,9 +350,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const progress = clamp((now - startTime) / duration, 0, 1);
-        const eased = easeInOutCubic(progress);
 
-        window.scrollTo(0, startY + distance * eased);
+        // LINJÄR progress = konstant, långsam rörelse
+        window.scrollTo(0, startY + distance * progress);
 
         if (progress < 1) {
           autoScrollFrame = requestAnimationFrame(step);
@@ -396,11 +388,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     autoStopIndex++;
 
-    await smoothScrollToStop(nextStop, duration);
+    await crawlToStop(nextStop, duration);
 
     if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
-    goToNextAutoStop();
+    requestAnimationFrame(() => {
+      goToNextAutoStop();
+    });
   }
 
   async function startAutoScroll() {
@@ -417,11 +411,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentStop = autoStops[autoStopIndex];
 
-    await smoothScrollToStop(currentStop, 1200);
+    await crawlToStop(currentStop, 1200);
 
     if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
-    goToNextAutoStop();
+    requestAnimationFrame(() => {
+      goToNextAutoStop();
+    });
   }
 
   function stopAutoScroll() {
@@ -783,15 +779,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let opacity;
 
     // Första delen: videon växer
-    if (progress < 0.65) {
-      const p = progress / 0.65;
-
-      scale = 0.65 + p * 0.55; // 0.65 → 1.2
-      opacity = 0.5 + p * 0.5; // 0.5 → 1
-    }
-
-    // Resten av sektionen: videon stannar stor
-    else {
+    if (progress < 0.45) {
+      const p = progress / 0.45;
+      scale = 0.65 + p * 0.55;
+      opacity = 0.5 + p * 0.5;
+    } else {
       scale = 1.2;
       opacity = 1;
     }
