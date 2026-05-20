@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const outroSection = document.querySelector(".outro-section");
   const outroInner = document.querySelector(".outro-inner");
   const outroTitle = document.querySelector(".outro-title");
-  const outroLines = document.querySelectorAll(".outro-text span");
+  const outroLines = document.querySelectorAll(".outro-text li");
 
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

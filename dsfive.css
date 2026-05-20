@@ -287,10 +287,17 @@ body.loaded .scroll-hint {
   transition: opacity 0.2s linear, filter 0.2s linear, transform 0.2s linear;
 }
 
-.outro-text span {
-  display: block;
+.outro-text {
+  list-style-position: inside;
+  padding-left: 0;
+  margin: 0 auto;
+  max-width: 800px;
+  text-align: left;
+}
+
+.outro-text li {
   font-size: clamp(1.2rem, 2vw, 1.6rem);
-  margin: 0.4rem 0;
+  margin: 0.8rem 0;
   opacity: 1;
   filter: blur(0);
   transition: opacity 0.2s linear, filter 0.2s linear, transform 0.2s linear;
