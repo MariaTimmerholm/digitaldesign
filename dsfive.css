@@ -289,15 +289,15 @@ body.loaded .scroll-hint {
 }
 
 .outro-text {
-  list-style-position: inside;
-  padding-left: 0;
+  max-width: 620px;
   margin: 0 auto;
-  max-width: 800px;
+  padding-left: 1.5rem;
   text-align: left;
 }
 
 .outro-text li {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  font-weight: 300;
   margin: 0.8rem 0;
   opacity: 1;
   filter: blur(0);
