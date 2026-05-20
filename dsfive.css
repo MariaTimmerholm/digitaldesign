@@ -247,6 +247,19 @@ body.loaded .scroll-hint {
   padding: 2rem;
 }
 
+.prototype-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.prototype-section .container {
+  width: 100%;
+}
+
 /* FADE-IN */
 .fade-section {
   opacity: 0;
