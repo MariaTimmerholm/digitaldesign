@@ -613,12 +613,15 @@ document.addEventListener("DOMContentLoaded", () => {
       panel.classList.toggle("touch-next", i > activeTouchIndex);
     });
 
+    phonePrev?.classList.toggle("is-hidden", activeTouchIndex === 0);
+    phoneNext?.classList.toggle("is-hidden", activeTouchIndex === touchPanels.length - 1);
+
     const activePanel = touchPanels[activeTouchIndex];
     const audioSrc = activePanel?.dataset.audio;
 
-  if (audioSrc && experienceStarted && typeof playArtifactAudio === "function") {
-    playArtifactAudio(audioSrc);
-  }
+    if (audioSrc && experienceStarted && typeof playArtifactAudio === "function") {
+      playArtifactAudio(audioSrc);
+    }
   }
 
   function nextTouchPanel() {

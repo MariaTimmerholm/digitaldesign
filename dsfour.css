@@ -1197,6 +1197,12 @@ h3 {
   cursor: pointer;
 }
 
+.phone-controls button.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 .tap-circle {
   position: relative;
   width: 120px;
