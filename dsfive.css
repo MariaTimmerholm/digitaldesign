@@ -141,6 +141,10 @@ body.loaded .scroll-hint {
   opacity: 1;
 }
 
+.era-content ul {
+  margin-bottom: 2rem;
+}
+
 .era.active .era-content {
   transform: scale(1);
   opacity: 1;
