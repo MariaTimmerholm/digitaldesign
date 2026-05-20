@@ -194,6 +194,20 @@ body.loaded .scroll-hint {
   font-family: 'Inter', sans-serif;
 }
 
+.design-list {
+  max-width: 850px;
+  margin: 2rem auto 3rem;
+  padding-left: 1.5rem;
+  text-align: left;
+  list-style-type: disc;
+}
+
+.design-list li {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
 /* CARD / IMAGE GRID */
 .project-img {
   position: relative;
@@ -283,8 +297,8 @@ body.loaded .scroll-hint {
 }
 
 .thumbnail-img {
-  height: 140px;
-  max-width: 220px;
+  height: 230px;
+  max-width: 300px;
   margin: 0 auto;
 }
 
