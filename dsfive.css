@@ -260,6 +260,32 @@ body.loaded .scroll-hint {
   width: 100%;
 }
 
+.thumbnail-img {
+  height: 140px;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+.thumbnail-img img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-img .pdf-overlay {
+  padding: 0.5rem;
+}
+
+.thumbnail-img .btn {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.7rem;
+}
+
+.thumbnail-img .pdf-overlay p {
+  font-size: 0.8rem;
+  margin: 0;
+}
+
 /* FADE-IN */
 .fade-section {
   opacity: 0;
