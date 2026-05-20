@@ -56,10 +56,10 @@
     </section>
     <!-- ERA 1 Början -->
     <section class="story-section era era-1 era-scroll"
-      data-era="no-interaction"
-      data-autostop
-      data-duration="21000">
+      data-era="no-interaction">
       <div class="era-header"
+      data-autostop
+      data-duration="23000"
       data-audio="audio/no-interaction.webm">
         <p class="section-tag">Epok 1</p>
         <h2>Ingen interaktion</h2>
@@ -69,11 +69,11 @@
           Instruktioner förbereddes i förväg, skickades in och resultatet kom senare.
         </p>
       </div>
-      <section class="artifact-scroll-section" 
-      data-autostop
-      data-audio="audio/cards.mp3"
-      data-duration="36000">
-        <article class="artifact-panel artifact-card">
+      <section class="artifact-scroll-section">
+        <article class="artifact-panel artifact-card"
+        data-autostop
+        data-audio="audio/cards.mp3"
+        data-duration="38000">
           <div class="artifact-visual">
             <button class="image-open-btn" type="button" aria-label="Visa hålkort i större format" data-image="images/card-large.png">
               <img src="images/card.png" alt="Punched card">
@@ -89,40 +89,40 @@
           </div>
         </article>
       </section>
-      <section class="artifact-scroll-section" 
-      data-autostop
-      data-audio="audio/crt.mp3"
-      data-duration="28000">
-        <article class="artifact-panel artifact-batch">
+      <section class="artifact-scroll-section">
+        <article class="artifact-panel artifact-batch"
+        data-autostop
+        data-audio="audio/crt.mp3"
+        data-duration="28000">
           <div class="artifact-visual">
             <img src="images/CRT.png" alt="CRT">
           </div>
         </article>
       </section>
-      <article class="artifact-panel artifact-eniac sticky-artifact" 
-      data-autostop
-      data-audio="audio/eniac.mp3"
-      data-duration="31000">
-        <div class="sticky-scene">
-          <div class="artifact-visual">
-            <img src="images/eniac.png" alt="ENIAC computer">
+        <article class="artifact-panel artifact-eniac sticky-artifact" 
+        data-autostop
+        data-audio="audio/eniac.mp3"
+        data-duration="31000">
+          <div class="sticky-scene">
+            <div class="artifact-visual">
+              <img src="images/eniac.png" alt="ENIAC computer">
+            </div>
+            <div class="artifact-caption">
+              <p class="archive-label">1943-1946</p>
+              <h3>ENIAC</h3>
+              <p>
+                Den första elektroniska datorn. Den upptog ett helt rum. 
+                Användaren stod utanför systemet och arbetade genom förberedda instruktioner
+                genom att vrida på reglage och dra kablar på kopplingsbrädor.
+              </p>
+            </div>
           </div>
-          <div class="artifact-caption">
-            <p class="archive-label">1943-1946</p>
-            <h3>ENIAC</h3>
-            <p>
-              Den första elektroniska datorn. Den upptog ett helt rum. 
-              Användaren stod utanför systemet och arbetade genom förberedda instruktioner
-              genom att vrida på reglage och dra kablar på kopplingsbrädor.
-            </p>
-          </div>
-        </div>
-      </article>
-      <section class="artifact-scroll-section" 
-      data-autostop
-      data-audio="audio/magnet.mp3"
-      data-duration="25000">
-        <article class="artifact-panel artifact-tape">
+        </article>
+      <section class="artifact-scroll-section" >
+        <article class="artifact-panel artifact-tape"
+        data-autostop
+        data-audio="audio/magnet.mp3"
+        data-duration="25000">
           <div class="artifact-visual tape-visual">
             <img src="images/magnetband.png" alt="Magnetic tape reel">
           </div>
@@ -141,9 +141,9 @@
     <!-- ERA 1 SLUT -->
     <!-- ERA 2 START -->
     <section class="outro-section no-to-command-bridge"
-      data-era="no-interaction"
-      data-autostop
-      data-duration="9000">
+    data-era="no-interaction"
+    data-autostop
+    data-duration="9000">
       <div class="outro-sticky">
         <div class="outro-inner">
           <h2 class="outro-title">
@@ -157,20 +157,21 @@
         </div>
       </div>
     </section>
-    <section class="story-section era era-2 command-era"
-      data-era="command"
+    <section class="story-section artifact-scroll-section era era-2 command-era"
+    data-era="command">
+      <div class="era-header"
       data-autostop
       data-duration="6000">
-      <div class="era-header">
         <p class="section-tag">Epok 2</p>
         <p class="years">≈ 1960–1980</p>
         <h2>Kommandostyrd interaktion</h2>
       </div>
-      <section class="arpanet-scroll-section" 
-      data-autostop 
-      data-duration="18000">  
+      <section class="arpanet-scroll-section" >  
         <div class="outro-sticky">
-          <article class="command-panel arpanet-panel" data-audio="audio/arpanet.webm">
+          <article class="command-panel arpanet-panel" 
+          data-audio="audio/arpanet.webm"
+          data-autostop 
+          data-duration="18000">
             <div class="command-centered-text">
               <p class="archive-label">Nätverksartefakt 01</p>
               <h3>ARPANET (1969)</h3>
@@ -286,11 +287,11 @@
     </section>
     <!-- ERA 2 SLUT -->
     <!-- ERA 3 START -->
-    <section class="artifact-scroll-section era era-3 gui-era"
-      data-autostop
-      data-duration="9000"
+    <section class="story-section artifact-scroll-section era era-3 gui-era"
       data-era="gui">
-      <div class="gui-desktop">
+      <div class="gui-desktop"
+      data-autostop
+      data-duration="9000">
         <div class="gui-header">
           <p class="section-tag">Epok 3</p>
           <p class="years">≈ 1980–2000</p>
@@ -373,11 +374,11 @@
     </section>
     <!-- ERA 3 SLUT -->
     <!-- ERA 4 START -->
-    <section class="artifact-scroll-section era era-4 touch-era"
-      data-era="touch"
+    <section class="story-section artifact-scroll-section era era-4 touch-era"
+      data-era="touch">
+      <div class="touch-header"
       data-autostop
       data-duration="62000">
-      <div class="touch-header">
         <p class="section-tag">Epok 4</p>
         <p class="years">≈ 2004 – nu</p>
         <h2>Touchstyrd interaktion</h2>
@@ -468,11 +469,12 @@
     </section>
     <!-- ERA 4 SLUT -->
     <!-- ERA 5 START -->
-     <section class="artifact-scroll-section era era-5 multimodal-era"
-      data-era="multimodal"
+     <section class="story-section artifact-scroll-section era era-5 multimodal-era"
+      data-era="multimodal">
+      <div class="multimodal-header" 
+      data-audio="audio/multimodalintro.mp3"
       data-autostop
-      data-duration="62000">
-      <div class="multimodal-header" data-audio="audio/multimodalintro.mp3">
+      data-duration="12000">
         <p class="section-tag">Epok 5</p>
         <p class="years">≈ 2011–nu</p>
         <h2>Multimodal</h2>

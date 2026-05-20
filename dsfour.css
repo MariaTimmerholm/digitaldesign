@@ -429,7 +429,6 @@ h3 {
 }
 
 .era-header,
-.command-header,
 .touch-header,
 .multimodal-header {
   min-height: 100vh;
@@ -445,7 +444,6 @@ h3 {
 }
 
 .era-header h2,
-.command-header h2,
 .touch-header h2,
 .multimodal-header h2 {
   width: 100%;
@@ -674,16 +672,6 @@ h3 {
 /* =========================
    BRIDGE: NO INTERACTION → COMMAND
 ========================= */
-
-.era-bridge {
-  position: relative;
-  height: 220vh;
-  min-height: 220vh;
-  padding: 0;
-  border-bottom: none;
-  overflow: hidden;
-}
-
 .no-to-command-bridge {
   color: #e0e0e0;
 }
@@ -710,17 +698,6 @@ h3 {
   font-family: var(--font-mono);
 }
 
-.command-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  transform: translateY(-16vh);
-}
-
-.command-header h2 {
-  font-size: clamp(2.8rem, 8vw, 6rem);
-}
-
 .command-panel {
   min-height: 70vh;
   padding: 3.5rem 10vw;
@@ -737,11 +714,6 @@ h3 {
 .command-centered-text p {
   margin-left: auto;
   margin-right: auto;
-}
-
-.command-era .video-holder,
-.command-visual {
-  max-width: 720px;
 }
 
 /* CRT / ARPANET */
@@ -1203,24 +1175,6 @@ h3 {
   visibility: hidden;
 }
 
-.tap-circle {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 2rem auto 0;
-  border: 2px solid rgba(0,255,255,.5);
-  border-radius: 50%;
-  animation: pulseTap 2s infinite;
-}
-
-.tap-circle::after {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.08);
-}
-
 .app-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1589,32 +1543,6 @@ h3 {
   }
 }
 
-@keyframes floatingCursorPosition {
-  0%, 100% {
-    left: 50%;
-    top: 50%;
-    transform: rotate(-18deg);
-  }
-
-  25% {
-    left: 54%;
-    top: 46%;
-    transform: rotate(-12deg);
-  }
-
-  50% {
-    left: 47%;
-    top: 54%;
-    transform: rotate(-22deg);
-  }
-
-  75% {
-    left: 53%;
-    top: 52%;
-    transform: rotate(-15deg);
-  }
-}
-
 @keyframes darkGlitch {
   0%, 100% { transform: translate(0,0); }
   20% { transform: translate(-2px,1px); }
@@ -1679,16 +1607,6 @@ h3 {
     right: 1.2rem;
     bottom: 8vh;
     max-width: none;
-  }
-
-  .seventies-terminal-window,
-  .seventies-terminal-copy {
-    width: 90vw;
-    min-height: 360px;
-  }
-
-  .seventies-terminal-body {
-    padding: 1.4rem;
   }
 }
 
