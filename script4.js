@@ -175,12 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       stopEraAudio();
     }
-
-    if (section.classList.contains("touch-era") && autoScrollEnabled) {
-      startTouchAutoSwipe();
-    } else {
-      stopTouchAutoSwipe();
-    }
   }
 
   function observeActiveItems(items, activeClass, pastClass, threshold = 0.4) {
@@ -682,10 +676,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
       showTouchPanel(index);
 
-      touchAutoTimer = setTimeout(step, 4200);
+      touchAutoTimer = setTimeout(step, 6500);
     }
 
-    touchAutoTimer = setTimeout(step, 4200);
+    touchAutoTimer = setTimeout(step, 6500);
+  }
+
+  const phoneScene = document.querySelector(".phone-scroll-scene");
+
+  if (phoneScene) {
+    const phoneObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && autoScrollEnabled) {
+            startTouchAutoSwipe();
+          }
+
+          if (!entry.isIntersecting) {
+            stopTouchAutoSwipe();
+          }
+        });
+      },
+      {
+        threshold: 0.55
+      }
+    );
+
+    phoneObserver.observe(phoneScene);
   }
 
   function updateOutroBlur() {

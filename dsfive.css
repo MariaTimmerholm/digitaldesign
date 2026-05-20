@@ -411,37 +411,36 @@ h3,
   cursor: zoom-in;
 }
 
-.image-lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.88);
+.image-modal {
   display: none;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
   z-index: 9999;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
 }
 
-.image-lightbox.active {
+.image-modal.show {
   display: flex;
 }
 
-.image-lightbox img {
+.image-modal-content {
   max-width: 90vw;
   max-height: 90vh;
+  width: auto;
+  height: auto;
   object-fit: contain;
   border-radius: 12px;
 }
 
-.lightbox-close {
-  position: fixed;
+.image-modal-close {
+  position: absolute;
   top: 1.5rem;
   right: 2rem;
-  background: transparent;
   color: white;
-  border: none;
   font-size: 3rem;
-  line-height: 1;
   cursor: pointer;
   z-index: 10000;
 }

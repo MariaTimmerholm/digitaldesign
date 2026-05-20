@@ -238,38 +238,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // =========================
-  // KLICKBARA BILDER / LIGHTBOX
-  // =========================
   const clickableImages = document.querySelectorAll(".clickable-img");
-  const imageLightbox = document.getElementById("imageLightbox");
-  const lightboxImage = document.getElementById("lightboxImage");
-  const lightboxClose = document.querySelector(".lightbox-close");
+  const imageModal = document.getElementById("imageModal");
+  const modalImage = document.getElementById("modalImage");
+  const imageModalClose = document.querySelector(".image-modal-close");
 
   clickableImages.forEach((img) => {
     img.addEventListener("click", () => {
-      imageLightbox.classList.add("active");
-      lightboxImage.src = img.src;
-      lightboxImage.alt = img.alt;
+      imageModal.classList.add("show");
+      modalImage.src = img.src;
+      modalImage.alt = img.alt;
     });
   });
 
-  function closeLightbox() {
-    imageLightbox.classList.remove("active");
-    lightboxImage.src = "";
-    lightboxImage.alt = "";
-  }
-
-  lightboxClose.addEventListener("click", closeLightbox);
-
-  imageLightbox.addEventListener("click", (event) => {
-    if (event.target === imageLightbox) {
-      closeLightbox();
-    }
+  imageModalClose.addEventListener("click", () => {
+    imageModal.classList.remove("show");
+    modalImage.src = "";
   });
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && imageLightbox.classList.contains("active")) {
-      closeLightbox();
+  imageModal.addEventListener("click", (event) => {
+    if (event.target === imageModal) {
+      imageModal.classList.remove("show");
+      modalImage.src = "";
     }
   });
