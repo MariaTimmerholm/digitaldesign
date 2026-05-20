@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-    AUTOSCROLL — CONTINUOUS CRAWL
+    AUTOSCROLL — ALWAYS MOVING
   ========================= */
 
   const autoStops = [
@@ -267,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let autoStopIndex = 0;
+  let lastAutoScrollTime = null;
 
   function getAutoStopDuration(stop) {
     const duration = parseInt(stop?.dataset.duration, 10);
@@ -280,32 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const absoluteTop = rect.top + window.scrollY;
     const offset = parseInt(stop.dataset.offset || "0", 10);
 
-    // Stora sektioner: gå till början
-    if (stop.offsetHeight > window.innerHeight * 0.9) {
-      return absoluteTop + offset;
-    }
-
-    // Mindre element: centrera dem mjukt
-    return absoluteTop - (window.innerHeight - stop.offsetHeight) / 2 + offset;
-  }
-
-  function getCurrentAutoStopIndex() {
-    let closestIndex = 0;
-    let closestDistance = Infinity;
-    const viewportCenter = window.innerHeight / 2;
-
-    autoStops.forEach((stop, index) => {
-      const rect = stop.getBoundingClientRect();
-      const stopCenter = rect.top + rect.height / 2;
-      const distance = Math.abs(stopCenter - viewportCenter);
-
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
-
-    return closestIndex;
+    return absoluteTop + offset;
   }
 
   function stopAutoScrollAnimation() {
@@ -316,63 +292,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     clearTimeout(autoScrollTimeout);
     autoScrollTimeout = null;
+    lastAutoScrollTime = null;
   }
 
-  /*
-    Den här scrollar med jämn hastighet.
-    Ingen ease-in/ease-out = inget konstigt stopp mellan punkter.
-  */
-  function crawlToStop(stop, duration = 18000) {
-    return new Promise((resolve) => {
-      if (!stop) {
-        resolve();
-        return;
+  function findNextStopIndexFromScroll() {
+    const currentY = window.scrollY;
+
+    for (let i = 0; i < autoStops.length; i++) {
+      const stopY = getStopTargetY(autoStops[i]);
+
+      if (stopY > currentY + 8) {
+        return Math.max(0, i - 1);
       }
+    }
 
-      stopAutoScrollAnimation();
-
-      const startY = window.scrollY;
-      const targetY = getStopTargetY(stop);
-      const distance = targetY - startY;
-
-      if (Math.abs(distance) < 3) {
-        resolve();
-        return;
-      }
-
-      const startTime = performance.now();
-
-      function step(now) {
-        if (!autoScrollEnabled || autoScrollStoppedByUser) {
-          autoScrollFrame = null;
-          resolve();
-          return;
-        }
-
-        const progress = clamp((now - startTime) / duration, 0, 1);
-
-        // LINJÄR progress = konstant, långsam rörelse
-        window.scrollTo(0, startY + distance * progress);
-
-        if (progress < 1) {
-          autoScrollFrame = requestAnimationFrame(step);
-        } else {
-          autoScrollFrame = null;
-          resolve();
-        }
-      }
-
-      autoScrollFrame = requestAnimationFrame(step);
-    });
+    return Math.max(0, autoStops.length - 1);
   }
 
-  async function goToNextAutoStop() {
-    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
+  function autoScrollStep(now) {
+    if (!autoScrollEnabled || autoScrollStoppedByUser) {
+      autoScrollFrame = null;
+      lastAutoScrollTime = null;
+      return;
+    }
+
+    if (!lastAutoScrollTime) {
+      lastAutoScrollTime = now;
+    }
+
+    const delta = now - lastAutoScrollTime;
+    lastAutoScrollTime = now;
 
     const currentStop = autoStops[autoStopIndex];
     const nextStop = autoStops[autoStopIndex + 1];
 
-    if (!nextStop) {
+    if (!currentStop || !nextStop) {
       autoScrollEnabled = false;
 
       if (toggleAutoscroll) {
@@ -384,20 +338,39 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const currentY = window.scrollY;
+    const targetY = getStopTargetY(nextStop);
+    const distanceToNext = targetY - currentY;
+
+    // Om nästa stopp redan är passerat eller nästan nått: gå vidare direkt.
+    if (distanceToNext <= 2) {
+      autoStopIndex++;
+      autoScrollFrame = requestAnimationFrame(autoScrollStep);
+      return;
+    }
+
+    const fullSegmentDistance = Math.max(
+      1,
+      Math.abs(getStopTargetY(nextStop) - getStopTargetY(currentStop))
+    );
+
     const duration = getAutoStopDuration(currentStop);
 
-    autoStopIndex++;
+    // px per millisecond, baserat på avstånd + duration
+    const speed = fullSegmentDistance / duration;
 
-    await crawlToStop(nextStop, duration);
+    // Minsta hastighet så den aldrig känns som att den fastnar helt
+    const minSpeed = 0.018;
 
-    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
+    const scrollAmount = Math.max(speed, minSpeed) * delta;
+    const nextY = Math.min(currentY + scrollAmount, targetY);
 
-    requestAnimationFrame(() => {
-      goToNextAutoStop();
-    });
+    window.scrollTo(0, nextY);
+
+    autoScrollFrame = requestAnimationFrame(autoScrollStep);
   }
 
-  async function startAutoScroll() {
+  function startAutoScroll() {
     if (!autoStops.length) return;
 
     autoScrollEnabled = true;
@@ -405,19 +378,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!experienceStarted) {
       unlockExperience({ skipInitialActivation: true });
+
+      // Starta alltid från början när användaren klickar igång autoscroll från overlay/start.
+      window.scrollTo(0, 0);
+      autoStopIndex = 0;
+    } else {
+      autoStopIndex = findNextStopIndexFromScroll();
     }
 
-    autoStopIndex = getCurrentAutoStopIndex();
-
-    const currentStop = autoStops[autoStopIndex];
-
-    await crawlToStop(currentStop, 1200);
-
-    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
-
-    requestAnimationFrame(() => {
-      goToNextAutoStop();
-    });
+    stopAutoScrollAnimation();
+    autoScrollFrame = requestAnimationFrame(autoScrollStep);
   }
 
   function stopAutoScroll() {
@@ -964,11 +934,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  toggleAutoscroll?.addEventListener("change", async (event) => {
+  toggleAutoscroll?.addEventListener("change", (event) => {
     autoScrollEnabled = event.target.checked;
 
     if (autoScrollEnabled) {
-      await startAutoScroll();
+      startAutoScroll();
     } else {
       stopAutoScroll();
     }
