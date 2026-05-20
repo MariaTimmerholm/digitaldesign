@@ -672,14 +672,31 @@ h3 {
 }
 
 /* =========================
-   COMMAND TRANSITION
+   BRIDGE: NO INTERACTION → COMMAND
 ========================= */
 
-.command-transition {
-  height: 140vh;
+.era-bridge {
   position: relative;
-  z-index: 5;
-  background: transparent;
+  height: 180vh;
+  padding: 0;
+  border-bottom: none;
+  overflow: hidden;
+}
+
+.no-to-command-bridge {
+  color: #e0e0e0;
+}
+
+.no-to-command-bridge .outro-title {
+  color: #d6d1c4;
+  font-family: "IBM Plex Mono", monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.no-to-command-bridge .outro-text span {
+  color: rgba(224,224,224,.72);
+  font-family: "IBM Plex Mono", monospace;
 }
 
 .command-era {
