@@ -91,8 +91,8 @@
       </section>
       <section class="artifact-scroll-section" 
       data-autostop
-      data-audio="audio/crt.webm"
-      data-duration="15000">
+      data-audio="audio/crt.mp3"
+      data-duration="28000">
         <article class="artifact-panel artifact-batch">
           <div class="artifact-visual">
             <img src="images/CRT.png" alt="CRT">
@@ -160,13 +160,15 @@
     <section class="story-section era era-2 command-era"
       data-era="command"
       data-autostop
-      data-duration="62000">
+      data-duration="6000">
       <div class="era-header">
         <p class="section-tag">Epok 2</p>
         <p class="years">≈ 1960–1980</p>
         <h2>Kommandostyrd interaktion</h2>
       </div>
-      <section class="arpanet-scroll-section" data-autostop data-duration="18000">  
+      <section class="arpanet-scroll-section" 
+      data-autostop 
+      data-duration="18000">  
         <div class="outro-sticky">
           <article class="command-panel arpanet-panel" data-audio="audio/arpanet.webm">
             <div class="command-centered-text">
@@ -197,7 +199,9 @@
         </div>
       </section>
       <!-- LO message -->
-      <article class="command-panel message-panel" data-autostop data-duration="8000">
+      <article class="command-panel message-panel" 
+      data-autostop 
+      data-duration="15000">
         <div class="message-sticky">
           <div class="message-terminal">
           <p class="terminal-line send-line">
@@ -210,7 +214,10 @@
         </div>
       </article>
       <!-- UNIX -->
-      <article class="command-panel unix-node">
+      <article class="artifact-scroll-section command-panel unix-node"
+        data-audio="audio/unix.webm" 
+        data-autostop 
+        data-duration="10000">
         <div class="command-centered-text">
           <div class="unix-sticky">
           <p class="archive-label">UNIX ≈ 1969</p>
@@ -218,9 +225,6 @@
               <img src="images/unix.png" alt="Unix">
             </div>
             <div class="code-rain"
-            data-audio="audio/unix.webm" 
-            data-autostop 
-            data-duration="10000"
             aria-hidden="true">
               <span>Unix utvecklades på</span>
               <span>AT&T Bell Labs i USA.</span>
@@ -235,7 +239,7 @@
           </div>
         </div>
       </article>
-      <article class="command-panel pc-node" 
+      <article class="artifact-scroll-section command-panel pc-node" 
       data-audio="audio/disc.mp3" 
       data-autostop data-duration="15000">
         <h3>Diskett (1971)</h3>
@@ -247,7 +251,7 @@
           <img src="images/disc.png" alt="Diskett">
         </div>
       </article>
-      <article class="command-panel pc-node" 
+      <article class="artifact-scroll-section command-panel pc-node" 
       data-audio="audio/gps.mp3" 
       data-autostop data-duration="18000">
         <h3>GPS (1978)</h3>
@@ -260,7 +264,7 @@
           <img src="images/gps.png" alt="GPS">
         </div>
       </article>
-      <article class="command-panel pc-node" 
+      <article class="artifact-scroll-section command-panel pc-node" 
       data-audio="audio/keyboard.mp3" 
       data-autostop data-duration="10000">
         <h3>PC (1981)</h3>
@@ -272,7 +276,9 @@
         </div>
       </article>
     </section>
-    <section class="era-transition command-to-gui">
+    <section class="era-transition command-to-gui"
+      data-autostop
+      data-duration="9000">
       <div class="transition-sticky">
         <p class="transition-text transition-loading" data-text="Nästa era laddar..."></p>
         <p class="transition-text transition-done" data-text="...laddningen är klar"></p>
@@ -280,9 +286,9 @@
     </section>
     <!-- ERA 2 SLUT -->
     <!-- ERA 3 START -->
-    <section class="story-section era era-3 gui-era"
+    <section class="artifact-scroll-section era era-3 gui-era"
       data-autostop
-      data-duration="62000"
+      data-duration="9000"
       data-era="gui">
       <div class="gui-desktop">
         <div class="gui-header">
@@ -294,13 +300,14 @@
             peka, klicka och manipulera objekt direkt.
           </p>
         </div>
-
-        <article class="gui-window gui-window-mac" data-audio="audio/macintosh.webm">
+        <article class="artifact-scroll-section gui-window gui-window-mac"
+        data-autostop
+        data-duration="12000" 
+        data-audio="audio/macintosh.webm">
           <div class="window-bar">
             <span></span><span></span><span></span>
             <p>Macintosh.app.1984</p>
           </div>
-
           <div class="window-content">
             <div>
               <h3>Macintosh</h3>
@@ -310,8 +317,10 @@
             <img src="images/macintosh.png" alt="Macintosh">
           </div>
         </article>
-
-        <article class="gui-window gui-window-www" data-audio="audio/dialup.mp3">
+        <article class="artifact-scroll-section gui-window gui-window-www" 
+        data-autostop
+        data-duration="12000"
+        data-audio="audio/dialup.mp3">
           <div class="window-bar">
             <span></span><span></span><span></span>
             <p>WorldWideWeb.html.1991</p>
@@ -326,7 +335,10 @@
             <img src="images/wwweb.png" alt="World Wide Web">
           </div>
         </article>
-        <article class="gui-window gui-window-linux" data-audio="audio/linux.webm">
+        <article class="artifact-scroll-section gui-window gui-window-linux"
+        data-autostop
+        data-duration="12000"  
+        data-audio="audio/linux.webm">
           <div class="window-bar">
             <span></span><span></span><span></span>
             <p>Linux.desktop.1991</p>
@@ -340,7 +352,10 @@
             <img src="images/linux.png" alt="Linux">
           </div>
         </article>
-        <article class="gui-window gui-window-windows" data-audio="audio/click.mp3">
+        <article class="artifact-scroll-section gui-window gui-window-windows"
+        data-autostop
+        data-duration="12000"  
+        data-audio="audio/click.mp3">
           <div class="window-bar">
             <span></span><span></span><span></span>
             <p>Windows95.exe.1995</p>
@@ -358,8 +373,9 @@
     </section>
     <!-- ERA 3 SLUT -->
     <!-- ERA 4 START -->
-    <section class="story-section era era-4 touch-era"
+    <section class="artifact-scroll-section era era-4 touch-era"
       data-era="touch"
+      data-autostop
       data-duration="62000">
       <div class="touch-header">
         <p class="section-tag">Epok 4</p>
@@ -377,14 +393,14 @@
               <button class="phone-prev" type="button">‹</button>
               <button class="phone-next" type="button">›</button>
             </div>
-            <article class="phone-panel touch-intro" 
+            <article class="artifact-scroll-section phone-panel touch-intro" 
             data-audio="audio/tap.mp3">
               <p class="phone-label">Gesture 01</p>
               <h3>Swipe</h3>
               <p>Swipe blir ett sätt att bläddra, backa eller navigera.</p>
               <p>Swipea höger eller vänster för att bläddra mellan sidor.</p>
             </article>
-            <article class="phone-panel iphone-panel" 
+            <article class="artifact-scroll-section phone-panel iphone-panel" 
             data-audio="audio/swipe.webm">
               <p class="phone-label">2004</p>
               <h3>Neonode</h3>
@@ -393,7 +409,7 @@
                 <p>PS: de blev erkända 2022</p>
               <img src="images/neonode.png" alt="Neonode">
             </article>
-            <article class="phone-panel iphone-panel" 
+            <article class="artifact-scroll-section phone-panel iphone-panel" 
             data-audio="audio/swipe.webm">
               <p class="phone-label">2007</p>
               <h3>iPhone</h3>
@@ -401,7 +417,7 @@
                 gjorde mobilen till ett direkt manipulerbart gränssnitt.</p>
               <img src="images/iphone.png" alt="iPhone">
             </article>
-            <article class="phone-panel android-panel" 
+            <article class="artifact-scroll-section phone-panel android-panel" 
             data-audio="audio/swipe.webm">
               <p class="phone-label">2007</p>
               <h3>Android</h3>
@@ -414,7 +430,7 @@
                 <span></span><span></span><span></span>
               </div>
             </article>
-            <article class="phone-panel apps-panel" 
+            <article class="artifact-scroll-section phone-panel apps-panel" 
             data-audio="audio/swipe.mp3">
               <p class="phone-label">Interaktion 02</p>
               <h3>Appar</h3>
@@ -425,7 +441,7 @@
                 Ny notifikation: "Du har 3 nya meddelanden"
               </div>
             </article>
-            <article class="phone-panel gps-camera-panel" 
+            <article class="artifact-scroll-section phone-panel gps-camera-panel" 
             data-audio="audio/swipe.mp3">
               <p class="phone-label">Sensorer</p>
               <h3>GPS & Kamera</h3>
@@ -438,7 +454,7 @@
                 <span>↗</span>
               </div>
             </article>
-            <article class="phone-panel ipad-panel" data-audio="audio/swipe.mp3">
+            <article class="artifact-scroll-section phone-panel ipad-panel" data-audio="audio/swipe.mp3">
               <p class="phone-label">2010</p>
               <h3>iPad</h3>
               <p>Så småningom designades olika varumärken plattor. 
@@ -452,7 +468,7 @@
     </section>
     <!-- ERA 4 SLUT -->
     <!-- ERA 5 START -->
-     <section class="story-section era era-5 multimodal-era"
+     <section class="artifact-scroll-section era era-5 multimodal-era"
       data-era="multimodal"
       data-autostop
       data-duration="62000">
@@ -466,7 +482,7 @@
         </p>
       </div>
       <div class="multimodal-scroll">
-        <article class="multi-scene voice-scene" 
+        <article class="artifact-scroll-section multi-scene voice-scene" 
         data-audio="audio/siri.mp3"
         data-autostop
         data-duration="17000">
@@ -486,7 +502,7 @@
             <span></span><span></span><span></span><span></span><span></span>
           </div>
         </article>
-        <article class="multi-scene ai-scene" 
+        <article class="artifact-scroll-section multi-scene ai-scene" 
         data-audio="audio/ai.mp3"
         data-autostop
         data-duration="17000">
@@ -502,7 +518,7 @@
             </div>
           </div>
         </article>
-        <article class="multi-scene modal-scene" 
+        <article class="artifact-scroll-section multi-scene modal-scene" 
         data-audio="audio/multi.mp3"
         data-autostop
         data-duration="16000">
@@ -521,7 +537,7 @@
             </div>
           </div>
         </article>
-        <article class="multi-scene dark-scene" 
+        <article class="artifact-scroll-section multi-scene dark-scene" 
         data-audio="audio/dark.mp3"
         data-autostop
         data-duration="17000">
@@ -539,7 +555,7 @@
         </article>
       </div>
     </section>
-    <section class="story-section outro"
+    <section class="artifact-scroll-section story-section outro"
     data-era="outro" 
     data-autostop
     data-audio="audio/outro.webm"
