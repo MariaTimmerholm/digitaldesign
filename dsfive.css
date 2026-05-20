@@ -407,6 +407,45 @@ h3,
   text-align: left;
 }
 
+.clickable-img {
+  cursor: zoom-in;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 2rem;
+}
+
+.image-lightbox.active {
+  display: flex;
+}
+
+.image-lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 3rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10000;
+}
+
 @keyframes focusInOut {
   0% {
     opacity: 0;

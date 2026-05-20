@@ -237,3 +237,39 @@ document.addEventListener("DOMContentLoaded", () => {
       button.textContent = "Dölj processbilder";
     }
   }
+
+  // =========================
+  // KLICKBARA BILDER / LIGHTBOX
+  // =========================
+  const clickableImages = document.querySelectorAll(".clickable-img");
+  const imageLightbox = document.getElementById("imageLightbox");
+  const lightboxImage = document.getElementById("lightboxImage");
+  const lightboxClose = document.querySelector(".lightbox-close");
+
+  clickableImages.forEach((img) => {
+    img.addEventListener("click", () => {
+      imageLightbox.classList.add("active");
+      lightboxImage.src = img.src;
+      lightboxImage.alt = img.alt;
+    });
+  });
+
+  function closeLightbox() {
+    imageLightbox.classList.remove("active");
+    lightboxImage.src = "";
+    lightboxImage.alt = "";
+  }
+
+  lightboxClose.addEventListener("click", closeLightbox);
+
+  imageLightbox.addEventListener("click", (event) => {
+    if (event.target === imageLightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && imageLightbox.classList.contains("active")) {
+      closeLightbox();
+    }
+  });
