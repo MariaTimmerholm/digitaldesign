@@ -863,6 +863,8 @@ h3 {
 }
 
 .unix-node .code-rain {
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   width: min(1100px, 92vw);
   margin: 1rem auto 0;

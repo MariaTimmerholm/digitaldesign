@@ -25,8 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let autoScrollTimeout = null;
   let autoScrollFrame = null;
-  let introRideFrame = null;
-  let sectionScrollTimeout = null;
 
   const BG_NORMAL_VOLUME = 0.07;
   const BG_LOW_VOLUME = 0.04;
@@ -155,6 +153,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (era) {
       body.classList.add(`theme-${era}`);
+    }
+  }
+
+  function activateSection(section) {
+    if (!section) return;
+
+    sections.forEach((sec) => sec.classList.remove("active-section"));
+    section.classList.add("active-section");
+
+    currentSectionIndex = sections.indexOf(section);
+
+    setThemeFromSection(section);
+
+    stopAllNonBackgroundAudio();
+
+    const audioSrc = section.dataset.audio || "";
+
+    if (audioSrc) {
+      playEraAudio(audioSrc);
+    }
+
+    if (section.classList.contains("touch-era") && autoScrollEnabled) {
+      startTouchAutoSwipe();
+    } else {
+      stopTouchAutoSwipe();
     }
   }
 
@@ -525,7 +548,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const unixLines = [...document.querySelectorAll(".unix-node .code-rain span")];
   const eniacPanel = $(".artifact-eniac");
   const messagePanel = $(".message-panel");
-  const eraTransition = $(".command-to-gui");
   const outroSections = $$(".outro-section");
 
   const typeSend = $(".type-send");
@@ -597,10 +619,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loLine) {
       loLine.classList.toggle("is-typing", progress >= 0.45);
     }
-  }
-
-  function updateEraTransition() {
-    return;
   }
 
   const phoneScreen = document.querySelector(".phone-screen");
@@ -786,73 +804,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updateUnixLines();
     updateEniacCurtains();
     updateMessageTyping();
-    updateEraTransition();
     updateOutroBlur();
     updateArpanetZoom();
     updateMultimodalScroll();
-  }
-
-  /* =========================
-    1970 TERMINAL — ISOLERAD
-  ========================= */
-
-  const seventiesTerminalPanel = document.querySelector(".seventies-terminal-panel");
-  const seventiesLines = [
-    ...document.querySelectorAll(".seventies-terminal-panel .seventies-type-line")
-  ];
-
-  let seventiesTerminalStarted = false;
-
-  function seventiesTypeText(element, text, speed = 55) {
-    return new Promise((resolve) => {
-      let index = 0;
-      element.textContent = "";
-
-      const interval = setInterval(() => {
-        element.textContent += text[index];
-        index++;
-
-        if (index >= text.length) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, speed);
-    });
-  }
-
-  async function startSeventiesTerminal() {
-    if (seventiesTerminalStarted) return;
-    if (!seventiesTerminalPanel || seventiesLines.length === 0) return;
-
-    seventiesTerminalStarted = true;
-    seventiesTerminalPanel.classList.add("seventies-active");
-
-    for (const line of seventiesLines) {
-      const text = line.dataset.text || "";
-
-      if (line.classList.contains("seventies-slow-line")) {
-        await seventiesTypeText(line, text, 420);
-      } else {
-        await seventiesTypeText(line, text, 55);
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 420));
-    }
-  }
-
-  if (seventiesTerminalPanel) {
-    const seventiesObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startSeventiesTerminal();
-          }
-        });
-      },
-      { threshold: 0.45 }
-    );
-
-    seventiesObserver.observe(seventiesTerminalPanel);
   }
 
   /* =========================
