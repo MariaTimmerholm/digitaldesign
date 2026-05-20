@@ -677,7 +677,8 @@ h3 {
 
 .era-bridge {
   position: relative;
-  height: 180vh;
+  height: 220vh;
+  min-height: 220vh;
   padding: 0;
   border-bottom: none;
   overflow: hidden;
@@ -702,7 +703,6 @@ h3 {
 .command-era {
   position: relative;
   z-index: 1;
-  margin-top: -100vh;
 }
 
 .story-section.command-era {

@@ -513,10 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const eniacPanel = $(".artifact-eniac");
   const messagePanel = $(".message-panel");
   const eraTransition = $(".command-to-gui");
-  const outroSection = $(".outro-section");
-  const outroInner = $(".outro-inner");
-  const outroTitle = $(".outro-title");
-  const outroLines = $$(".outro-text span");
+  const outroSections = $$(".outro-section");
 
   const typeSend = $(".type-send");
   const typeLo = $(".type-lo");
@@ -693,35 +690,42 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateOutroBlur() {
-    if (!outroSection || !outroLines.length) return;
+    if (!outroSections.length) return;
 
-    const sectionTop = outroSection.offsetTop;
-    const scrollDistance = outroSection.offsetHeight - window.innerHeight;
-    const progress = clamp((window.scrollY - sectionTop) / scrollDistance);
+    outroSections.forEach((section) => {
+      const inner = section.querySelector(".outro-inner");
+      const title = section.querySelector(".outro-title");
+      const lines = [...section.querySelectorAll(".outro-text span")];
 
-    const introHold = 0.25;
-    const blurEnd = 0.9;
-    const blurProgress =
-      progress <= introHold
-        ? 0
-        : clamp((progress - introHold) / (blurEnd - introHold));
+      if (!inner || !lines.length) return;
 
-    if (outroInner) {
-      outroInner.style.opacity = 1 - blurProgress;
-      outroInner.style.transform = `translateY(${blurProgress * 20}px)`;
-    }
+      const sectionTop = section.offsetTop;
+      const scrollDistance = section.offsetHeight - window.innerHeight;
+      const progress = clamp((window.scrollY - sectionTop) / scrollDistance);
 
-    if (outroTitle) {
-      outroTitle.style.filter = `blur(${blurProgress * 24}px)`;
-      outroTitle.style.opacity = 1 - blurProgress;
-    }
+      const introHold = 0.25;
+      const blurEnd = 0.9;
 
-    outroLines.forEach((line, index) => {
-      const delay = index * 0.06;
-      const local = clamp(blurProgress - delay);
+      const blurProgress =
+        progress <= introHold
+          ? 0
+          : clamp((progress - introHold) / (blurEnd - introHold));
 
-      line.style.filter = `blur(${local * 28}px)`;
-      line.style.opacity = 1 - local * 0.7;
+      inner.style.opacity = 1 - blurProgress * 0.3;
+      inner.style.transform = `translateY(${blurProgress * 30}px)`;
+
+      if (title) {
+        title.style.filter = `blur(${blurProgress * 24}px)`;
+        title.style.opacity = 1 - blurProgress;
+      }
+
+      lines.forEach((line, index) => {
+        const delay = index * 0.06;
+        const local = clamp(blurProgress - delay);
+
+        line.style.filter = `blur(${local * 28}px)`;
+        line.style.opacity = 1 - local * 0.7;
+      });
     });
   }
 
