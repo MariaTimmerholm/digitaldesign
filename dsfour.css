@@ -862,17 +862,25 @@ h3 {
   margin: 0 auto;
 }
 
+.unix-node .command-visual {
+  width: min(480px, 75vw);
+  margin: 1rem auto 1.5rem;
+}
+
+.unix-node .command-visual img {
+  width: 100%;
+  max-height: 26vh;
+  object-fit: contain;
+}
+
 .unix-node .code-rain {
-  display: flex;
-  flex-direction: column;
-  gap: 2.2rem;
+  gap: 2rem;
   width: min(1100px, 92vw);
-  max-width: none;
-  margin: 2rem auto 0;
+  margin: 1rem auto 0;
   font-family: var(--font-mono);
-  font-size: clamp(1.6rem, 2.4vw, 3rem);
+  font-size: clamp(1.4rem, 2.2vw, 2.7rem);
   font-weight: 700;
-  line-height: 1.9;
+  line-height: 1.8;
   transform: translateY(120px);
   will-change: transform;
 }
