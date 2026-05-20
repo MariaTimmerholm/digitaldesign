@@ -221,4 +221,12 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.add("show-title");
     }, 1500);
   }
+  
+    function toggleProcessImages() {
+    const processImages = document.getElementById("processImages");
+
+    if (!processImages) return;
+
+    processImages.classList.toggle("d-none");
+  }
 });
