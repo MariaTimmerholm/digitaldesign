@@ -901,113 +901,15 @@ h3 {
     0 0 35px rgba(57,255,20,.25);
 }
 
-/* 1970 TERMINAL 
-
-.seventies-terminal-panel {
-  min-height: 160vh;
-  padding: 0;
-  overflow: hidden;
+.floppy-rotate {
+  perspective: 900px;
 }
 
-.seventies-terminal-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: grid;
-  place-items: center;
+.floppy-rotate img {
+  transform-style: preserve-3d;
+  animation: floppyTurn 4s ease-in-out infinite;
 }
 
-.seventies-terminal-window,
-.seventies-terminal-copy {
-  width: min(760px, 86vw);
-  min-height: 430px;
-  border: 1px solid rgba(180,255,210,.22);
-  background: rgba(0,0,0,.68);
-  box-shadow:
-    0 0 40px rgba(0,255,170,.15),
-    inset 0 0 35px rgba(0,255,170,.06);
-  font-family: var(--font-mono);
-}
-
-.seventies-terminal-window {
-  position: relative;
-  z-index: 3;
-}
-
-.seventies-terminal-copy {
-  position: absolute;
-  opacity: 0;
-  transform: scale(.94);
-  transition: opacity 1s ease, transform 1.2s ease;
-}
-
-.seventies-copy-one {
-  transform: translate(-35px, -30px) scale(.94);
-}
-
-.seventies-copy-two {
-  transform: translate(35px, 30px) scale(.9);
-}
-
-.seventies-terminal-panel.seventies-active .seventies-copy-one {
-  opacity: .18;
-  transform: translate(-70px, -55px) scale(.94);
-}
-
-.seventies-terminal-panel.seventies-active .seventies-copy-two {
-  opacity: .12;
-  transform: translate(70px, 55px) scale(.9);
-}
-
-.seventies-terminal-header {
-  height: 42px;
-  display: flex;
-  align-items: center;
-  gap: .55rem;
-  padding: 0 1rem;
-  border-bottom: 1px solid rgba(180,255,210,.18);
-  background: rgba(0,255,170,.06);
-}
-
-.seventies-terminal-header span {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  border: 1px solid rgba(180,255,210,.5);
-}
-
-.seventies-terminal-header p {
-  margin: 0 0 0 .6rem;
-  font-size: .85rem;
-  color: rgba(217,255,232,.58);
-}
-
-.seventies-terminal-body {
-  padding: 2rem;
-  color: var(--terminal);
-  text-shadow: 0 0 12px rgba(0,255,170,.4);
-}
-
-.seventies-terminal-body p {
-  max-width: none;
-  min-height: 1.55em;
-  margin: 0;
-  font-size: clamp(1.35rem, 3.6vw, 3rem);
-  line-height: 1.55;
-  color: var(--terminal);
-}
-
-.seventies-prompt,
-.seventies-terminal-cursor {
-  color: var(--green);
-}
-
-.seventies-terminal-cursor {
-  display: inline-block;
-  margin-left: .15rem;
-  animation: cursorBlink .8s infinite;
-}
-*/
 /* ERA 2 → ERA 3 TRANSITION */
 
 .era-transition {
@@ -1711,6 +1613,16 @@ h3 {
       rotate(calc(var(--angle) + 360deg))
       translateX(190px)
       rotate(calc(-1 * (var(--angle) + 360deg)));
+  }
+}
+
+@keyframes floppyTurn {
+  0%, 100% {
+    transform: rotateY(-18deg);
+  }
+
+  50% {
+    transform: rotateY(18deg);
   }
 }
 
