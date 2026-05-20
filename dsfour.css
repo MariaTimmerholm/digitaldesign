@@ -785,9 +785,13 @@ h3 {
 
 /* MESSAGE TERMINAL */
 
-.message-panel,
+.message-panel {
+  min-height: 105vh;
+  padding: 0;
+}
+
 .era-transition {
-  min-height: 160vh;
+  min-height: 140vh;
   padding: 0;
 }
 
