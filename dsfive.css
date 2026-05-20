@@ -379,7 +379,7 @@ body.loaded .scroll-hint {
   transition: opacity 0.2s linear, filter 0.2s linear, transform 0.2s linear;
 }
 
-/* INTRO: endast denna sektion ska vara centrerad */
+/* Intro: allt centrerat */
 .intro-section,
 .intro-section .intro-inner,
 .intro-section h1,
@@ -389,14 +389,19 @@ body.loaded .scroll-hint {
   text-align: center;
 }
 
-/* ALLA ANDRA TEXTSEKTIONER: vänsterplacerade */
-.horizontal-section .era-content,
-.horizontal-section .era-content h2,
+/* Rubriker/header överallt: centrerade */
+h1,
+h2,
+h3,
+.big-title,
+.outro-title {
+  text-align: center;
+}
+
+/* Vanlig text i övriga sektioner: vänsterställd */
 .horizontal-section .era-content p,
 .horizontal-section .era-content ul,
 .horizontal-section .era-content li,
-.outro-section .outro-inner,
-.outro-section .outro-title,
 .outro-section .outro-text,
 .outro-section .outro-text li {
   text-align: left;
