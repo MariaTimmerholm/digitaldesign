@@ -258,24 +258,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-    AUTOSCROLL — UPDATED
+    AUTOSCROLL — SMOOTH ROUTE
   ========================= */
 
-  const autoStops = [...document.querySelectorAll("[data-autostop]")];
+  const autoStops = [
+    ...document.querySelectorAll("[data-autostop], [data-stop]")
+  ];
 
   let autoStopIndex = 0;
 
   function getAutoStopDuration(stop) {
     const duration = parseInt(stop?.dataset.duration, 10);
-    return Number.isNaN(duration) ? 12000 : duration;
+    return Number.isNaN(duration) ? 9000 : duration;
+  }
+
+  function getStopTargetY(stop) {
+    if (!stop) return window.scrollY;
+
+    const rect = stop.getBoundingClientRect();
+    const absoluteTop = rect.top + window.scrollY;
+
+    const offset = parseInt(stop.dataset.offset || "0", 10);
+
+    /*
+      Om stoppet är högre än viewporten:
+      scrolla till början av sektionen.
+
+      Om stoppet är mindre:
+      centrera det mjukt i viewporten.
+    */
+    if (stop.offsetHeight > window.innerHeight * 0.9) {
+      return absoluteTop + offset;
+    }
+
+    return absoluteTop - (window.innerHeight - stop.offsetHeight) / 2 + offset;
   }
 
   function getCurrentAutoStopIndex() {
     let closestIndex = 0;
     let closestDistance = Infinity;
+    const viewportCenter = window.innerHeight / 2;
 
     autoStops.forEach((stop, index) => {
-      const distance = Math.abs(stop.getBoundingClientRect().top);
+      const rect = stop.getBoundingClientRect();
+      const stopCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(stopCenter - viewportCenter);
 
       if (distance < closestDistance) {
         closestDistance = distance;
@@ -284,6 +311,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     return closestIndex;
+  }
+
+  function easeInOutCubic(t) {
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
   function stopAutoScrollAnimation() {
@@ -296,26 +329,25 @@ document.addEventListener("DOMContentLoaded", () => {
     autoScrollTimeout = null;
   }
 
-  function smoothScrollToElement(element, duration = 8000) {
+  function smoothScrollToStop(stop, duration = 9000) {
     return new Promise((resolve) => {
-      if (!element) {
+      if (!stop) {
         resolve();
         return;
       }
 
-      if (autoScrollFrame) {
-        cancelAnimationFrame(autoScrollFrame);
-        autoScrollFrame = null;
-      }
+      stopAutoScrollAnimation();
 
       const startY = window.scrollY;
-      const targetY = element.getBoundingClientRect().top + window.scrollY;
+      const targetY = getStopTargetY(stop);
       const distance = targetY - startY;
-      const startTime = performance.now();
 
-      function easeInOutSine(t) {
-        return -(Math.cos(Math.PI * t) - 1) / 2;
+      if (Math.abs(distance) < 4) {
+        resolve();
+        return;
       }
+
+      const startTime = performance.now();
 
       function step(now) {
         if (!autoScrollEnabled || autoScrollStoppedByUser) {
@@ -324,8 +356,8 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        const progress = Math.min((now - startTime) / duration, 1);
-        const eased = easeInOutSine(progress);
+        const progress = clamp((now - startTime) / duration, 0, 1);
+        const eased = easeInOutCubic(progress);
 
         window.scrollTo(0, startY + distance * eased);
 
@@ -341,13 +373,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function scheduleNextAutoStop() {
+  async function goToNextAutoStop() {
     if (!autoScrollEnabled || autoScrollStoppedByUser) return;
 
     const currentStop = autoStops[autoStopIndex];
     const nextStop = autoStops[autoStopIndex + 1];
 
-    if (!currentStop || !nextStop) {
+    if (!nextStop) {
       autoScrollEnabled = false;
 
       if (toggleAutoscroll) {
@@ -355,22 +387,24 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       stopAutoScrollAnimation();
+      stopTouchAutoSwipe();
       return;
     }
 
     const duration = getAutoStopDuration(currentStop);
 
-    clearTimeout(autoScrollTimeout);
+    autoStopIndex++;
 
-    smoothScrollToElement(nextStop, duration).then(() => {
-      if (!autoScrollEnabled || autoScrollStoppedByUser) return;
+    await smoothScrollToStop(nextStop, duration);
 
-      autoStopIndex++;
-      scheduleNextAutoStop();
-    });
+    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
+
+    goToNextAutoStop();
   }
 
   async function startAutoScroll() {
+    if (!autoStops.length) return;
+
     autoScrollEnabled = true;
     autoScrollStoppedByUser = false;
 
@@ -382,10 +416,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentStop = autoStops[autoStopIndex];
 
-    if (currentStop) {
-      await smoothScrollToElement(currentStop, 1200);
-      scheduleNextAutoStop();
-    }
+    await smoothScrollToStop(currentStop, 1200);
+
+    if (!autoScrollEnabled || autoScrollStoppedByUser) return;
+
+    goToNextAutoStop();
   }
 
   function stopAutoScroll() {
@@ -405,7 +440,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     stopAutoScrollAnimation();
+    stopTouchAutoSwipe();
   }
+
   /* =========================
     OVERLAY FOR IMAGES
   ========================= */
