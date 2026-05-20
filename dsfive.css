@@ -379,6 +379,29 @@ body.loaded .scroll-hint {
   transition: opacity 0.2s linear, filter 0.2s linear, transform 0.2s linear;
 }
 
+/* INTRO: endast denna sektion ska vara centrerad */
+.intro-section,
+.intro-section .intro-inner,
+.intro-section h1,
+.intro-section p,
+.intro-section span,
+.intro-section .scroll-hint {
+  text-align: center;
+}
+
+/* ALLA ANDRA TEXTSEKTIONER: vänsterplacerade */
+.horizontal-section .era-content,
+.horizontal-section .era-content h2,
+.horizontal-section .era-content p,
+.horizontal-section .era-content ul,
+.horizontal-section .era-content li,
+.outro-section .outro-inner,
+.outro-section .outro-title,
+.outro-section .outro-text,
+.outro-section .outro-text li {
+  text-align: left;
+}
+
 @keyframes focusInOut {
   0% {
     opacity: 0;
