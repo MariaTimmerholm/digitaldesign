@@ -69,6 +69,16 @@
           Instruktioner förbereddes i förväg, skickades in och resultatet kom senare.
         </p>
       </div>
+      <section class="artifact-scroll-section" 
+      data-autostop
+      data-audio="audio/crt.webm"
+      data-duration="15000">
+        <article class="artifact-panel artifact-batch">
+          <div class="artifact-visual">
+            <img src="images/CRT.png" alt="CRT">
+          </div>
+        </article>
+      </section>
       <article class="artifact-panel artifact-eniac sticky-artifact" 
       data-autostop
       data-audio="audio/eniac.mp3"
@@ -77,14 +87,13 @@
           <div class="artifact-visual">
             <img src="images/eniac.png" alt="ENIAC computer">
           </div>
-          <div class="curtain curtain-left"></div>
-          <div class="curtain curtain-right"></div>
           <div class="artifact-caption">
-            <p class="archive-label">Arkiv 01</p>
+            <p class="archive-label">1943-1946</p>
             <h3>ENIAC</h3>
             <p>
-              En dator var ett helt rum. Användaren stod utanför systemet och 
-              arbetade genom förberedda instruktioner.
+              Den första elektroniska datorn. Den upptog ett helt rum. 
+              Användaren stod utanför systemet och arbetade genom förberedda instruktioner
+              genom att vrida på reglage och dra kablar på kopplingsbrädor.
             </p>
           </div>
         </div>
@@ -100,22 +109,12 @@
             </button>
           </div>
           <div class="artifact-caption">
-            <p class="archive-label">Arkiv 02</p>
+            <p class="archive-label">1800-talet</p>
             <h3>Hålkort</h3>
             <p>
-              Input blev fysisk kod. Informationen lagrades som hål i 
-              papper och matades in utan direkt återkoppling.
+              Hålkort var ett mekaniskt lagringsmedium där information kodades i hål.
+              Informationen som programmerades via Eniac lästes från hålremsor och hålkort.
             </p>
-          </div>
-        </article>
-      </section>
-      <section class="artifact-scroll-section" 
-      data-autostop
-      data-audio="audio/crt.webm"
-      data-duration="15000">
-        <article class="artifact-panel artifact-batch">
-          <div class="artifact-visual">
-            <img src="images/CRT.png" alt="CRT">
           </div>
         </article>
       </section>
@@ -128,10 +127,12 @@
             <img src="images/magnetband.png" alt="Magnetic tape reel">
           </div>
           <div class="artifact-caption">
-            <p class="archive-label">Arkiv 04</p>
+            <p class="archive-label">1950-talet</p>
             <h3>Magnetband</h3>
             <p>
-              Data kunde lagras och återanvändas, men interaktionen var fortfarande långsam, sekventiell och indirekt.
+              Dessa bestod av en tunn plastfilm med magnetiskt skikt på ena sidan.
+              Data kunde lagras och presenteras som en analog signal i form av ljud eller video.
+              Dessa användes vid säkerhetskopiering av stora datamängder.
             </p>
           </div>
         </article>
@@ -139,8 +140,7 @@
     </section>
     <!-- ERA 1 SLUT -->
     <!-- ERA 2 START -->
-    <section 
-    class="story-section outro-section command-transition"
+    <section class="story-section outro-section command-transition"
     data-era="command">
       <div class="outro-sticky">
         <div class="outro-inner">
@@ -171,7 +171,8 @@
               <p class="archive-label">Nätverksartefakt 01</p>
               <h3>ARPANET (1969)</h3>
               <p>
-                ARPANET visade hur datorer kunde kommunicera över nätverk. 
+                ARPANET räknas som föregångaren till dagens internet. 
+                Det visade hur datorer kunde kommunicera över nätverk. 
                 Interaktionen flyttade från isolerad maskin till uppkopplad kommunikation.
               </p>
               <p>Klicka på bilden för att se en video om ARPANET.</p>
@@ -232,35 +233,31 @@
           </div>
         </div>
       </article>
-      <!-- TERMINALER 
-      <article class="seventies-terminal-panel" data-autostop data-duration="20000">
-        <div class="seventies-terminal-sticky">
-          <div class="seventies-terminal-copy seventies-copy-one"></div>
-          <div class="seventies-terminal-copy seventies-copy-two"></div>
-          <div class="seventies-terminal-window">
-            <div class="seventies-terminal-header">
-              <span></span>
-              <span></span>
-              <span></span>
-              <p>unix-terminal</p>
-            </div>
-            <div class="seventies-terminal-body">
-              <p><span class="seventies-prompt">&gt;</span> <span class="seventies-type-line" data-text="login user"></span></p>
-              <p><span class="seventies-type-line" data-text="access granted"></span></p>
-              <p><span class="seventies-prompt">&gt;</span> <span class="seventies-type-line" data-text="connect unix"></span></p>
-              <p><span class="seventies-type-line" data-text="interactive system ready"></span></p>
-              <p><span class="seventies-prompt">&gt;</span> <span class="seventies-type-line" data-text="send message"></span></p>
-              <p><span class="seventies-type-line seventies-slow-line" data-text="lo..."></span></p>
-              <p><span class="seventies-prompt">&gt;</span> <span class="seventies-type-line" data-text="interaction"></span></p>
-              <p>
-                <span class="seventies-type-line" data-text="human-computer dialogue established"></span>
-                <span class="seventies-terminal-cursor">_</span>
-              </p>
-            </div>
-          </div>
+      <article class="command-panel pc-node" 
+      data-audio="audio/keyboard.mp3" 
+      data-autostop data-duration="10000">
+        <h3>Diskett (1971)</h3>
+        <p>
+          Disketten var den första datortillbehöret som lanserades av IBM och 
+          ersatte hålkort och magnetband som lagringsmedium. 
+        </p>
+        <div class="command-visual">
+          <img src="images/disc.png" alt="Diskett">
         </div>
       </article>
-    -->    
+      <article class="command-panel pc-node" 
+      data-audio="audio/keyboard.mp3" 
+      data-autostop data-duration="10000">
+        <h3>GPS (1978)</h3>
+        <p>
+          GPS (eng. Global Positioning System) var det första satellitbaserade 
+          navigationssystemet som lanserades av USA. De första stegen till bred civil användning av 
+          GPS-teknik skedde 1999 när GPS-block godkändes för användning i mobiltelefoner. 
+        </p>
+        <div class="command-visual">
+          <img src="images/gps.png" alt="GPS">
+        </div>
+      </article>
       <article class="command-panel pc-node" 
       data-audio="audio/keyboard.mp3" 
       data-autostop data-duration="10000">
@@ -291,7 +288,8 @@
           <p class="years">≈ 1980–2000</p>
           <h2>Tillkomst av datorteknik</h2>
           <p>
-            Datorn blir visuell. Istället för att skriva kommandon kan användaren se, peka, klicka och manipulera objekt direkt.
+            Datorn blir visuell. Istället för att skriva kommandon kan användaren se, 
+            peka, klicka och manipulera objekt direkt.
           </p>
         </div>
 
@@ -304,8 +302,8 @@
           <div class="window-content">
             <div>
               <h3>Macintosh</h3>
-              <p>Fönster, ikoner, menyer och mus gjorde datorn mer visuell och lättare att förstå.</p>
               <p>Apple inkluderade datormusen som standardtillbehör till sina nya datorer.</p>
+              <p>Fönster, ikoner, menyer och mus gjorde datorn mer visuell och lättare att förstå.</p>
             </div>
             <img src="images/macintosh.png" alt="Macintosh">
           </div>
@@ -316,16 +314,16 @@
             <span></span><span></span><span></span>
             <p>WorldWideWeb.html.1991</p>
           </div>
-
           <div class="window-content">
             <div>
               <h3>World Wide Web</h3>
-              <p>Webben gjorde information klickbar, länkad och tillgänglig genom grafiska webbläsare.</p>
+              <p>Webben föärändrade människornas vardag. Alltfler började köpa PC för att 
+                få tillgång till webben. Den gjorde information klickbar, länkad och 
+                tillgänglig genom grafiska webbläsare.</p>
             </div>
             <img src="images/wwweb.png" alt="World Wide Web">
           </div>
         </article>
-
         <article class="gui-window gui-window-linux" data-audio="audio/linux.webm">
           <div class="window-bar">
             <span></span><span></span><span></span>
@@ -334,12 +332,12 @@
           <div class="window-content">
             <div>
               <h3>Linux</h3>
-              <p>Öppen källkod visade att grafiska gränssnitt kunde byggas, delas och förändras av många.</p>
+              <p>Öppen källkod möjliggjorde för användare att bygga
+                dela och förändra grafiska gränssnitt efter behov och smak.</p>
             </div>
             <img src="images/linux.png" alt="Linux">
           </div>
         </article>
-
         <article class="gui-window gui-window-windows" data-audio="audio/click.mp3">
           <div class="window-bar">
             <span></span><span></span><span></span>
@@ -348,7 +346,8 @@
           <div class="window-content">
             <div>
               <h3>Windows 95</h3>
-              <p>Start-menyn och skrivbordsmetaforen gjorde GUI till vardag för många användare.</p>
+              <p>Tillkomst av Start-meny, skrivbord och förinställda program
+                underlättade användningen ytterligare.</p>
             </div>
             <img src="images/windows.png" alt="Windows 95">
           </div>
@@ -382,7 +381,6 @@
               <p>Swipe blir ett sätt att bläddra, backa eller navigera.</p>
               <p>Swipea höger eller vänster för att bläddra mellan sidor.</p>
             </article>
-
             <article class="phone-panel iphone-panel" data-audio="audio/iphone.webm">
               <p class="phone-label">2004</p>
               <h3>Neonode</h3>
@@ -391,7 +389,6 @@
                 <p>PS: de blev erkända 2022</p>
               <img src="images/neonode.png" alt="Neonode">
             </article>
-
             <article class="phone-panel iphone-panel" data-audio="audio/iphone.webm">
               <p class="phone-label">2007</p>
               <h3>iPhone</h3>
@@ -399,45 +396,40 @@
                 gjorde mobilen till ett direkt manipulerbart gränssnitt.</p>
               <img src="images/iphone.png" alt="iPhone">
             </article>
-
             <article class="phone-panel android-panel" data-audio="audio/android.webm">
               <p class="phone-label">2007</p>
               <h3>Android</h3>
               <p>Alltfler människor fick möjlighet att skaffa smartphone
                 och de delades i iPhone vs Android användare.</p>
               <img src="images/android.png" alt="Android">
-
               <div class="app-grid">
                 <span></span><span></span><span></span>
                 <span></span><span></span><span></span>
                 <span></span><span></span><span></span>
               </div>
             </article>
-
             <article class="phone-panel apps-panel" data-audio="audio/notification.mp3">
               <p class="phone-label">Interaktion 02</p>
               <h3>Appar</h3>
-              <p>Gränssnittet delades upp i små tjänster.</p>
-              <p>Nu designades appar efter syfte och behov</p>
-              <p>Användaren överöstes med alternativ</p>
-
+              <p>Gränssnittet delades upp i små tjänster.
+              Nu designades appar efter syfte och behov
+              Användaren överöstes med alternativ</p>
               <div class="notification-card">
                 Ny notifikation: "Du har 3 nya meddelanden"
               </div>
             </article>
-
             <article class="phone-panel gps-camera-panel" data-audio="audio/swipe.mp3">
               <p class="phone-label">Sensorer</p>
               <h3>GPS & Kamera</h3>
-              <p>Telefonen började känna av plats, rörelse och omgivning.</p>
-
+              <p>När regeringen godkände GPS III-programmet år 2010 började
+                GPS tillkomma i alltfler mobiltelefoner. GPS blev tillgänglig
+                för nästan alla mobiltelefonanvändare när den första GPS III-satelliten lanserades 2018.</p> 
               <div class="sensor-icons">
                 <span>⌖</span>
                 <span>◉</span>
                 <span>↗</span>
               </div>
             </article>
-
             <article class="phone-panel ipad-panel" data-audio="audio/swipe.mp3">
               <p class="phone-label">2010</p>
               <h3>iPad</h3>
@@ -479,19 +471,18 @@
               <span>Google Assistant</span>
             </div>
           </div>
-
           <div class="waveform" aria-hidden="true">
             <span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span>
           </div>
         </article>
-
         <article class="multi-scene ai-scene" 
         data-audio="audio/swipe.mp3">
           <div class="multi-content">
             <p class="archive-label">(2022)</p>
             <h3>Generativ AI</h3>
-            <p>Gränssnitt börjar svara, skapa och föreslå. Interaktionen blir mer dialogbaserad och mindre förutsägbar.</p>
+            <p>Gränssnitt börjar svara, skapa och föreslå. 
+              Interaktionen blir mer dialogbaserad och mindre förutsägbar.</p>
             <div class="ai-prompt">
               <span>&gt;</span>
               <span class="ai-type"></span>
@@ -499,13 +490,13 @@
             </div>
           </div>
         </article>
-
         <article class="multi-scene modal-scene" 
         data-audio="audio/swipe.mp3">
           <div class="multi-content">
             <p class="archive-label">(2023)</p>
             <h3>Multimodala gränssnitt</h3>
-            <p>Systemet kombinerar flera signaler samtidigt: röst, ansikte, blick, rörelse och bild.</p>
+            <p>Systemet kombinerar flera signaler samtidigt: 
+              röst, ansikte, blick, rörelse och bild.</p>
             <div class="human-system">
               <div class="human-core">AI</div>
               <span class="signal s1">Röst</span>
@@ -516,13 +507,13 @@
             </div>
           </div>
         </article>
-
         <article class="multi-scene dark-scene" 
         data-audio="audio/dark.mp3">
           <div class="multi-content">
             <p class="archive-label">Kosekvens</p>
             <h3>Dark Patterns</h3>
-            <p>När systemen känner av mer kan de också påverka mer. Interaktionen blir smartare, men också mer manipulativ.</p>
+            <p>När systemen känner av mer kan de också påverka mer. 
+              Interaktionen blir smartare, men också mer manipulativ.</p>
             <div class="dark-ui">
               <button>Acceptera alla</button>
               <button class="ghost">Kanske senare</button>
