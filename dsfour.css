@@ -389,7 +389,7 @@ h3 {
   transition: opacity var(--ease), transform var(--ease);
 }
 
-.story-section.active-section .section-inner {
+.story-section .section-inner {
   opacity: 1;
   transform: translateY(0);
 }

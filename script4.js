@@ -158,30 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function activateSection(section) {
-    if (!section) return;
-
-    sections.forEach((sec) => sec.classList.remove("active-section"));
-    section.classList.add("active-section");
-
-    currentSectionIndex = sections.indexOf(section);
-    setThemeFromSection(section);
-
-    stopAllNonBackgroundAudio();
-
-    const audioSrc = section.dataset.audio || "";
-
-    if (audioSrc) {
-      playEraAudio(audioSrc);
-    }
-
-    if (section.classList.contains("touch-era") && autoScrollEnabled) {
-      startTouchAutoSwipe();
-    } else {
-      stopTouchAutoSwipe();
-    }
-  }
-
   function observeActiveItems(items, activeClass, pastClass, threshold = 0.4) {
     if (!items.length) return;
 
